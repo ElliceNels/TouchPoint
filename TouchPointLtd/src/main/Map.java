@@ -1,2 +1,8 @@
-package PACKAGE_NAME;public class Map {
+public class Map {
+    public void getGrid(){
+
+    }
+    public void getPath(){
+
+    }
 }

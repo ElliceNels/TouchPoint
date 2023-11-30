@@ -1,2 +1,11 @@
-package PACKAGE_NAME;public class User {
+public class User {
+    public void Login() {
+
+    }
+    public void getTaxi(){
+
+    }
+    public void giveReview(){
+        
+    }
 }

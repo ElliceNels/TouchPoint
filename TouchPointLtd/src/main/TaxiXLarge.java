@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class TaxiXLarge {
+public class TaxiXLarge extends Taxi{
+    public TaxiXLarge(String name, float registrationNumber, int capacity) {
+        super(name, registrationNumber, capacity);
+    }
 }
