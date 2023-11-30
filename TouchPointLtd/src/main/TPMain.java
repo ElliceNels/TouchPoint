@@ -9,7 +9,4 @@ public class TPMain {
 //        taxiLarge.Test(10, 16);
 //        taxiPremium.Test(17, 19);
     }
-    public static int Function(int a, int b){
-        return a + b;
-    }
 }
