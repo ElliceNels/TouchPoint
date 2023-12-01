@@ -1,7 +1,7 @@
 public class Driver {
     private String name; //name of taxi driver
-    private Location currentLocation;
-    private int rating;
+    private Location currentLocation; //location of driver
+    private int rating; //driver rating out of 5
     public Driver(String name, Location currentLocation, int rating){
         this.name = name;
         this.currentLocation = currentLocation;
