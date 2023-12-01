@@ -7,5 +7,7 @@ public class Location {
         this.y = y;
     }
 
-    public Location(Location loc)
+    public Location(Location loc){
+
+    }
 }
