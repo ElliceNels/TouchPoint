@@ -1,7 +1,7 @@
 
 
 public class TaxiReg extends Taxi{
-    public TaxiReg(String registrationNumber, String carType, int capacity) {
-        super(registrationNumber, carType, capacity);
+    public TaxiReg(String registrationNumber, String carType) {
+        super(registrationNumber, carType, 4);
     }
 }
