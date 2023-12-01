@@ -17,7 +17,7 @@ public class Taxi {
                 String registrationNumber = fields[2];
                 String carType = fields[3];
                 int capacity = Integer.parseInt(fields[4]);
-                taxiDrivers.add(new TaxiDrivers(type, name, registrationNumber, carType, capacity));
+                //taxiDrivers.add(new TaxiDrivers(type, name, registrationNumber, carType, capacity));
             }
         }
             catch(IOException e){
@@ -27,18 +27,17 @@ public class Taxi {
         }
     public static class TaxiDrivers {
         private String type;//regular, large or premium
-        private String name;//name of taxi driver
         private String registrationNumber;//individual registration number
         private String carType;//name of taxi type
         private int capacity;//diff capacity depending on type of taxi
 
-        public TaxiDrivers(String type, String name, String registrationNumber, String carType, int capacity) {
+       /* public TaxiDrivers(String type, String name, String registrationNumber, String carType, int capacity) {
             this.type = type;
             this.name = name;
             this.registrationNumber = registrationNumber;
             this.carType = carType;
             this.capacity = capacity;
-        }
+        }*/
 
         public String getType() {
             return type;
@@ -46,14 +45,6 @@ public class Taxi {
 
         public void setType(String type) {
             this.type = type;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         public String getCarType() {
@@ -80,19 +71,5 @@ public class Taxi {
             this.capacity = capacity;
         }
     }
-    public void Test(int start, int end){//Tests method to test calling Taxi class to main and other classes
-        Taxi taxi = new Taxi();
-        List<Taxi.TaxiDrivers> taxiList = taxi.getDrivers();
-        for(int i = start; i <= end; i++){
-            Taxi.TaxiDrivers t = taxiList.get(i);
-            String name = t.getName();
-            String type = t.getType();
-            String car = t.getCarType();
-            String number = t.getRegistrationNumber();
-            int capacity = t.getCapacity();
-            System.out.println("Type: "+ type + "\nName: " + name + "\nCar: " + car
-                    + "\nNumber: " + number + "\nCapacity: " + capacity);
-            System.out.println();
-        }
-    }
+
 }
