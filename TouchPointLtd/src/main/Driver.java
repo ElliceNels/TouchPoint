@@ -1,10 +1,11 @@
 public class Driver {
     private String name; //name of taxi driver
     private Location currentLocation;
-
-    public Driver(String name, Location currentLocation){
+    private int rating;
+    public Driver(String name, Location currentLocation, int rating){
         this.name = name;
         this.currentLocation = currentLocation;
+        this.rating = rating;
     }
 
     public String getName() {
@@ -21,5 +22,13 @@ public class Driver {
 
     public void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }
