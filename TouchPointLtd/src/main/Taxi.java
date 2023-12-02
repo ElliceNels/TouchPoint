@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class Taxi {
+public class Taxi {
     private String registrationNumber;//individual registration number
     private String carType;//name of taxi type
     private int capacity;//diff capacity depending on type of taxi
@@ -34,8 +34,5 @@ abstract class Taxi {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-    }
-    public List <Taxi> getTaxiDriver(){
-        return new ArrayList<>();
     }
 }
