@@ -16,15 +16,15 @@ public class Map {
         Map.grid = grid;
     }
     public static void Display() {//Method to display map
-        Location[][] grid = new Location[10][10];//length and width of map
-        for(int n = 0;n < (grid.length);n++){
+        new Map(10,10); //length and width of map
+        for(int n = 0; n < (grid.length); n++){
             int min = 1;
-            int max = grid.length-1;//set min and max of random number
+            int max = grid.length - 1;//set min and max of random number
             Random rand = new Random();
-            int h = rand.nextInt((max - min) + 1) + min;//this generates house at random number
-            int H = rand.nextInt((max - min) + 1) + min;
-            grid[h][H] = new Location(h,h);
-            grid[h][H].setDisplayBuildings('H');//this sets house
+            int houseX = rand.nextInt((max - min) + 1) + min;//this generates house at random number
+            int houseY = rand.nextInt((max - min) + 1) + min;
+            grid[houseX][houseY] = new Location(houseX, houseX);
+            grid[houseX][houseY].setDisplayBuildings('H');//this sets house
         }
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid.length; j++) {
