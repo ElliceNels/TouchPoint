@@ -1,5 +1,5 @@
 public class Map {
-    private Location[][] grid;
+    private int[][] grid;
 
 
 
@@ -7,11 +7,11 @@ public class Map {
 
     }
 
-    public Location[][] getGrid() {
+    public int[][] getGrid() {
         return grid;
     }
 
-    public void setGrid(Location[][] grid) {
+    public void setGrid(int[][] grid) {
         this.grid = grid;
     }
 }

@@ -12,7 +12,7 @@ public class Passenger extends User {
    public static void Login() {//User does one time login.No need to store user info as no database is needed.
        // This handles user login, calling a taxi and inputting designated area (too much to handle, will be split)
        Scanner in = new Scanner(System.in);
-       Passenger passenger = new Passenger();
+       User passenger = new Passenger();
 
        System.out.println("Name?");
        passenger.setUsername(in.nextLine());
