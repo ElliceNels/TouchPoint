@@ -1,8 +1,8 @@
 public class TPMain {
     public static void main(String[] args) {
 
-//        Passenger.Login();
-            Map.Display();
+        Passenger.Login();
+        Map.Display();
 
 
 
