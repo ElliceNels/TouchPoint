@@ -9,7 +9,7 @@ public class Passenger extends User {
    /* public findTaxisInRadius(){
 
     }*/
-   public static void Login() {//User does one time login.No need to store user info as no database is needed.
+   public static boolean Login() {//User does one time login.No need to store user info as no database is needed.
        // This handles user login, calling a taxi and inputting designated area (too much to handle, will be split)
        Scanner in = new Scanner(System.in);
        User passenger = new Passenger();
@@ -26,16 +26,18 @@ public class Passenger extends User {
         int DxCoord = in.nextInt();
         int DyCoord = in.nextInt();
         passenger.setDestination(new Location(DxCoord, DyCoord));
+        in.close();
     } catch(InputMismatchException e){
         System.out.println("Invalid input");
     }
     try {
         System.out.println(passenger.getUsername() + " is at " + passenger.getCurrentLocation().getX() + ", " + passenger.getCurrentLocation().getY() + " and wants to go to " + passenger.getDestination().getX() + ", " + passenger.getDestination().getY());
-        in.close();
+
     } catch (NullPointerException e){
         System.out.println("No valid input to continue with");
+        return false;
     }
-
+    return true;
    }
 
 }
