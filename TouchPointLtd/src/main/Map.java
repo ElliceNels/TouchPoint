@@ -1,16 +1,24 @@
 import java.util.Random;
 public class Map {
+<<<<<<< HEAD
     private static Location[][] grid;
+=======
+    private int[][] grid;
+
+
+
+    public void getPath(){//starting point is user x,y. Finished is inputted x,y
+>>>>>>> 09ae3225fa82bbd91fcd12e8f290505cbfb95e05
 
     public Map(int rows, int cols) {
         grid = new Location[rows][cols];
     }
 
-    public Location[][] getGrid() {
+    public int[][] getGrid() {
         return grid;
     }
 
-    public void setGrid(Location[][] grid) {
+    public void setGrid(int[][] grid) {
         this.grid = grid;
     }
     public static void Display() {//Method to display map
