@@ -6,8 +6,7 @@ public class TaxiReg extends Taxi{
         super(registrationNumber, carType, 4);
     }
 
-    @Override
-    public List<Taxi> getTaxiDriver() {
+    public static List<Taxi> getTaxiDriver() {
         List<Taxi> t = new ArrayList<>();
         TaxiReg Reg1 = new TaxiReg("L 6PQ 7RS", "Ford Explorer");
         TaxiReg Reg2 = new TaxiReg("W 4LM 5NO", "Toyota Prius");
@@ -29,6 +28,7 @@ public class TaxiReg extends Taxi{
         t.add(Reg8);
         t.add(Reg9);
         t.add(Reg10);
+        System.out.println(t);
         return t;
     }
 }
