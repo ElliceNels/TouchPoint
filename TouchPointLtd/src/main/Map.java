@@ -32,7 +32,7 @@ public class Map {
                     System.out.print(" " + grid[i][j].getDisplayBuildings() + " ");
                     //this prints house if there is no star in place
                 }
-               else{ System.out.print(" * ");//star which represents road
+               else{ System.out.print(" " + Location.displayRoad + " ");//star which represents road
                }
             }
             System.out.println();

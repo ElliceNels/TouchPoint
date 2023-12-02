@@ -3,7 +3,7 @@ public class Location {
     int y;
     private char displayBuildings;//added to display buildings on map
     private char displayHouse;
-    private char displayRoad;
+    static final char displayRoad = '*';
     final char displayPassenger = '&';
     final char displayTaxi = '!';
 
@@ -53,9 +53,6 @@ public class Location {
         return displayRoad;
     }
 
-    public void setRoad(char displayRoad) {
-        this.displayRoad = displayRoad;
-    }
 
     public char getDisplayPassenger() {
         return displayPassenger;
