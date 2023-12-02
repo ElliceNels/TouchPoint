@@ -1,5 +1,6 @@
 public class TPMain {
     public static void main(String[] args) {
-        Passenger.Login();
+//        Passenger.Login();
+            Map.Display();
     }
 }
