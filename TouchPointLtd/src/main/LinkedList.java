@@ -26,7 +26,6 @@ public class LinkedList implements List {
             return false;
         }
 
-
         @Override
         public int length() {
             return listLength;
@@ -79,7 +78,6 @@ public class LinkedList implements List {
             }
         }
 
-
         @Override
         public void insert(Location newPosition, int positionNum) {
             if (isEmpty())
@@ -122,9 +120,6 @@ public class LinkedList implements List {
             }
         }
 
-
-
-
         @Override
         public void remove(int positionNum) {
 
@@ -152,6 +147,16 @@ public class LinkedList implements List {
                 tmp.next=tmp.next.next;
                 listLength--;
             }
+        }
+
+        public void roadCreation(){
+            LinkedList road1 = new LinkedList();
+            LinkedList road2 = new LinkedList();
+            LinkedList road3 = new LinkedList();
+            LinkedList road4 = new LinkedList();
+            LinkedList road5 = new LinkedList();
+            LinkedList road6 = new LinkedList();
+            LinkedList road7 = new LinkedList();
         }
 
     }
