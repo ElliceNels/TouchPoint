@@ -2,6 +2,7 @@ public abstract class User {
     private String username;
     private Location currentLocation;
     private Location destination;
+    private int prefferedRadius;
 
 
     public void orderTaxi(){//once used,all taxis in a cube around user is listed
