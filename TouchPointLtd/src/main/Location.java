@@ -3,7 +3,9 @@ public class Location {
     int y;
     private char displayOffice = ' ';//set as empty to read building type
     private char displayHouse = ' ';//displays houses as H
-    static final char displayRoad = '*';//road is not empty as it is always inputted last
+    private char displayRoad = ' ';//displays roads as *
+    private char displaySea = ' ';//displays seas as ~
+    static final char displayNoRoad = ':';//road is not empty as it is always inputted last
     final char displayPassenger = ' ';
     final char displayTaxi = ' ';
 
@@ -49,8 +51,24 @@ public class Location {
         displayHouse = 'H';
     }
 
-    public char getRoad() {
+    public char getDisplayRoad() {
         return displayRoad;
+    }
+
+    public void setDisplayRoad() {
+        displayRoad = '*';
+    }
+
+    public char getDisplaySea() {
+        return displaySea;
+    }
+
+    public void setDisplaySea() {
+        displaySea = '~';
+    }
+
+    public char getNoRoad() {
+        return displayNoRoad;
     }
 
 
