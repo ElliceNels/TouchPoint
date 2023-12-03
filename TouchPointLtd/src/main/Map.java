@@ -1,5 +1,7 @@
-public class Map {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Map {
     private Location[][] grid;
     static int[][] houselocations = {
             {0, 3},
@@ -23,7 +25,7 @@ public class Map {
             {1,1},
             {19,14},
             {7,18},
-            
+
     };
 
     public Map(int rows, int cols) {
@@ -37,7 +39,7 @@ public class Map {
     public void setGrid(Location[][] grid) {
         this.grid = grid;
     }
-    public void getHouses() {
+    public void getBuildings() {
         for (int i = 0; i < 15; i++) {
             int houseX = houselocations[i][0];
             int houseY = houselocations[i][1];
@@ -52,7 +54,7 @@ public class Map {
         }
     }
     public void Display() {
-        getHouses();
+        getBuildings();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null) {
