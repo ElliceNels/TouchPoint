@@ -5,7 +5,8 @@ public class Location {
     private char displayHouse = ' ';//displays houses as H
     private char displayRoad = ' ';//displays roads as *
     private char displaySea = ' ';//displays seas as ~
-    static final char displayNoRoad = ':';//road is not empty as it is always inputted last
+    private char displayPOI = ' ';//displays point of interest as $
+    static final char displayNoRoad = '.';//road is not empty as it is always inputted last
     final char displayPassenger = ' ';
     final char displayTaxi = ' ';
 
@@ -64,7 +65,15 @@ public class Location {
     }
 
     public void setDisplaySea() {
-        displaySea = '~';
+        displaySea = '/';
+    }
+
+    public char getDisplayPOI() {
+        return displayPOI;
+    }
+
+    public void setDisplayPOI() {
+        displayPOI = '$';
     }
 
     public char getNoRoad() {
