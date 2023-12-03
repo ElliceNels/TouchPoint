@@ -1,8 +1,8 @@
 public class Location {
     int x;
     int y;
-    private char displayBuildings;//added to display buildings on map
-    private char displayHouse;
+    private char displayOffice = 'O';//added to display offices on map as O
+    private char displayHouse = 'H';//displays houses as H
     static final char displayRoad = '*';
     final char displayPassenger = '&';
     final char displayTaxi = '!';
@@ -33,20 +33,20 @@ public class Location {
         return y;
     }
 
-    public char getDisplayBuildings() {
-        return displayBuildings;
+    public char getDisplayOffice() {
+        return displayOffice;
     }
 
-    public void setDisplayBuildings(char displayBuildings) {
-        this.displayBuildings = displayBuildings;
+    public void setDisplayOffice() {
+        this.displayOffice = 'O';
     }
 
     public char getDisplayHouse() {
         return displayHouse;
     }
 
-    public void setDisplayHouse(char displayHouse) {
-        this.displayHouse = displayHouse;
+    public void setDisplayHouse() {
+        this.displayHouse = 'H';
     }
 
     public char getRoad() {

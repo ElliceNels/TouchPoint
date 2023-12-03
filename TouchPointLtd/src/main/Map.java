@@ -1,8 +1,20 @@
-import java.util.Random;
 public class Map {
 
     private static Location[][] grid;
+    static int[][] houselocations = {
+            {0, 3}, {3, 2}, {5, 0}, {11, 10},
+            {10, 10}, {9, 10}, {11, 12}, {10, 12},
+            {9, 12}, {7, 6}, {5, 16}, {4, 19}, {16, 13},
+            {18, 19}, {18, 3},
+    };
+    static int[][]  officelocations = {
+            {18,12},
+            {10,7},
+            {12,19},
+            {19,14},
+            {7,18},
 
+    };
 
     public Map(int rows, int cols) {
         grid = new Location[rows][cols];
@@ -15,25 +27,41 @@ public class Map {
     public void setGrid(Location[][] grid) {
         Map.grid = grid;
     }
-    public static void Display() {//Method to display map
-        new Map(10,10); //length and width of map
-        for(int n = 0; n < (grid.length); n++){
-            int min = 1;
-            int max = grid.length - 1;//set min and max of random number
-            Random rand = new Random();
-            int houseX = rand.nextInt((max - min) + 1) + min;//this generates house at random number
-            int houseY = rand.nextInt((max - min) + 1) + min;
-            grid[houseX][houseY] = new Location(houseX, houseX);
-            grid[houseX][houseY].setDisplayBuildings('H');//this sets house
+    public static void getHouses() {
+        for (int i = 0; i < houselocations.length; i++) {
+            int houseX = houselocations[i][0];
+            int houseY = houselocations[i][1];
+            grid[houseX][houseY] = new Location(houseX, houseY);
+            grid[houseX][houseY].setDisplayHouse();//this sets house
         }
+    }
+    public static void getOffices(){
+        for(int i = 0;i < officelocations.length;i++){
+            int officeX = officelocations[i][0];
+            int officeY = officelocations[i][1];
+            grid[officeX][officeY] = new Location(officeX,officeY);
+            grid[officeX][officeY].setDisplayOffice();
+        }
+    }
+    public static void Display() {//Method to display map
+        new Map(20,20); //length and width of map
+        getHouses();
+        getOffices();
         for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid.length; j++) {
+            for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null) {
-                    System.out.print(" " + grid[i][j].getDisplayBuildings() + " ");
-                    //this prints house if there is no star in place
+                    char houseSymbol = grid[i][j].getDisplayHouse();
+                    char officeSymbol = grid[i][j].getDisplayOffice();
+                    if (houseSymbol == 'H') {
+                        System.out.print("  " + houseSymbol + "  ");
+                    }else if (officeSymbol == 'O') {
+                        System.out.print("  " + officeSymbol + "  ");
+                    } else if (grid[i][j] == null){
+                        System.out.print("  " + Location.displayRoad + "  ");
+                    }
+                } else {
+                    System.out.print("  " + Location.displayRoad + "  ");//star which represents road
                 }
-               else{ System.out.print(" " + Location.displayRoad + " ");//star which represents road
-               }
             }
             System.out.println();
         }
