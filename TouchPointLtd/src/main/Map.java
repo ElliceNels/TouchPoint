@@ -1,19 +1,29 @@
 public class Map {
 
-    private static Location[][] grid;
+    private Location[][] grid;
     static int[][] houselocations = {
-            {0, 3}, {3, 2}, {5, 0}, {11, 10},
-            {10, 10}, {9, 10}, {11, 12}, {10, 12},
-            {9, 12}, {7, 6}, {5, 16}, {4, 19}, {16, 13},
-            {18, 19}, {18, 3},
-    };
-    static int[][]  officelocations = {
-            {18,12},
+            {0, 3},
+            {3, 2},
+            {5, 0},
+            {11, 10},
+            {10, 10},
+            {9, 10},
+            {11, 12},
+            {10, 12},
+            {9, 12},
+            {7, 6},
+            {5, 16},
+            {4, 19},
+            {16, 13},
+            {18, 19},
+            {18, 3},
+
+            {18,1},
             {10,7},
-            {12,19},
+            {1,1},
             {19,14},
             {7,18},
-
+            
     };
 
     public Map(int rows, int cols) {
@@ -25,45 +35,40 @@ public class Map {
     }
 
     public void setGrid(Location[][] grid) {
-        Map.grid = grid;
+        this.grid = grid;
     }
-    public static void getHouses() {
-        for (int i = 0; i < houselocations.length; i++) {
+    public void getHouses() {
+        for (int i = 0; i < 15; i++) {
             int houseX = houselocations[i][0];
             int houseY = houselocations[i][1];
             grid[houseX][houseY] = new Location(houseX, houseY);
             grid[houseX][houseY].setDisplayHouse();//this sets house
         }
-    }
-    public static void getOffices(){
-        for(int i = 0;i < officelocations.length;i++){
-            int officeX = officelocations[i][0];
-            int officeY = officelocations[i][1];
+        for(int i = 15;i < 20;i++){
+            int officeX = houselocations[i][0];
+            int officeY = houselocations[i][1];
             grid[officeX][officeY] = new Location(officeX,officeY);
             grid[officeX][officeY].setDisplayOffice();
         }
     }
-    public static void Display() {//Method to display map
-        new Map(20,20); //length and width of map
+    public void Display() {
         getHouses();
-        getOffices();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null) {
-                    char houseSymbol = grid[i][j].getDisplayHouse();
-                    char officeSymbol = grid[i][j].getDisplayOffice();
-                    if (houseSymbol == 'H') {
-                        System.out.print("  " + houseSymbol + "  ");
-                    }else if (officeSymbol == 'O') {
-                        System.out.print("  " + officeSymbol + "  ");
-                    } else if (grid[i][j] == null){
-                        System.out.print("  " + Location.displayRoad + "  ");
+                    char symbol = Location.displayRoad; // Default to road symbol
+                    if (grid[i][j].getDisplayHouse() == 'H') {
+                        symbol = 'H';
+                    } else if (grid[i][j].getDisplayOffice() == 'O') {
+                        symbol = 'O';
                     }
+                    System.out.print("  " + symbol + "  ");
                 } else {
-                    System.out.print("  " + Location.displayRoad + "  ");//star which represents road
+                    System.out.print("  " + Location.displayRoad + "  "); // Star which represents road
                 }
             }
             System.out.println();
         }
     }
+
 }

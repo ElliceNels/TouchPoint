@@ -1,11 +1,11 @@
 public class Location {
     int x;
     int y;
-    private char displayOffice = 'O';//added to display offices on map as O
-    private char displayHouse = 'H';//displays houses as H
-    static final char displayRoad = '*';
-    final char displayPassenger = '&';
-    final char displayTaxi = '!';
+    private char displayOffice = ' ';//set as empty to read building type
+    private char displayHouse = ' ';//displays houses as H
+    static final char displayRoad = '*';//road is not empty as it is always inputted last
+    final char displayPassenger = ' ';
+    final char displayTaxi = ' ';
 
     public Location(int x, int y) {
         this.x = x;
@@ -38,7 +38,7 @@ public class Location {
     }
 
     public void setDisplayOffice() {
-        this.displayOffice = 'O';
+        displayOffice = 'O';
     }
 
     public char getDisplayHouse() {
@@ -46,7 +46,7 @@ public class Location {
     }
 
     public void setDisplayHouse() {
-        this.displayHouse = 'H';
+        displayHouse = 'H';
     }
 
     public char getRoad() {
