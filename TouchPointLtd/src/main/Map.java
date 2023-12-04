@@ -78,8 +78,10 @@ public class Map {
             grid[roadX][roadY] = new Location(roadX, roadY);
             grid[roadX][roadY].setDisplayRoad();
         }
-        grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
-        grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
+        if (passenger.getCurrentLocation() != null){
+            grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
+            grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
+        }
 
         for (int i = 35; i < 66; i++) {
             int seaX = locations[i][0];
@@ -87,12 +89,10 @@ public class Map {
             grid[seaX][seaY] = new Location(seaX, seaY);
             grid[seaX][seaY].setDisplaySea();
         }
-
-        grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
-        grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
-
-        grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
-        grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
+        if (passenger.getDestination() != null) {
+            grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
+            grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
+        }
 
     }
 

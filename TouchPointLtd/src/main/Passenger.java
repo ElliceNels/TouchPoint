@@ -9,35 +9,33 @@ public class Passenger extends User {
    /* public findTaxisInRadius(){
 
     }*/
-   public static boolean Login(User passenger) {//User does one time login.No need to store user info as no database is needed.
+   public static void RegisterPassengerDetails(User passenger) {//User does one time login.No need to store user info as no database is needed.
        // This handles user login, calling a taxi and inputting designated area (too much to handle, will be split)
        Scanner in = new Scanner(System.in);
 
-
        System.out.println("Name?");
        passenger.setUsername(in.nextLine());
-    try {
-        System.out.println("Enter x and y coord of current location");
-        int xCoord = in.nextInt();
-        int yCoord = in.nextInt();
-        passenger.setCurrentLocation(new Location(xCoord, yCoord));
+       boolean validInput = false;
 
-        System.out.println("Enter x and y coord of you destination");
-        int DxCoord = in.nextInt();
-        int DyCoord = in.nextInt();
-        passenger.setDestination(new Location(DxCoord, DyCoord));
-        in.close();
-    } catch(InputMismatchException e){
-        System.out.println("Invalid input");
-    }
-    try {
-        System.out.println(passenger.getUsername() + " is at " + passenger.getCurrentLocation().getX() + ", " + passenger.getCurrentLocation().getY() + " and wants to go to " + passenger.getDestination().getX() + ", " + passenger.getDestination().getY());
+       while (!validInput) {
+           try {
+               System.out.println("Enter the x and y coordinates of your current location");
+               int xCoord = in.nextInt();
+               int yCoord = in.nextInt();
+               passenger.setCurrentLocation(new Location(xCoord, yCoord));
 
-    } catch (NullPointerException e){
-        System.out.println("No valid input to continue with");
-        return false;
-    }
-    return true;
+               System.out.println("Enter the x and y coordinates of your destination");
+               int DxCoord = in.nextInt();
+               int DyCoord = in.nextInt();
+               passenger.setDestination(new Location(DxCoord, DyCoord));
+               validInput = true;
+               System.out.println(passenger.getUsername() + " is at " + passenger.getCurrentLocation().getX() + ", " + passenger.getCurrentLocation().getY() + " and wants to go to " + passenger.getDestination().getX() + ", " + passenger.getDestination().getY());
+           } catch (InputMismatchException e) {
+               System.out.println("Invalid input");
+               in.nextLine();
+           }
+       }
+       in.close();
    }
 
 }
