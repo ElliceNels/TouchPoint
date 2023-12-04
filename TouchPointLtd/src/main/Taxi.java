@@ -39,14 +39,6 @@ public class Taxi {
         this.capacity = capacity;
     }
 
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
     public int getDriverRating() {
         return driverRating;
     }
