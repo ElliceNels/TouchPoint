@@ -2,6 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Passenger extends User {
+    Scanner in = new Scanner(System.in);
 
     public Passenger(){
         super();
@@ -9,12 +10,26 @@ public class Passenger extends User {
    /* public findTaxisInRadius(){
 
     }*/
-   public static void RegisterPassengerDetails(User passenger) {//User does one time login.No need to store user info as no database is needed.
-       // This handles user login, calling a taxi and inputting designated area (too much to handle, will be split)
-       Scanner in = new Scanner(System.in);
+    public void mainMenuRun(User passenger){
 
-       System.out.println("Name?");
-       passenger.setUsername(in.nextLine());
+        System.out.println("Name?");
+        passenger.setUsername(in.nextLine());
+
+        System.out.println("Enter your location and destination(0)\nList of map areas (1)");
+        int choice = in.nextInt();
+        switch (choice){
+            case 0:
+                RegisterPassengerDetails(passenger);
+                break;
+            case 1:
+                placeSearch();
+                break;
+            default:
+                System.out.println("invalid input");
+        }
+    }
+
+   public void RegisterPassengerDetails(User passenger) {
        boolean validInput = false;
 
        while (!validInput) {
@@ -38,4 +53,18 @@ public class Passenger extends User {
        in.close();
    }
 
+   public void placeSearch(){
+       System.out.println("What type of location are you looking for?\nOffices(0), Points of Interest(1), Housing(2), Body of Water(3)");
+       int choice = in.nextInt();
+       switch (choice){
+           case 0:
+               for(){
+               break;
+           case 1:
+               placeSearch();
+               break;
+           default:
+               System.out.println("invalid input");
+       }
+   }
 }
