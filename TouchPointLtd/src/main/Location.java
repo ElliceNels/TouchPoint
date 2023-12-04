@@ -7,7 +7,8 @@ public class Location {
     private char displaySea = ' ';//displays seas as ~
     private char displayPOI = ' ';//displays point of interest as $
     static final char displayNoRoad = '.';//road is not empty as it is always inputted last
-    final char displayPassenger = ' ';
+    static char displayPassenger = ' ';
+    private char displayPassengerDestination = ' ';
     final char displayTaxi = ' ';
 
     public Location(int x, int y) {
@@ -85,12 +86,23 @@ public class Location {
         return displayPassenger;
     }
 
+    public void setDisplayPassenger(){
+        displayPassenger = '&';
+    }
+
 
     public char getDisplayTaxi() {
         return displayTaxi;
     }
 
 
+    public char getDisplayPassengerDestination() {
+        return displayPassengerDestination;
+    }
+
+    public void setDisplayPassengerDestination() {
+        displayPassengerDestination = '@';
+    }
 }
 
 

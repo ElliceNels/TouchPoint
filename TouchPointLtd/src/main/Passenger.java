@@ -9,10 +9,10 @@ public class Passenger extends User {
    /* public findTaxisInRadius(){
 
     }*/
-   public static boolean Login() {//User does one time login.No need to store user info as no database is needed.
+   public static boolean Login(User passenger) {//User does one time login.No need to store user info as no database is needed.
        // This handles user login, calling a taxi and inputting designated area (too much to handle, will be split)
        Scanner in = new Scanner(System.in);
-       User passenger = new Passenger();
+
 
        System.out.println("Name?");
        passenger.setUsername(in.nextLine());
