@@ -7,6 +7,7 @@ public class Taxi {
     private int capacity;//diff capacity depending on type of taxi
     private int driverRating;
     private String driverName;
+    private Location taxiLocation;
     public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating) {
         this.registrationNumber = registrationNumber;
         this.carType = carType;
@@ -53,5 +54,13 @@ public class Taxi {
 
     public void setDriverName(String driverName) {
         this.driverName = driverName;
+    }
+
+    public Location getTaxiLocation() {
+        return taxiLocation;
+    }
+
+    public void setTaxiLocation(Location taxiLocation) {
+        this.taxiLocation = taxiLocation;
     }
 }
