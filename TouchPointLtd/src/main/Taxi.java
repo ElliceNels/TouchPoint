@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,14 +10,12 @@ public class Taxi {
     private int capacity;//diff capacity depending on type of taxi
     private int driverRating;
     private String driverName;
-    private Location taxiLocation;
-    public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating, Location taxiLocation) {
+    public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating) {
         this.registrationNumber = registrationNumber;
         this.carType = carType;
         this.capacity = capacity;
         this.driverName = driverName;
         this.driverRating = driverRating;
-        this.taxiLocation = taxiLocation;
     }
 
     public String getRegistrationNumber() {
@@ -56,12 +57,26 @@ public class Taxi {
     public void setDriverName(String driverName) {
         this.driverName = driverName;
     }
+    public static  List<Taxi> getTaxiDriver(int capacity) {
+        List<Taxi> t = new ArrayList<>();
+        String taxidrivers = "src//main//Taxidrivers.csv";
 
-    public Location getTaxiLocation() {
-        return taxiLocation;
-    }
-
-    public void setTaxiLocation(Location taxiLocation) {
-        this.taxiLocation = taxiLocation;
+        try (BufferedReader br = new BufferedReader(new FileReader(taxidrivers))) {
+            String line;
+            br.readLine();
+            // Read each line from the CSV file
+            while ((line = br.readLine()) != null) {
+                // Split the line into fields using a comma as the delimiter
+                String[] fields = line.split(",");
+                String registrationNumber = fields[0];
+                String carType = fields[1];
+                String name = fields[2];
+                int driverRating = Integer.parseInt(fields[3]);
+                t.add(new Taxi(registrationNumber, carType, capacity, name, driverRating));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return t;
     }
 }

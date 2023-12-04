@@ -9,7 +9,7 @@ public class Location {
     static final char displayNoRoad = '.';//road is not empty as it is always inputted last
     static char displayPassenger;
     private char displayPassengerDestination;
-    final char displayTaxi = ' ';
+    private char displayTaxi;
 
     public Location(int x, int y) {
         this.x = x;
@@ -90,11 +90,13 @@ public class Location {
         displayPassenger = '&';
     }
 
-
     public char getDisplayTaxi() {
         return displayTaxi;
     }
 
+    public void setDisplayTaxi() {
+        displayTaxi = '!';
+    }
 
     public char getDisplayPassengerDestination() {
         return displayPassengerDestination;

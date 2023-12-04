@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Map {
     private Location[][] grid;
@@ -52,7 +53,6 @@ public class Map {
     }
 
     public void getBuildings(User passenger) { //could be refactored
-        TaxiReg.getTaxiDriver();
 
         for (int i = 0; i < 30; i++) {
             int houseX = locations[i][0];
@@ -93,16 +93,21 @@ public class Map {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
         }
-        //bs really
-        grid[Reg1.getTaxiLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
-        grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
-
-        Location loc = Reg1.getTaxiLocation();
-        grid[Reg1.getTaxiLocation().get(X)]
+    }
+    public void getTaxiDrivers(){
+        List<Taxi> t = Taxi.getTaxiDriver(4);
+        Random rand = new Random();
+        for(int i = 0;i < t.size();i++){
+            int TaxiX = rand.nextInt(grid.length);
+            int TaxiY = rand.nextInt(grid[0].length);
+            grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
+            grid[TaxiX][TaxiY].setDisplayTaxi();
+        }
     }
 
     public void Display(User passenger) {
         getBuildings(passenger);
+        getTaxiDrivers();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null) {
@@ -129,7 +134,9 @@ public class Map {
             symbol = '*';
         }else if (grid[i][j].getDisplayPassengerDestination() == '@'){
             symbol = '@';
-        }else if (grid[i][j].getDisplayPassenger() == '&'){
+        }else if (grid[i][j].getDisplayTaxi() == '!'){
+            symbol = '!';
+        } else if (grid[i][j].getDisplayPassenger() == '&'){
             symbol = '&';
         }
         return symbol;
