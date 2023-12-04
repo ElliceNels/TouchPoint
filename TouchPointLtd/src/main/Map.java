@@ -90,6 +90,10 @@ public class Map {
 
         grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
         grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
+
+        grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
+        grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
+
     }
 
     public void Display(User passenger) {
