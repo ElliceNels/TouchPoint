@@ -1,14 +1,14 @@
 public class Location {
     int x;
     int y;
-    private char displayOffice = ' ';//set as empty to read building type
-    private char displayHouse = ' ';//displays houses as H
-    private char displayRoad = ' ';//displays roads as *
-    private char displaySea = ' ';//displays seas as ~
-    private char displayPOI = ' ';//displays point of interest as $
+    private char displayOffice;//set as empty to read building type
+    private char displayHouse;//displays houses as H
+    private char displayRoad;//displays roads as *
+    private char displaySea;//displays seas as ~
+    private char displayPOI;//displays point of interest as $
     static final char displayNoRoad = '.';//road is not empty as it is always inputted last
-    static char displayPassenger = ' ';
-    private char displayPassengerDestination = ' ';
+    static char displayPassenger;
+    private char displayPassengerDestination;
     final char displayTaxi = ' ';
 
     public Location(int x, int y) {

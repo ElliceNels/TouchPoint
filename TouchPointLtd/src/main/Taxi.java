@@ -8,12 +8,13 @@ public class Taxi {
     private int driverRating;
     private String driverName;
     private Location taxiLocation;
-    public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating) {
+    public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating, Location taxiLocation) {
         this.registrationNumber = registrationNumber;
         this.carType = carType;
         this.capacity = capacity;
         this.driverName = driverName;
         this.driverRating = driverRating;
+        this.taxiLocation = taxiLocation;
     }
 
     public String getRegistrationNumber() {

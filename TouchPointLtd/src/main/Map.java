@@ -52,7 +52,7 @@ public class Map {
     }
 
     public void getBuildings(User passenger) { //could be refactored
-
+        TaxiReg.getTaxiDriver();
 
         for (int i = 0; i < 30; i++) {
             int houseX = locations[i][0];
@@ -93,7 +93,12 @@ public class Map {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
         }
+        //bs really
+        grid[Reg1.getTaxiLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
+        grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
 
+        Location loc = Reg1.getTaxiLocation();
+        grid[Reg1.getTaxiLocation().get(X)]
     }
 
     public void Display(User passenger) {
