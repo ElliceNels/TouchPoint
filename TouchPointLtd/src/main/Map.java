@@ -4,6 +4,15 @@ import java.util.Random;
 
 public class Map {
     private Location[][] grid;
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+    public static final String ANSI_BLACK = "\u001B[30m";
     static int[][] locations = {
             //house coordinates
             {0, 3}, {3, 2}, {5, 0}, {11, 10}, {10, 10}, {9, 10}, {11, 12}, {10, 12},
@@ -111,33 +120,33 @@ public class Map {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null) {
-                    char symbol = getSymbol(i, j);
+                    String symbol = getSymbol(i, j);
                     System.out.print("  " + symbol + "  ");
                     } else {
-                        System.out.print("  " + Location.displayNoRoad + "  "); // Star which represents road
+                        System.out.print("  " + ANSI_GREEN + Location.displayNoRoad + ANSI_RESET + "  "); // Star which represents road
                     }
                 }
                 System.out.println();
             }getLegend();
         }
-        private char getSymbol(int i, int j) {//method to get symbol
-        char symbol = Location.displayNoRoad; // Default to road symbol
+        private String getSymbol(int i, int j) {//method to get symbol
+        String symbol = String.valueOf(Location.displayNoRoad); // Default to road symbol
         if (grid[i][j].getDisplayHouse() == 'H') {
-            symbol = 'H';
+            symbol = ANSI_BLACK + 'H' + ANSI_RESET;
         } else if (grid[i][j].getDisplayOffice() == 'O') {
-            symbol = 'O';
+            symbol = ANSI_YELLOW + 'O' + ANSI_RESET;
         } else if (grid[i][j].getDisplaySea() == '/') {
-            symbol = '/';
+            symbol = ANSI_BLUE + '/' + ANSI_RESET;
         }else if (grid[i][j].getDisplayPOI() == '$') {
-            symbol = '$';
+            symbol = ANSI_RED + '$' + ANSI_RESET;
         }else if (grid[i][j].getDisplayRoad() == '*') {
-            symbol = '*';
+            symbol = ANSI_WHITE + '*' + ANSI_RESET;
         }else if (grid[i][j].getDisplayPassengerDestination() == '@'){
-            symbol = '@';
+            symbol = "@";
         }else if (grid[i][j].getDisplayTaxi() == '!'){
-            symbol = '!';
+            symbol = "!";
         } else if (grid[i][j].getDisplayPassenger() == '&'){
-            symbol = '&';
+            symbol = "&";
         }
         return symbol;
     }

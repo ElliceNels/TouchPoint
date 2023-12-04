@@ -58,10 +58,22 @@ public class Passenger extends User {
        int choice = in.nextInt();
        switch (choice){
            case 0:
-               for(){
+               for (int i = 30; i < 35; i++) {
+                   int officeX = Map.locations[i][0];
+                   int officeY = Map.locations[i][1];
+                   //Map.getGrid([officeX][officeY]);
+                   //grid[officeX][officeY].setDisplayOffice();
+               }
                break;
            case 1:
-               placeSearch();
+               System.out.println("blah");
+               break;
+           case 2:
+               System.out.println("There are 30 houses in the area. Unfortunately I cannot give you their addresses.\nHere is the map of houses");
+
+               break;
+           case 3:
+               System.out.println("There is Blanken Sea at approximately " + Map.locations[55][1]);
                break;
            default:
                System.out.println("invalid input");
