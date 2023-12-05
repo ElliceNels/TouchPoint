@@ -6,7 +6,7 @@ public class Location {
     private char displayRoad;//displays roads as *
     private char displaySea;//displays seas as ~
     private char displayPOI;//displays point of interest as $
-    static final char displayNoRoad = '.';//road is not empty as it is always inputted last
+    private char displayNoRoad;//road is not empty as it is always inputted last
     static char displayPassenger;
     private char displayPassengerDestination;
     private char displayTaxi;
@@ -77,11 +77,6 @@ public class Location {
         displayPOI = '$';
     }
 
-    public char getNoRoad() {
-        return displayNoRoad;
-    }
-
-
     public char getDisplayPassenger() {
         return displayPassenger;
     }
@@ -96,6 +91,14 @@ public class Location {
 
     public void setDisplayTaxi() {
         displayTaxi = '!';
+    }
+
+    public char getDisplayNoRoad() {
+        return displayNoRoad;
+    }
+
+    public void setDisplayNoRoad() {
+        displayNoRoad = '.';
     }
 
     public char getDisplayPassengerDestination() {
