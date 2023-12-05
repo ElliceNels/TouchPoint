@@ -139,19 +139,19 @@ public class Map {
         } else if (grid[i][j].getDisplaySea() == '/') {
             symbol = ANSI_BLUE + '/' + ANSI_RESET;
         }else if (grid[i][j].getDisplayPOI() == '$') {
-            symbol = ANSI_RED + '$' + ANSI_RESET;
+            symbol =  ANSI_YELLOW + "$" +  ANSI_RESET;
         }else if (grid[i][j].getDisplayRoad() == '*') {
             symbol = ANSI_WHITE + '*' + ANSI_RESET;
         }else if (grid[i][j].getDisplayPassengerDestination() == '@'){
-            symbol = "@";
+            symbol = ANSI_PURPLE + "@" + ANSI_RESET;
         }else if (grid[i][j].getDisplayTaxi() == '!'){
-            symbol = "!";
+            symbol = ANSI_RED + '!' + ANSI_RESET;
         } else if (grid[i][j].getDisplayPassenger() == '&'){
-            symbol = "&";
+            symbol = ANSI_PURPLE  + "&" + ANSI_RESET;
         }
         return symbol;
     }
     public void getLegend(){
-        System.out.println("Piltover Legend\nHouses: H      Offices: O      Body of Water: /        Non Road: .     Passenger: &        Taxis: !        Points of Interest: $\n");
+        System.out.println("Piltover Legend\nHouses: H      " + ANSI_YELLOW + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $\n" + ANSI_RESET);
     }
 }
