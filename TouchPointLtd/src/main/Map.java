@@ -117,22 +117,23 @@ public class Map {
     public void Display(User passenger) {
         getBuildings(passenger);
         getTaxiDrivers();
+        getLegend();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null) {
                     String symbol = getSymbol(i, j);
                     System.out.print("  " + symbol + "  ");
                     } else {
-                        System.out.print("  " + ANSI_GREEN + Location.displayNoRoad + ANSI_RESET + "  "); // Star which represents road
+                        System.out.print("  " + ANSI_BLACK + Location.displayNoRoad +  ANSI_RESET + "  "); // Star which represents road
                     }
                 }
                 System.out.println();
-            }getLegend();
+            }
         }
         private String getSymbol(int i, int j) {//method to get symbol
         String symbol = String.valueOf(Location.displayNoRoad); // Default to road symbol
         if (grid[i][j].getDisplayHouse() == 'H') {
-            symbol = ANSI_BLACK + 'H' + ANSI_RESET;
+            symbol = "H";
         } else if (grid[i][j].getDisplayOffice() == 'O') {
             symbol = ANSI_YELLOW + 'O' + ANSI_RESET;
         } else if (grid[i][j].getDisplaySea() == '/') {
@@ -151,7 +152,6 @@ public class Map {
         return symbol;
     }
     public void getLegend(){
-        System.out.println("Piltover: Legend\nHouses: H\nOffices: O\nBody of Water: /\nNon Road: ." +
-                "\nPassenger: &\nTaxis: !\nPoints of Interest: $");
+        System.out.println("Piltover Legend\nHouses: H      Offices: O      Body of Water: /        Non Road: .     Passenger: &        Taxis: !        Points of Interest: $\n");
     }
 }
