@@ -13,6 +13,7 @@ public class Map {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String CAR_EMOJI = "\uD83D\uDE95";
+    ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
     static int[][] locations = {
             //house coordinates
             {0, 3}, {3, 2}, {5, 0}, {11, 10}, {10, 10}, {9, 10}, {11, 12}, {10, 12},
@@ -93,10 +94,9 @@ public class Map {
         }
     }
     public void getTaxiDrivers(){
-        //List<Taxi> t = TaxiReader.getTaxiDetails(TaxiReader.getTaxiDetails(allTaxis));
-        //A WAY TO GET LENGTH OF TAXIS LIST
         Random rand = new Random();
-        //for(int i = 0;i < t.size();i++){ REPLACE t WITH allTaxis
+        for(int i = 0;i < singleton.getList().size();i++){
+            System.out.println(singleton.getList().size());
             int startIndex = 88;
             int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
@@ -104,7 +104,7 @@ public class Map {
             int TaxiY = locations[randInt][1];
             grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
             grid[TaxiX][TaxiY].setDisplayTaxi();
-        //}
+        }
     }
 
     public void Display(User passenger) {
