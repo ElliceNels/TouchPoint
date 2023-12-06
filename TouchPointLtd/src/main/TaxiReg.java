@@ -5,7 +5,4 @@ public class TaxiReg extends Taxi {
         super(registrationNumber, carType, 4, driverName, driverRating, tier);
     }
 
-
-
-
 }

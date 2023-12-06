@@ -21,7 +21,7 @@ public class TaxiReader {
                 int driverRating = Integer.parseInt(fields[3]);
                 String tier = fields[4];
 
-                Taxi taxi = TaxiReader.createTaxi(registrationNumber, carType, driverName, driverRating, tier);
+                Taxi taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, driverRating, tier);
                 allTaxis.add(taxi);
             }
         } catch (IOException e) {
@@ -29,35 +29,32 @@ public class TaxiReader {
         }
         return allTaxis;
     }
-    public static Taxi createTaxi(String registrationNumber, String carType, String driverName, int driverRating, String tier) {
+    public static Taxi instanceTaxi(String registrationNumber, String carType, String driverName, int driverRating, String tier) {
         switch (tier) {
             case "Regular":
-                TaxiReg tax = new TaxiReg(registrationNumber, carType, driverName, driverRating, tier);
-                tax.setRegistrationNumber(registrationNumber);
-                tax.setCarType(carType);
-                tax.setDriverName(driverName);
-                tax.setDriverRating(driverRating);
-                tax.setTier(tier);
-                return tax;
+                TaxiReg taxi = new TaxiReg(registrationNumber, carType, driverName, driverRating, tier);
+                setTaxi(taxi , registrationNumber, carType, driverName, driverRating, tier);
+                return taxi;
             case "Large":
-                TaxiLarge tax1 = new TaxiLarge(registrationNumber, carType, driverName, driverRating, tier);
-                tax1.setRegistrationNumber(registrationNumber);
-                tax1.setCarType(carType);
-                tax1.setDriverName(driverName);
-                tax1.setDriverRating(driverRating);
-                tax1.setTier(tier);
-                return tax1;
+                TaxiLarge taxi1 = new TaxiLarge(registrationNumber, carType, driverName, driverRating, tier);
+                setTaxi(taxi1 , registrationNumber, carType, driverName, driverRating, tier);
+                return taxi1;
+
             case "Premium":
-                TaxiPremium tax2 = new TaxiPremium(registrationNumber, carType, driverName, driverRating, tier);
-                tax2.setRegistrationNumber(registrationNumber);
-                tax2.setCarType(carType);
-                tax2.setDriverName(driverName);
-                tax2.setDriverRating(driverRating);
-                tax2.setTier(tier);
-                return tax2;
+                TaxiPremium taxi2 = new TaxiPremium(registrationNumber, carType, driverName, driverRating, tier);
+                setTaxi(taxi2 , registrationNumber, carType, driverName, driverRating, tier);
+                return taxi2;
+
             default:
                 System.out.println("POORRR");
                 return null;
         }
+    }
+    public static void setTaxi(Taxi newTaxi , String registrationNumber, String carType, String driverName, int driverRating, String tier){
+        newTaxi.setRegistrationNumber(registrationNumber);
+        newTaxi.setCarType(carType);
+        newTaxi.setDriverName(driverName);
+        newTaxi.setDriverRating(driverRating);
+        newTaxi.setTier(tier);
     }
 }
