@@ -12,6 +12,7 @@ public class Map {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String CAR_EMOJI = "\uD83D\uDE95";
     static int[][] locations = {
             //house coordinates
             {0, 3}, {3, 2}, {5, 0}, {11, 10}, {10, 10}, {9, 10}, {11, 12}, {10, 12},
@@ -113,9 +114,9 @@ public class Map {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null) {
                     String symbol = getSymbol(i, j);
-                    System.out.print("  " + symbol + "  ");
+                    System.out.print(symbol);
                 } else {
-                    System.out.print("  " + ANSI_BLACK + "." +  ANSI_RESET + "  "); // Star which represents road
+                    System.out.print(ANSI_BLACK + "  .  " + ANSI_RESET); // Dot which represents no road
                 }
             }
             System.out.println();
@@ -124,21 +125,22 @@ public class Map {
     private String getSymbol(int i, int j) {//method to get symbol
         String symbol = "."; // Default to road symbol
         if (grid[i][j].getDisplayHouse() == 'H') {
-            symbol = "H";
+            symbol = "  H  ";
         } else if (grid[i][j].getDisplayOffice() == 'O') {
-            symbol = ANSI_YELLOW + 'O' + ANSI_RESET;
+            symbol = ANSI_YELLOW + "  O  " + ANSI_RESET;
         } else if (grid[i][j].getDisplaySea() == '/') {
-            symbol = ANSI_BLUE + '/' + ANSI_RESET;
+            symbol = ANSI_BLUE + "  /  " + ANSI_RESET;
         }else if (grid[i][j].getDisplayPOI() == '$') {
-            symbol =  ANSI_YELLOW + "$" +  ANSI_RESET;
+            symbol =  ANSI_YELLOW + "  $  " +  ANSI_RESET;
         }else if (grid[i][j].getDisplayRoad() == '*') {
-            symbol = ANSI_WHITE + '*' + ANSI_RESET;
+            symbol = ANSI_WHITE + "  *  " + ANSI_RESET;
         }else if (grid[i][j].getDisplayTaxi() == '!'){
-            symbol = ANSI_RED + '!' + ANSI_RESET;
+            //ymbol = "  " + CAR_EMOJI + " ";
+            symbol = ANSI_RED + "  !  " + ANSI_RESET;
         }else if (grid[i][j].getDisplayPassengerDestination() == '@'){
-            symbol = ANSI_PURPLE + "@" + ANSI_RESET;
+            symbol = ANSI_PURPLE + "  @  " + ANSI_RESET;
         } else if (grid[i][j].getDisplayPassenger() == '&'){
-            symbol = ANSI_PURPLE  + "&" + ANSI_RESET;
+            symbol = ANSI_PURPLE  + "  &  " + ANSI_RESET;
         }
         return symbol;
     }
