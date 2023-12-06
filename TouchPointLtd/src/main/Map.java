@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -44,6 +47,28 @@ public class Map {
             {4, 9}, {4, 10}, {4, 11}, {4, 12}, {0, 12}, {1, 12}, {2, 12}, {3, 12}, {0, 18}, {1, 18}, {2, 18},
             {3, 18}, {1, 17}, {1, 16}, {1, 15}
     };
+    public List<Coordinates> mapCoordinates() {
+        List<Coordinates> m = new ArrayList<>();
+        String coordinates = "src//main//MapLocations.csv";
+        try (BufferedReader br = new BufferedReader(new FileReader(coordinates))) {
+            String line;
+            br.readLine();
+            // Read each line from the CSV file
+            while ((line = br.readLine()) != null) {
+                // Split the line into fields using a comma as the delimiter
+                String[] fields = line.split(",");
+                int x = Integer.parseInt(fields[0]);
+                int y = Integer.parseInt(fields[1]);
+                m.add(new Coordinates(x, y));
+
+            }for(int i =0; i < 5;i++){
+                System.out.println(m.get(i));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      return m;
+    }
     public Map(int rows, int cols) {
         grid = new Location[rows][cols];
     }
