@@ -87,6 +87,7 @@ public class Map {
         this.grid = grid;
     }
     public void getTaxiDrivers(){
+        singleton.storeTaxiDetails(singleton.getList());
         Random rand = new Random();
         for(int i = 0;i < singleton.getList().size();i++){
             System.out.println(singleton.getList().size());
@@ -96,15 +97,15 @@ public class Map {
             Coordinates c = m.get(randInt);
             int TaxiX = c.getX();
             int TaxiY = c.getY();
-            grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
-            grid[TaxiX][TaxiY].setDisplayTaxi();
+                grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
+                grid[TaxiX][TaxiY].setDisplayTaxi();
         }
     }
 
     public void Display(User passenger) {
+        getTaxiDrivers();
         mapCoordinates();
         manageCoordinates(passenger);
-        getTaxiDrivers();
         getLegend();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
