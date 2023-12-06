@@ -98,18 +98,16 @@ public class Map {
             int startIndex = 88;
             int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex +1)) + startIndex;
-            System.out.println(randInt);
             int TaxiX = locations[randInt][0];
             int TaxiY = locations[randInt][1];
             grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
             grid[TaxiX][TaxiY].setDisplayTaxi();
-
         }
     }
 
     public void Display(User passenger) {
-        getTaxiDrivers();
         getBuildings(passenger);
+        getTaxiDrivers();
         getLegend();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
@@ -137,7 +135,6 @@ public class Map {
             symbol = ANSI_WHITE + '*' + ANSI_RESET;
         }else if (grid[i][j].getDisplayTaxi() == '!'){
             symbol = ANSI_RED + '!' + ANSI_RESET;
-            System.out.println("suces");
         }else if (grid[i][j].getDisplayPassengerDestination() == '@'){
             symbol = ANSI_PURPLE + "@" + ANSI_RESET;
         } else if (grid[i][j].getDisplayPassenger() == '&'){
