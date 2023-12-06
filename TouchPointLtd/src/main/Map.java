@@ -147,6 +147,6 @@ public class Map {
         return symbol;
     }
     public void getLegend(){
-        System.out.println("Piltover Legend\nHouses: H      " + ANSI_YELLOW + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $\n" + ANSI_RESET);
+        System.out.println("Piltover Legend\nHouses: H      " + ANSI_YELLOW + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *\n" + ANSI_RESET);
     }
 }
