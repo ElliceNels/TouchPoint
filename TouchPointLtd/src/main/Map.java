@@ -94,11 +94,12 @@ public class Map {
     }
     public void getTaxiDrivers(){
         //List<Taxi> t = TaxiReader.getTaxiDetails(TaxiReader.getTaxiDetails(allTaxis));
+        //A WAY TO GET LENGTH OF TAXIS LIST
         Random rand = new Random();
-        //for(int i = 0;i < t.size();i++){
+        //for(int i = 0;i < t.size();i++){ REPLACE t WITH allTaxis
             int startIndex = 88;
             int endIndex = 197;
-            int randInt = rand.nextInt((endIndex - startIndex +1)) + startIndex;
+            int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
             int TaxiX = locations[randInt][0];
             int TaxiY = locations[randInt][1];
             grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
@@ -135,7 +136,7 @@ public class Map {
         }else if (grid[i][j].getDisplayRoad() == '*') {
             symbol = ANSI_WHITE + "  *  " + ANSI_RESET;
         }else if (grid[i][j].getDisplayTaxi() == '!'){
-            //ymbol = "  " + CAR_EMOJI + " ";
+            //symbol = "  " + CAR_EMOJI + " ";
             symbol = ANSI_RED + "  !  " + ANSI_RESET;
         }else if (grid[i][j].getDisplayPassengerDestination() == '@'){
             symbol = ANSI_PURPLE + "  @  " + ANSI_RESET;

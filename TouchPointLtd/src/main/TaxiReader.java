@@ -6,7 +6,6 @@ import java.util.List;
 public class TaxiReader {
     public static List<Taxi> getTaxiDetails(List <Taxi> allTaxis) {
 
-//        int capacity = 0;
         String taxidrivers = "src//main//Taxidrivers.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(taxidrivers))) {
