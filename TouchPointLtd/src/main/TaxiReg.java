@@ -5,4 +5,9 @@ public class TaxiReg extends Taxi {
         super(registrationNumber, carType, 4, driverName, driverRating, tier);
     }
 
+    public void removeFromMap(){
+        ListSingleton singleton = ListSingleton.getInstance();
+       // List<String> allTaxis = singleton.getList();
+
+    }
 }
