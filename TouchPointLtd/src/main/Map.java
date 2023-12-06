@@ -93,9 +93,9 @@ public class Map {
         }
     }
     public void getTaxiDrivers(){
-        List<Taxi> t = Taxi.getTaxiDriver(4);
+        //List<Taxi> t = TaxiReader.getTaxiDetails(TaxiReader.getTaxiDetails(allTaxis));
         Random rand = new Random();
-        for(int i = 0;i < t.size();i++){
+        //for(int i = 0;i < t.size();i++){
             int startIndex = 88;
             int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex +1)) + startIndex;
@@ -103,7 +103,7 @@ public class Map {
             int TaxiY = locations[randInt][1];
             grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
             grid[TaxiX][TaxiY].setDisplayTaxi();
-        }
+        //}
     }
 
     public void Display(User passenger) {

@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Taxi {
     private String registrationNumber;//individual registration number
@@ -10,12 +11,15 @@ public class Taxi {
     private int capacity;//diff capacity depending on type of taxi
     private int driverRating;
     private String driverName;
-    public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating) {
+    private String tier;
+
+    public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating, String tier) {
         this.registrationNumber = registrationNumber;
         this.carType = carType;
         this.capacity = capacity;
         this.driverName = driverName;
         this.driverRating = driverRating;
+        this.tier = tier;
     }
 
     public String getRegistrationNumber() {
@@ -57,26 +61,13 @@ public class Taxi {
     public void setDriverName(String driverName) {
         this.driverName = driverName;
     }
-    public static  List<Taxi> getTaxiDriver(int capacity) {
-        List<Taxi> t = new ArrayList<>();
-        String taxidrivers = "src//main//Taxidrivers.csv";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(taxidrivers))) {
-            String line;
-            br.readLine();
-            // Read each line from the CSV file
-            while ((line = br.readLine()) != null) {
-                // Split the line into fields using a comma as the delimiter
-                String[] fields = line.split(",");
-                String registrationNumber = fields[0];
-                String carType = fields[1];
-                String name = fields[2];
-                int driverRating = Integer.parseInt(fields[3]);
-                t.add(new Taxi(registrationNumber, carType, capacity, name, driverRating));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return t;
+    public String getTier() {
+        return tier;
     }
+
+    public void setTier(String tier) {
+        this.tier = tier;
+    }
+
 }
