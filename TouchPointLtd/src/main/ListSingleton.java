@@ -24,7 +24,7 @@ public class ListSingleton {
     }
 
     //Takes info from csv, turns them into drivers of their respective type and adds them to list
-    public static void storeTaxiDetails(List <Taxi> allTaxis) {
+    public void storeTaxiDetails(List <Taxi> allTaxis) {
         String taxidrivers = "src//main//Taxidrivers.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(taxidrivers))) {
