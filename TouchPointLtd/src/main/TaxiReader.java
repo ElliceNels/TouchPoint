@@ -12,7 +12,7 @@ public class TaxiReader {
     public static Taxi instanceTaxi(String registrationNumber, String carType, String driverName, int driverRating, String tier) {
         switch (tier) {
             case "Regular":
-                TaxiReg taxi = new TaxiReg(registrationNumber, carType, driverName, driverRating, tier);
+                TaxiReg taxi = new TaxiReg(registrationNumber, carType, driverName, driverRating, tier,);
                 setTaxi(taxi , registrationNumber, carType, driverName, driverRating, tier);
                 return taxi;
             case "Large":

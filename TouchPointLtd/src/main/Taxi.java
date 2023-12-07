@@ -12,14 +12,16 @@ public class Taxi {
     private int driverRating;
     private String driverName;
     private String tier;
+    private Location taxiLoc;
 
-    public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating, String tier) {
+    public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating, String tier, Location taxiLoc) {
         this.registrationNumber = registrationNumber;
         this.carType = carType;
         this.capacity = capacity;
         this.driverName = driverName;
         this.driverRating = driverRating;
         this.tier = tier;
+        this.taxiLoc = taxiLoc;
     }
 
     public String getRegistrationNumber() {
@@ -70,4 +72,11 @@ public class Taxi {
         this.tier = tier;
     }
 
+    public Location getTaxiLoc() {
+        return taxiLoc;
+    }
+
+    public void setTaxiLoc(Location taxiLoc) {
+        this.taxiLoc = taxiLoc;
+    }
 }
