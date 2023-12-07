@@ -1,4 +1,14 @@
 FROM openjdk:21
 WORKDIR /opt
-COPY target/*.jar /opt/app.jar
-CMD ["java","-jar","app.jar"]
+
+# Copy .class files from the target directory into the image
+COPY target/*.class /opt/
+
+# Create a JAR file from the .class files
+RUN jar cvf app.jar *.class
+
+# Remove the individual .class files (optional)
+RUN rm -rf *.class
+
+# Set the command to run the Java application
+CMD ["java", "-jar", "app.jar"]
