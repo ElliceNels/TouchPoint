@@ -13,8 +13,8 @@ public class TaxiReg extends Taxi {
 
     }
 
-    public void MoveToPassenger(int taxiIndex){
-        Taxi selectedTaxi = allTaxis.get(taxiIndex);
-        selectedTaxi.setTaxiLoc(passenger.get);
-    }
+//    public void MoveToPassenger(int taxiIndex){
+//        Taxi selectedTaxi = allTaxis.get(taxiIndex);
+//        selectedTaxi.setTaxiLoc(passenger.get);
+//    }
 }

@@ -40,7 +40,7 @@ public class ListSingleton {
                 int driverRating = Integer.parseInt(fields[3]);
                 String tier = fields[4];
 
-                Taxi taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, driverRating, tier);
+                Taxi taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, driverRating, tier, getTaxiLocation());
                 allTaxis.add(taxi);
             }
         } catch (IOException e) {
