@@ -2,7 +2,7 @@ FROM openjdk:21
 WORKDIR /opt
 
 # Copy .class files from the target directory into the image
-COPY target/classes/*.class /opt/
+COPY TouchPointLtd/target/classes/*.class /opt/
 
 # Create a JAR file from the .class files
 RUN jar cvf app.jar *.class
