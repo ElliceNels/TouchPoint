@@ -4,9 +4,7 @@ import java.util.Random;
 
 public class TPMain {
     public static void main(String[] args) {
-//       run();
-        Map map = new Map(20, 20); //length and width of the map
-        map.getTaxiDrivers();
+       run();
 
     }
     public static int placeholder(int a, int b){

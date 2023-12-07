@@ -59,7 +59,7 @@ public class Map {
             int poiX = location.getX();
             int poiY = location.getY();
             grid[poiX][poiY] = new Location(poiX, poiY);
-            grid[poiX][poiY].setDisplaySea();//this sets poi
+            grid[poiX][poiY].setDisplayPOI();//this sets poi
         }for (int i = 88; i < 198; i++) {
             Location location = mapLocations.get(i);
             int roadX = location.getX();
@@ -100,7 +100,7 @@ public class Map {
             Location location = mapLocations.get(randInt);
             singleton.setTaxiLocation(location);
             location.setDisplayTaxi();
-            System.out.println(singleton.getTaxiLocation());
+            grid[location.getX()][location.getY()] = location; // Store taxi directly in the grid
         }
     }
 
@@ -122,22 +122,23 @@ public class Map {
     }
     private String getSymbol(int i, int j) {//method to get symbol
         String symbol = "."; // Default to road symbol
-        if (grid[i][j].getDisplayHouse() == 'H') {
+        Location location = grid[i][j]; // Get the location from the grid
+        if (location.getDisplayHouse() == 'H') {
             symbol = "  H  ";
-        } else if (grid[i][j].getDisplayOffice() == 'O') {
+        } else if (location.getDisplayOffice() == 'O') {
             symbol = ANSI_YELLOW + "  O  " + ANSI_RESET;
-        } else if (grid[i][j].getDisplaySea() == '/') {
+        } else if (location.getDisplaySea() == '/') {
             symbol = ANSI_BLUE + "  /  " + ANSI_RESET;
-        }else if (grid[i][j].getDisplayPOI() == '$') {
+        }else if (location.getDisplayPOI() == '$') {
             symbol =  ANSI_YELLOW + "  $  " +  ANSI_RESET;
-        }else if (grid[i][j].getDisplayRoad() == '*') {
+        }else if (location.getDisplayRoad() == '*') {
             symbol = ANSI_WHITE + "  *  " + ANSI_RESET;
-        }else if (grid[i][j].getDisplayTaxi() == '!'){
+        }else if (location.getDisplayTaxi() == '!'){
             //symbol = "  " + CAR_EMOJI + " ";
             symbol = ANSI_RED + "  !  " + ANSI_RESET;
-        }else if (grid[i][j].getDisplayPassengerDestination() == '@'){
+        }else if (location.getDisplayPassengerDestination() == '@'){
             symbol = ANSI_PURPLE + "  @  " + ANSI_RESET;
-        } else if (grid[i][j].getDisplayPassenger() == '&'){
+        } else if (location.getDisplayPassenger() == '&'){
             symbol = ANSI_PURPLE  + "  &  " + ANSI_RESET;
         }
         return symbol;
