@@ -65,9 +65,9 @@ public class Passenger extends User {
            switch (choice) {
                case "0":
                    for (int i = 30; i < 35; i++) {
-                       Coordinates c =  map.m.get(i);
-                       System.out.print("Office " + count + " at " + c.getX() + ", ");
-                       System.out.print(c.getY());
+                       Location location =  map.mapLocations.get(i);
+                       System.out.print("Office " + count + " at " + location.getX() + ", ");
+                       System.out.print(location.getY());
                        System.out.println();
                        count++;
                    }
@@ -82,7 +82,7 @@ public class Passenger extends User {
                    System.out.println("Press enter\n");
                    break;
                case "3":
-                   System.out.println("There is Blanken Sea at approximately " + map.m.get(55) + " to " + map.m.get(61));
+                   System.out.println("There is Blanken Sea at approximately " + map.mapLocations.get(55) + " to " + map.mapLocations.get(61));
                    System.out.println("Press enter\n");
                    break;
                default:

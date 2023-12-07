@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 public class Map {
     private Location[][] grid;
-    List<Coordinates> m = new ArrayList<>();
+    List<Location> mapLocations = new ArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -20,7 +20,7 @@ public class Map {
     ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
 
     //Take all values from csv
-    public List<Coordinates> storeMapLocations() {
+    public List<Location> storeMapLocations() {
         String coordinates = "src//main//MapLocations.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(coordinates))) {
             String line;
@@ -31,47 +31,47 @@ public class Map {
                 String[] fields = line.split(",");
                 int x = Integer.parseInt(fields[0]);
                 int y = Integer.parseInt(fields[1]);
-                m.add(new Coordinates(x, y));
+                mapLocations.add(new Location(x, y));
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-      return m;
+      return mapLocations;
     }
     public void addLocationsToMap(User passenger){
         storeMapLocations();
         for(int i = 0;i < 30;i++){
-            Coordinates c = m.get(i);
-            int houseX = c.getX();
-            int houseY = c.getY();
+            Location location = mapLocations.get(i);
+            int houseX = location.getX();
+            int houseY = location.getY();
             grid[houseX][houseY] = new Location(houseX, houseY);
             grid[houseX][houseY].setDisplayHouse();//this sets house
         } for(int i = 30;i < 35;i++){
-            Coordinates c = m.get(i);
-            int officeX = c.getX();
-            int officeY = c.getY();
+            Location location = mapLocations.get(i);
+            int officeX = location.getX();
+            int officeY = location.getY();
             grid[officeX][officeY] = new Location(officeX, officeY);
             grid[officeX][officeY].setDisplayOffice();//this sets office
         }for (int i = 66; i < 88; i++) {
-            Coordinates c = m.get(i);
-            int poiX = c.getX();
-            int poiY = c.getY();
+            Location location = mapLocations.get(i);
+            int poiX = location.getX();
+            int poiY = location.getY();
             grid[poiX][poiY] = new Location(poiX, poiY);
             grid[poiX][poiY].setDisplaySea();//this sets poi
         }for (int i = 88; i < 198; i++) {
-            Coordinates c = m.get(i);
-            int roadX = c.getX();
-            int roadY = c.getY();
+            Location location = mapLocations.get(i);
+            int roadX = location.getX();
+            int roadY = location.getY();
             grid[roadX][roadY] = new Location(roadX, roadY);
             grid[roadX][roadY].setDisplayRoad();//this sets road
         }if (passenger.getCurrentLocation() != null){
             grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
             grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
         }for (int i = 35; i < 66; i++) {
-            Coordinates c = m.get(i);
-            int seaX = c.getX();
-            int seaY = c.getY();
+            Location location = mapLocations.get(i);
+            int seaX = location.getX();
+            int seaY = location.getY();
             grid[seaX][seaY] = new Location(seaX, seaY);
             grid[seaX][seaY].setDisplaySea();//this sets sea
         } if (passenger.getDestination() != null) {
@@ -95,11 +95,9 @@ public class Map {
             int startIndex = 88;
             int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
-            Coordinates c = m.get(randInt);
-            int TaxiX = c.getX();
-            int TaxiY = c.getY();
-            System.out.println(TaxiX);
-            System.out.println(TaxiY);
+            Location location = mapLocations.get(randInt);
+            int TaxiX = location.getX();
+            int TaxiY = location.getY();
             grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
             grid[TaxiX][TaxiY].setDisplayTaxi();
 
