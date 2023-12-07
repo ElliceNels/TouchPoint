@@ -9,19 +9,19 @@ public class TaxiReader {
     //ListSingleton singleton = ListSingleton.getInstance();
     //<Taxi> allTaxis = singleton.getList();
 
-    public static Taxi instanceTaxi(String registrationNumber, String carType, String driverName, int driverRating, String tier) {
+    public static Taxi instanceTaxi(String registrationNumber, String carType, String driverName, int driverRating, String tier, Location taxiLoc) {
         switch (tier) {
             case "Regular":
-                TaxiReg taxi = new TaxiReg(registrationNumber, carType, driverName, driverRating, tier,);
+                TaxiReg taxi = new TaxiReg(registrationNumber, carType, driverName, driverRating, tier, taxiLoc);
                 setTaxi(taxi , registrationNumber, carType, driverName, driverRating, tier);
                 return taxi;
             case "Large":
-                TaxiLarge taxi1 = new TaxiLarge(registrationNumber, carType, driverName, driverRating, tier);
+                TaxiLarge taxi1 = new TaxiLarge(registrationNumber, carType, driverName, driverRating, tier, taxiLoc);
                 setTaxi(taxi1 , registrationNumber, carType, driverName, driverRating, tier);
                 return taxi1;
 
             case "Premium":
-                TaxiPremium taxi2 = new TaxiPremium(registrationNumber, carType, driverName, driverRating, tier);
+                TaxiPremium taxi2 = new TaxiPremium(registrationNumber, carType, driverName, driverRating, tier, taxiLoc);
                 setTaxi(taxi2 , registrationNumber, carType, driverName, driverRating, tier);
                 return taxi2;
 

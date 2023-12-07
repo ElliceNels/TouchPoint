@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 public class Map {
+
     private Location[][] grid;
     List<Location> mapLocations = new ArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
@@ -99,8 +100,9 @@ public class Map {
             int TaxiX = location.getX();
             int TaxiY = location.getY();
             grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
+            singleton.setTaxiLocation(grid[TaxiX][TaxiY]);
             grid[TaxiX][TaxiY].setDisplayTaxi();
-
+            System.out.println(singleton.getTaxiLocation());
         }
     }
 

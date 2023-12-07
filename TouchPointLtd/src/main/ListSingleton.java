@@ -47,5 +47,16 @@ public class ListSingleton {
             e.printStackTrace();
         }
     }
-
+    public void setTaxiLocation(Location location) {
+        for (Taxi taxi : allTaxis) {
+                taxi.setTaxiLoc(location);
+            }
+        }
+    public Location getTaxiLocation() {
+        for (Taxi taxi : allTaxis) {
+                return taxi.getTaxiLoc();
+        }
+        return null;
+    }
 }
+
