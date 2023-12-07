@@ -4,23 +4,24 @@ import java.util.Scanner;
 public class Passenger extends User {
     Scanner in = new Scanner(System.in);
 
-    public Passenger(){
+    public Passenger() {
         super();
     }
+
     /* public findTaxisInRadius(){
 
      }*/
-    public void mainMenuRun(User passenger){
+    public void mainMenuRun(User passenger, Map map) {
 
         System.out.println("Name?");
         passenger.setUsername(in.nextLine());
 
         System.out.println("Enter your location and destination to book a taxi (0)\nSee a list of map areas (1)");
         int choice = in.nextInt();
-        switch (choice){
+        switch (choice) {
             case 0:
                 RegisterPassengerDetails(passenger);
-                ChooseATaxi();
+                ChooseATaxi(passenger, map);
                 break;
             case 1:
                 placeSearch();
@@ -52,13 +53,12 @@ public class Passenger extends User {
                 in.nextLine();
             }
         }
-        in.close();
     }
 
-    public void placeSearch(){
+    public void placeSearch() {
         Map map = new Map(20, 20);
         boolean doneSearch = false;
-        while(!doneSearch) {
+        while (!doneSearch) {
             in.nextLine();
             System.out.println("What type of location are you looking for?\nOffices (0), Points of Interest (1), Housing (2), Body of Water (3)\nPress anything else to return\n");
             String choice = in.nextLine().trim();
@@ -66,7 +66,7 @@ public class Passenger extends User {
             switch (choice) {
                 case "0":
                     for (int i = 30; i < 35; i++) {
-                        Location location =  map.mapLocations.get(i);
+                        Location location = map.mapLocations.get(i);
                         System.out.print("Office " + count + " at " + location.getX() + ", ");
                         System.out.print(location.getY());
                         System.out.println();
@@ -94,10 +94,21 @@ public class Passenger extends User {
         }
     }
 
-    public void ChooseATaxi(){
-        System.out.println("In a (jj, enter taxi range)KM radius, there are " + "numNearbyTaxis");
-        for (int i = 0; i <= numNearbyTaxis; i++){
-            System.out.println("Taxi " + i + " " + );
-        }
+    public void ChooseATaxi(User passenger, Map map) {
+        map.storeMapLocations();
+        Location searchCentre = passenger.getCurrentLocation();
+        int r = passenger.getPreferredRadius();//set as r to shorten code
+        for (int i = searchCentre.getX() - r; i <= searchCentre.getX() + r; i++) {
+            for (int j = searchCentre.getY() - r; j <= searchCentre.getY() + r; j++) {
+                if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
+                    Location taxiLocations = map.getGrid()[i][j];
+                    // Check if the symbol at the current location is a taxi symbol
+                    if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
+                        System.out.println("Taxi found at (" + i + ", " + j + ")");
+                    }
+                }
+            }
+        }in.close();
     }
 }
+

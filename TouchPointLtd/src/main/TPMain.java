@@ -14,14 +14,12 @@ public class TPMain {
         Map map = new Map(20, 20); //length and width of the map
         User passenger = new Passenger();
         map.Display(passenger);
-        ((Passenger) passenger).mainMenuRun(passenger);
-        map.Display(passenger);
-
-
         //allows list of taxis to be accessed from singleton
         ListSingleton singleton = ListSingleton.getInstance();
         List<Taxi> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis);
+        ((Passenger) passenger).mainMenuRun(passenger, map);
+        map.Display(passenger);
 
 
     }
