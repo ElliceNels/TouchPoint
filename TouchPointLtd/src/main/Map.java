@@ -19,7 +19,8 @@ public class Map {
     public static final String CAR_EMOJI = "\uD83D\uDE95";
     ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
 
-    public List<Coordinates> mapCoordinates() {
+    //Take all values from csv
+    public List<Coordinates> storeMapLocations() {
         String coordinates = "src//main//MapLocations.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(coordinates))) {
             String line;
@@ -38,7 +39,8 @@ public class Map {
         }
       return m;
     }
-    public void manageCoordinates(User passenger){
+    public void addLocationsToMap(User passenger){
+        storeMapLocations();
         for(int i = 0;i < 30;i++){
             Coordinates c = m.get(i);
             int houseX = c.getX();
@@ -90,22 +92,23 @@ public class Map {
         singleton.storeTaxiDetails(singleton.getList());
         Random rand = new Random();
         for(int i = 0;i < singleton.getList().size();i++){
-            System.out.println(singleton.getList().size());
             int startIndex = 88;
             int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
             Coordinates c = m.get(randInt);
             int TaxiX = c.getX();
             int TaxiY = c.getY();
-                grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
-                grid[TaxiX][TaxiY].setDisplayTaxi();
+            System.out.println(TaxiX);
+            System.out.println(TaxiY);
+            grid[TaxiX][TaxiY] = new Location(TaxiX, TaxiY);
+            grid[TaxiX][TaxiY].setDisplayTaxi();
+
         }
     }
 
     public void Display(User passenger) {
+        addLocationsToMap(passenger);
         getTaxiDrivers();
-        mapCoordinates();
-        manageCoordinates(passenger);
         getLegend();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
