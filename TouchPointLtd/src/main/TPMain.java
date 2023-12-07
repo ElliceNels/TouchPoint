@@ -11,10 +11,9 @@ public class TPMain {
     }
     public static void run(){
         Map map = new Map(20, 20); //length and width of the map
-
         User passenger = new Passenger();
         map.Display(passenger);
-        List<Taxi> allTaxis = new ArrayList<>();
+//        List<Taxi> allTaxis = new ArrayList<>();
 //        System.out.println(TaxiReader.getTaxiDetails(allTaxis));
 //        map.Display(passenger);
 //        ((Passenger) passenger).mainMenuRun(passenger);
