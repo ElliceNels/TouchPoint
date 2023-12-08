@@ -6,6 +6,7 @@ import java.util.List;
 public class ListSingleton {
     private static final ListSingleton INSTANCE = new ListSingleton();
 
+    private User passenger;
     //masterlist
     private List<Taxi> allTaxis;
 
@@ -13,6 +14,7 @@ public class ListSingleton {
     private ListSingleton() {
         // Initialize the list in the constructor
         allTaxis = new ArrayList<>();
+        passenger = new Passenger();
     }
 
     public static ListSingleton getInstance() {
@@ -57,6 +59,10 @@ public class ListSingleton {
                 return taxi.getTaxiLoc();
         }
         return null;
+    }
+
+    public User getPassenger() {
+        return passenger;
     }
 }
 

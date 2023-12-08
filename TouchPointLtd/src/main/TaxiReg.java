@@ -8,13 +8,15 @@ public class TaxiReg extends Taxi {
 
     ListSingleton singleton = ListSingleton.getInstance();
     List<Taxi> allTaxis = singleton.getList();
+    User passenger = singleton.getPassenger();
 
-    public void removeFromMap(){
+    public static void removeFromMap(List<Taxi> allTaxis){
 
     }
 
-//    public void MoveToPassenger(int taxiIndex){
-//        Taxi selectedTaxi = allTaxis.get(taxiIndex);
-//        selectedTaxi.setTaxiLoc(passenger.get);
-//    }
+    public static void MoveToPassenger(List<Taxi> allTaxis, int taxiIndex, User passenger){
+        removeFromMap(allTaxis);
+        Taxi selectedTaxi = allTaxis.get(taxiIndex);
+        selectedTaxi.setTaxiLoc(passenger.getCurrentLocation());
+    }
 }
