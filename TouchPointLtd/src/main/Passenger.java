@@ -58,6 +58,7 @@ public class Passenger extends User {
 
     public void placeSearch() {
         Map map = new Map(20, 20);
+        map.storeMapLocations();
         boolean doneSearch = false;
         while (!doneSearch) {
             in.nextLine();
@@ -84,7 +85,7 @@ public class Passenger extends User {
                     System.out.println("Press enter\n");
                     break;
                 case "3":
-                    System.out.println("There is Blanken Sea at approximately " + map.mapLocations.get(55) + " to " + map.mapLocations.get(61));
+                    System.out.println("There is Blanken Sea at approximately " + map.mapLocations.get(55).getX() + ", " + map.mapLocations.get(55).getY() + " to " + map.mapLocations.get(61).getX() + ", " + map.mapLocations.get(61).getY());
                     System.out.println("Press enter\n");
                     break;
                 default:
