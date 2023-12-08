@@ -91,7 +91,7 @@ public class Map {
     }
     public void getTaxiDrivers(){
         storeMapLocations();
-        singleton.storeTaxiDetails(singleton.getList());
+        //singleton.storeTaxiDetails(singleton.getList());
         Random rand = new Random();
         for(int i = 0;i < singleton.getList().size();i++){
             int startIndex = 88;
