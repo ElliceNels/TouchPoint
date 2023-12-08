@@ -77,7 +77,13 @@ public class Passenger extends User {
                     System.out.println("Press enter\n");
                     break;
                 case "1":
-                    System.out.println("blah");
+                    System.out.println("Places of Interest:\n");
+                    Location location = map.mapLocations.get(68);
+                    Location location2 = map.mapLocations.get(80);
+                    Location location3 = map.mapLocations.get(87);
+                    System.out.println("La Ville Lumiere at " + location.getX() + ", " + location.getY());
+                    System.out.println("Steve's Golf & Country Club at " + location2.getX() + ", " + location2.getY());
+                    System.out.println("Cho's Barbecue & Foot Massage at " + location3.getX() + ", " + location3.getY());
                     System.out.println("Press enter\n");
                     break;
                 case "2":
@@ -98,6 +104,7 @@ public class Passenger extends User {
 
     public void ChooseATaxi(User passenger, Map map) {
         map.storeMapLocations();
+        int count = 0;
         Location searchCentre = passenger.getCurrentLocation();
         int r = passenger.getPreferredRadius();//set as r to shorten code
         for (int i = searchCentre.getX() - r; i <= searchCentre.getX() + r; i++) {
@@ -106,9 +113,13 @@ public class Passenger extends User {
                     Location taxiLocations = map.getGrid()[i][j];
                     // Check if the symbol at the current location is a taxi symbol
                     if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
+                        count ++;
                         System.out.println("Taxi found at (" + i + ", " + j + ")");
                     }
                 }
+            }if(count == 0){
+                System.out.println("No taxis in area.");
+                break;
             }
         }in.close();
     }

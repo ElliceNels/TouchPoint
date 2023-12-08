@@ -33,7 +33,6 @@ public class Map {
                 int x = Integer.parseInt(fields[0]);
                 int y = Integer.parseInt(fields[1]);
                 mapLocations.add(new Location(x, y));
-
             }
         } catch (IOException e) {
             e.printStackTrace();
