@@ -2,6 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Passenger extends User {
+    ListSingleton singleton = ListSingleton.getInstance();
     Scanner in = new Scanner(System.in);
 
     public Passenger() {
@@ -96,19 +97,29 @@ public class Passenger extends User {
 
     public void ChooseATaxi(User passenger, Map map) {
         map.storeMapLocations();
+        singleton.storeTaxiDetails(singleton.getList());
         Location searchCentre = passenger.getCurrentLocation();
-        int r = passenger.getPreferredRadius();//set as r to shorten code
-        for (int i = searchCentre.getX() - r; i <= searchCentre.getX() + r; i++) {
-            for (int j = searchCentre.getY() - r; j <= searchCentre.getY() + r; j++) {
-                if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
-                    Location taxiLocations = map.getGrid()[i][j];
-                    // Check if the symbol at the current location is a taxi symbol
-                    if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
-                        System.out.println("Taxi found at (" + i + ", " + j + ")");
-                    }
-                }
+        int r = passenger.getPreferredRadius(); // set as r to shorten code
+
+        for (Taxi taxi : singleton.getList()) {
+            Location taxiLocation = taxi.getTaxiLoc();
+            int distance = calculateDistance(searchCentre, taxiLocation);
+
+            if (distance <= r) {
+                // Taxi is within the radius, print its details
+                System.out.println("Taxi within radius:");
+                System.out.println("Tier: " + taxi.getTier() + "\nRegistration Number: " + taxi.getRegistrationNumber()
+                        + "\nCar Type: " + taxi.getCarType() + "\nName: " + taxi.getDriverName() + "\nRating: " +
+                        taxi.getDriverRating());
+                System.out.println();
             }
-        }in.close();
+        }
+    }
+
+    private int calculateDistance(Location loc1, Location loc2) {
+        // Calculate distance between two locations
+        int dx = loc1.getX() - loc2.getX();
+        int dy = loc1.getY() - loc2.getY();
+        return (int) Math.sqrt(dx * dx + dy * dy);
     }
 }
-
