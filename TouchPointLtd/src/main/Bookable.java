@@ -1,6 +1,6 @@
 public interface Bookable {
 
-    public void RemoveFromMap();
+    public Taxi RemoveFromMap();
 
     public void ReturnToMap();
 

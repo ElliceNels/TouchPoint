@@ -99,7 +99,7 @@ public class Map {
             Location location = mapLocations.get(randInt);
             singleton.setTaxiLocation(location);
             location.setDisplayTaxi();
-            grid[location.getX()][location.getY()] = location; // Store taxi directly in the grid
+            grid[location.getX()][location.getY()] = location; // Store taxi directly in the grid //??HUH
         }
     }
 

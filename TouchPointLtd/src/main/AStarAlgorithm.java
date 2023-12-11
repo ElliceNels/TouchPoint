@@ -105,14 +105,6 @@ public class AStarAlgorithm extends Location{
     }
 
     public static void main(String[] args) {
-        List<Location> path = findPath();
-        //ensures there is an actual path
-        if (path != null) {
-            for (Location location : path) {
-                System.out.println("(" + location.x + ", " + location.y + ")");
-            }
-        } else {
-            System.out.println("Path not found.");
-        }
+
     }
 }

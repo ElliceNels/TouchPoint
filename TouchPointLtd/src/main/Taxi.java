@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Taxi {
     private String registrationNumber;//individual registration number
     private String carType;//name of taxi type
@@ -6,6 +8,7 @@ public class Taxi {
     private String driverName;
     private String tier;
     private Location taxiLoc;
+    static private int travelTime;
 
     public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating, String tier, Location taxiLoc) {
         this.registrationNumber = registrationNumber;
@@ -15,6 +18,29 @@ public class Taxi {
         this.driverRating = driverRating;
         this.tier = tier;
         this.taxiLoc = taxiLoc;
+    }
+
+    public static void moveTaxi(){
+        List<Location> path = AStarAlgorithm.findPath();
+        setTravelTime(0);
+        //ensures there is an actual path
+        if (path != null) {
+            for (Location location : path) {
+                System.out.println("(" + location.x + ", " + location.y + ")");
+                travelTime++;
+            }
+        } else {
+            System.out.println("Your location cannot be accessed by taxi.");
+        }
+    }
+
+    public static void printTaxiDetails(Taxi chosenTaxi){
+        System.out.println("Taxi tier is " + chosenTaxi.getTier());
+        System.out.println("Driver name: " + chosenTaxi.getDriverName());
+        System.out.println("Driver rating: " + chosenTaxi.getDriverRating());
+        System.out.println("Registration number: " + chosenTaxi.getRegistrationNumber());
+        System.out.println("Car brand: " + chosenTaxi.getCarType());
+        System.out.println("Capacity: " + chosenTaxi.getCapacity() + " seats");
     }
 
     public String getRegistrationNumber() {
@@ -71,5 +97,13 @@ public class Taxi {
 
     public void setTaxiLoc(Location taxiLoc) {
         this.taxiLoc = taxiLoc;
+    }
+
+    public static int getTravelTime() {
+        return travelTime;
+    }
+
+    public static void setTravelTime(int travelTime) {
+        Taxi.travelTime = travelTime;
     }
 }
