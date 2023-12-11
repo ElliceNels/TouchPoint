@@ -10,6 +10,12 @@ public class Location {
     static char displayPassenger;
     private char displayPassengerDestination;
     private char displayTaxi;
+    int gCost, hCost;
+    Location parent; //location
+
+    int getFCost() {
+        return gCost + hCost;
+    }
 
     public Location(int x, int y) {
         this.x = x;
