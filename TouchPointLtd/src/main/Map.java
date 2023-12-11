@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 public class Map {
 
-    private Location[][] grid;
+    static private Location[][] grid;
     List<Location> mapLocations = new ArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";

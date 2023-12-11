@@ -16,12 +16,14 @@ public class TPMain {
         User passenger = singleton.getPassenger();
         List<Taxi> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis); //1
-
         map.Display(passenger);
         //allows list of taxis to be accessed from singleton
-
         ((Passenger) passenger).mainMenuRun(passenger, map);
         map.Display(passenger);
+
+        AStarAlgorithm.roadMapCoordinates(map);
+        Taxi.moveTaxi();
+
 
 
     }

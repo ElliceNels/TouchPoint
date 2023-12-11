@@ -13,7 +13,7 @@ public class Passenger extends User {
 
      }*/
     public void mainMenuRun(User passenger, Map map) {
-
+        ChooseARoad(map);
         System.out.println("Name?");
         passenger.setUsername(in.nextLine());
 
@@ -101,10 +101,24 @@ public class Passenger extends User {
             }
         }
     }
+    public void ChooseARoad(Map map) {
+        System.out.println("Enter current Location:");
+        int passX = in.nextInt();
+        int passY = in.nextInt();
+        for (int i = passX - 3; i <= passX + 3; i++) {
+            for (int j = passY - 3; j <= passY + 3; j++) {
+                if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
+                    Location roadLocation = map.getGrid()[i][j];
+                    // Check if the symbol at the current location is a taxi symbol
+                    if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
+                        System.out.println("Road found at (" + i + ", " + j + ")");
+                    }
+                }
+            }
+        }
+    }
 
     public void ChooseATaxi(User passenger, Map map) {
-        map.storeMapLocations();
-        int count = 0;
         Location searchCentre = passenger.getCurrentLocation();
         int r = passenger.getPreferredRadius();//set as r to shorten code
         for (int i = searchCentre.getX() - r; i <= searchCentre.getX() + r; i++) {
@@ -113,13 +127,9 @@ public class Passenger extends User {
                     Location taxiLocations = map.getGrid()[i][j];
                     // Check if the symbol at the current location is a taxi symbol
                     if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
-                        count ++;
                         System.out.println("Taxi found at (" + i + ", " + j + ")");
                     }
                 }
-            }if(count == 0){
-                System.out.println("No taxis in area.");
-                break;
             }
         }in.close();
     }

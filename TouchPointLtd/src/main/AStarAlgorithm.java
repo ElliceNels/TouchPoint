@@ -2,14 +2,17 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AStarAlgorithm extends Location{
-    static int ROWS = 5;
-    static int COLS = 5;
+public class AStarAlgorithm extends Location {
+   static ListSingleton singleton = ListSingleton.getInstance();
+   static User passenger = singleton.getPassenger();
+
+    static int ROWS = 20;
+    static int COLS = 20;
 
     //roadMap with obstacles represented as null
     static Location[][] roadMap = new Location[ROWS][COLS];
-    static Location startLocation = new Location(0, 0); // Starting node
-    static Location endLocation = new Location(4, 4); // Destination node
+    static Location startLocation = new Location(passenger.getCurrentLocation()); // Starting node
+    static Location endLocation = new Location(passenger.getDestination()); // Destination node
     static int movementCost = 1;
 
     public AStarAlgorithm(int x, int y) {
@@ -34,6 +37,7 @@ public class AStarAlgorithm extends Location{
         }
         return neighbours;
     }
+
     static boolean isValid(int x, int y) {
         return x >= 0 && x < ROWS && y >= 0 && y < COLS && roadMap[x][y] != null;
         //Coordinate: not = to 0, between the number of rows and columns and is not = to null(obstacle)
@@ -46,6 +50,7 @@ public class AStarAlgorithm extends Location{
     }
 
     static List<Location> findPath() {
+//        roadMapCoordinates(map);
         List<Location> uncheckedSet = new ArrayList<>();
         Set<Location> checkedSet = new HashSet<>();
 
@@ -103,7 +108,13 @@ public class AStarAlgorithm extends Location{
         return path;
     }
 
-    public static void main(String[] args) {
-
+    public static void roadMapCoordinates(Map map) {
+        for (int i = 88; i < 198; i++) {
+            Location location = map.mapLocations.get(i);
+            int roadX = location.getX();
+            int roadY = location.getY();
+            roadMap[roadX][roadY] = new Location(roadX, roadY);
+            roadMap[roadX][roadY].setDisplayRoad();//this sets road
+        }
     }
 }
