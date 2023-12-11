@@ -49,8 +49,8 @@ public class AStarAlgorithm extends Location {
 
     }
 
-    static List<Location> findPath() {
-//        roadMapCoordinates(map);
+    static List<Location> findPath(Map map) {
+        roadMapCoordinates(map);
         List<Location> uncheckedSet = new ArrayList<>();
         Set<Location> checkedSet = new HashSet<>();
 
@@ -63,7 +63,7 @@ public class AStarAlgorithm extends Location {
                 if (uncheckedSet.get(i).getFCost() < currentLocation.getFCost() ||
                         (uncheckedSet.get(i).getFCost() == currentLocation.getFCost() &&
                                 uncheckedSet.get(i).hCost < currentLocation.hCost)) {
-                    currentLocation = uncheckedSet.get(i); //stores element with lowest cost
+                    currentLocation = uncheckedSet.get(i); //stores element with the lowest cost
                 }
             }
 
@@ -72,7 +72,7 @@ public class AStarAlgorithm extends Location {
             checkedSet.add(currentLocation);
 
             //if destination is reached
-            if (currentLocation == endLocation) {
+            if (currentLocation.equals(endLocation)) {
                 return reconstructPath(currentLocation);
             }
 
@@ -113,7 +113,7 @@ public class AStarAlgorithm extends Location {
             Location location = map.mapLocations.get(i);
             int roadX = location.getX();
             int roadY = location.getY();
-            roadMap[roadX][roadY] = new Location(roadX, roadY);
+            roadMap[roadX][roadY] = location;
             roadMap[roadX][roadY].setDisplayRoad();//this sets road
         }
     }

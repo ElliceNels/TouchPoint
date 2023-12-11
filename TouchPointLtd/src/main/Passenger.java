@@ -13,7 +13,6 @@ public class Passenger extends User {
 
      }*/
     public void mainMenuRun(User passenger, Map map) {
-        ChooseARoad(map);
         System.out.println("Name?");
         passenger.setUsername(in.nextLine());
 
@@ -21,11 +20,13 @@ public class Passenger extends User {
         int choice = in.nextInt();
         switch (choice) {
             case 0:
+                ChooseARoad(map, passenger);
                 RegisterPassengerDetails(passenger);
                 ChooseATaxi(passenger, map);
                 break;
             case 1:
                 placeSearch();
+                ChooseARoad(map, passenger);
                 RegisterPassengerDetails(passenger);
                 break;
             default:
@@ -38,7 +39,7 @@ public class Passenger extends User {
 
         while (!validInput) {
             try {
-                System.out.println("Enter the x and y coordinates of your current location");
+                System.out.println("Enter the x and y coordinates of pickup point");
                 int xCoord = in.nextInt();
                 int yCoord = in.nextInt();
                 passenger.setCurrentLocation(new Location(xCoord, yCoord));
@@ -101,22 +102,24 @@ public class Passenger extends User {
             }
         }
     }
-    public void ChooseARoad(Map map) {
+    public void ChooseARoad(Map map, User passenger) {
         System.out.println("Enter current Location:");
         int passX = in.nextInt();
         int passY = in.nextInt();
-        for (int i = passX - 3; i <= passX + 3; i++) {
-            for (int j = passY - 3; j <= passY + 3; j++) {
-                if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
-                    Location roadLocation = map.getGrid()[i][j];
-                    // Check if the symbol at the current location is a taxi symbol
-                    if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
-                        System.out.println("Road found at (" + i + ", " + j + ")");
+        Location currentPassenger = new Location(passX, passY);
+        passenger.setCurrentLocation(currentPassenger);
+            for (int i = currentPassenger.getX() - 3; i <= currentPassenger.getX() + 3; i++) {
+                for (int j = currentPassenger.getY() - 3; j <= currentPassenger.getY() + 3; j++) {
+                    if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
+                        Location roadLocation = map.getGrid()[i][j];
+                        // Check if the symbol at the current location is a taxi symbol
+                        if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
+                            System.out.println("Road found at (" + i + ", " + j + ")");
+                        }
                     }
                 }
             }
         }
-    }
 
     public void ChooseATaxi(User passenger, Map map) {
         Location searchCentre = passenger.getCurrentLocation();

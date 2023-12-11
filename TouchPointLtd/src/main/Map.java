@@ -45,25 +45,25 @@ public class Map {
             Location location = mapLocations.get(i);
             int houseX = location.getX();
             int houseY = location.getY();
-            grid[houseX][houseY] = new Location(houseX, houseY);
+            grid[houseX][houseY] = location;
             grid[houseX][houseY].setDisplayHouse();//this sets house
         } for(int i = 30;i < 35;i++){
             Location location = mapLocations.get(i);
             int officeX = location.getX();
             int officeY = location.getY();
-            grid[officeX][officeY] = new Location(officeX, officeY);
+            grid[officeX][officeY] = location;
             grid[officeX][officeY].setDisplayOffice();//this sets office
         }for (int i = 66; i < 88; i++) {
             Location location = mapLocations.get(i);
             int poiX = location.getX();
             int poiY = location.getY();
-            grid[poiX][poiY] = new Location(poiX, poiY);
+            grid[poiX][poiY] = location;
             grid[poiX][poiY].setDisplayPOI();//this sets poi
         }for (int i = 88; i < 198; i++) {
             Location location = mapLocations.get(i);
             int roadX = location.getX();
             int roadY = location.getY();
-            grid[roadX][roadY] = new Location(roadX, roadY);
+            grid[roadX][roadY] = location;
             grid[roadX][roadY].setDisplayRoad();//this sets road
         }if (passenger.getCurrentLocation() != null){
             grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
@@ -72,7 +72,7 @@ public class Map {
             Location location = mapLocations.get(i);
             int seaX = location.getX();
             int seaY = location.getY();
-            grid[seaX][seaY] = new Location(seaX, seaY);
+            grid[seaX][seaY] = location;
             grid[seaX][seaY].setDisplaySea();//this sets sea
         } if (passenger.getDestination() != null) {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();

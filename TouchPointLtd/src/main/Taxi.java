@@ -20,8 +20,8 @@ public class Taxi {
         this.taxiLoc = taxiLoc;
     }
 
-    public static void moveTaxi(){
-        List<Location> path = AStarAlgorithm.findPath();
+    public static void moveTaxi(Map map){
+        List<Location> path = AStarAlgorithm.findPath(map);
         setTravelTime(0);
         //ensures there is an actual path
         if (path != null) {

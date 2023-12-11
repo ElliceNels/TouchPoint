@@ -24,15 +24,15 @@ public interface Bookable {
         location.setDisplayTaxi();
     }
 
-    static void MoveToPassenger(List<Taxi> allTaxis, int chosenTaxiIndex, User passenger){
+    static void MoveToPassenger(List<Taxi> allTaxis, int chosenTaxiIndex, User passenger, Map map){
         Taxi chosenTaxi = RemoveFromMap(allTaxis, chosenTaxiIndex);
         System.out.println("Driver is on the way.");
         chosenTaxi.printTaxiDetails(chosenTaxi);
-        chosenTaxi.moveTaxi();
+        chosenTaxi.moveTaxi(map);
     }
-    static void MoveToDestination(List<Taxi> allTaxis, TaxiReg chosenTaxi, User passenger){
+    static void MoveToDestination(List<Taxi> allTaxis, TaxiReg chosenTaxi, User passenger, Map map){
         System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
-        chosenTaxi.moveTaxi();
+        chosenTaxi.moveTaxi(map);
     }
 
 }

@@ -22,7 +22,7 @@ public class TPMain {
         map.Display(passenger);
 
         AStarAlgorithm.roadMapCoordinates(map);
-        Taxi.moveTaxi();
+        Taxi.moveTaxi(map);
 
 
 
