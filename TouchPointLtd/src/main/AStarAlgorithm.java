@@ -6,9 +6,8 @@ public class AStarAlgorithm extends Location{
     static int ROWS = 5;
     static int COLS = 5;
 
-    //grid with obstacles represented as null
-    static Location[][] grid = new Location[ROWS][COLS];
-
+    //roadMap with obstacles represented as null
+    static Location[][] roadMap = new Location[ROWS][COLS];
     static Location startLocation = new Location(0, 0); // Starting node
     static Location endLocation = new Location(4, 4); // Destination node
     static int movementCost = 1;
@@ -19,7 +18,7 @@ public class AStarAlgorithm extends Location{
 
     static List<Location> getNeighbours(Location location) {
         List<Location> neighbours = new ArrayList<>();
-        // Logic to get neighbouring nodes based on the grid boundaries
+        // Logic to get neighbouring nodes based on the roadMap boundaries
         // Define possible moves (up, down, left, right)
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
@@ -28,15 +27,15 @@ public class AStarAlgorithm extends Location{
             int newX = location.x + dx[i];
             int newY = location.y + dy[i];
 
-            // Check if the new coordinates are within grid boundaries and adds to neighbours
+            // Check if the new coordinates are within roadMap boundaries and adds to neighbours
             if (isValid(newX, newY)) {
-                neighbours.add(grid[newX][newY]);
+                neighbours.add(roadMap[newX][newY]);
             }
         }
         return neighbours;
     }
     static boolean isValid(int x, int y) {
-        return x >= 0 && x < ROWS && y >= 0 && y < COLS && grid[x][y] != null;
+        return x >= 0 && x < ROWS && y >= 0 && y < COLS && roadMap[x][y] != null;
         //Coordinate: not = to 0, between the number of rows and columns and is not = to null(obstacle)
     }
 

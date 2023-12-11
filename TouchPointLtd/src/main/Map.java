@@ -99,7 +99,7 @@ public class Map {
             Location location = mapLocations.get(randInt);
             singleton.setTaxiLocation(location);
             location.setDisplayTaxi();
-            grid[location.getX()][location.getY()] = location; // Store taxi directly in the grid //??HUH
+            grid[location.getX()][location.getY()] = location; // Store taxi directly in the roadMap //??HUH
         }
     }
 
@@ -121,7 +121,7 @@ public class Map {
     }
     private String getSymbol(int i, int j) {//method to get symbol
         String symbol = "."; // Default to road symbol
-        Location location = grid[i][j]; // Get the location from the grid
+        Location location = grid[i][j]; // Get the location from the roadMap
         if (location.getDisplayHouse() == 'H') {
             symbol = "  H  ";
         } else if (location.getDisplayOffice() == 'O') {
