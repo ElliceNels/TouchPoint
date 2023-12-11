@@ -18,8 +18,10 @@ public class TPMain {
         map.Display(passenger);
         //allows list of taxis to be accessed from singleton
         ((Passenger) passenger).mainMenuRun(passenger, map);
+
         map.Display(passenger);
 
+        AStarAlgorithm.printEntireGrid();
         AStarAlgorithm.roadMapCoordinates(map);
         Taxi.moveTaxi(map);
 

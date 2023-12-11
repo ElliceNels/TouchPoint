@@ -111,9 +111,28 @@ public class AStarAlgorithm extends Location {
         for (int i = 88; i < 198; i++) {
             Location location = map.mapLocations.get(i);
             int roadX = location.getX();
+            //System.out.println(roadX);
             int roadY = location.getY();
-            roadMap[roadX][roadY] = location;
-            roadMap[roadX][roadY].setDisplayRoad();//this sets road
+            //System.out.println(roadY);
+            roadMap[roadX][roadY] =  location;
+
+            //this sets road
+        }
+    }
+
+    public static void printEntireGrid(){
+        for (int i = 0; i < roadMap.length - 1; i++){
+            System.out.println();
+            for(int j = 0; j < roadMap.length -1; j++) {
+                System.out.print(roadMap[i][j]);
+            }
         }
     }
 }
+
+/*for (int i = 0; i < roadMap.length - 1; i++){
+        System.out.print(roadMap[i][0]);
+        System.out.print(roadMap[i][1]);
+        }
+
+ */
