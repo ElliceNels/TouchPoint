@@ -2,19 +2,18 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-abstract class AStarTest1 extends Location{
+public class AStarAlgorithm extends Location{
     static int ROWS = 5;
     static int COLS = 5;
 
-    // Your grid with obstacles represented as null
+    //grid with obstacles represented as null
     static Location[][] grid = new Location[ROWS][COLS];
 
     static Location startLocation = new Location(0, 0); // Starting node
     static Location endLocation = new Location(4, 4); // Destination node
     static int movementCost = 1;
 
-    public AStarTest1(int x, int y) {
+    public AStarAlgorithm(int x, int y) {
         super(x, y);
     }
 
@@ -107,6 +106,7 @@ abstract class AStarTest1 extends Location{
 
     public static void main(String[] args) {
         List<Location> path = findPath();
+        //ensures there is an actual path
         if (path != null) {
             for (Location location : path) {
                 System.out.println("(" + location.x + ", " + location.y + ")");
