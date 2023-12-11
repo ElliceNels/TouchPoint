@@ -40,6 +40,7 @@ public class Map {
       return mapLocations;
     }
     public void addLocationsToMap(User passenger){
+        storeMapLocations();
         for(int i = 0;i < 30;i++){
             Location location = mapLocations.get(i);
             int houseX = location.getX();
@@ -103,7 +104,6 @@ public class Map {
     }
 
     public void Display(User passenger) {
-        storeMapLocations();
         addLocationsToMap(passenger);
         getTaxiDrivers();
         getLegend();
