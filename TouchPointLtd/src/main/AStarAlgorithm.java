@@ -94,7 +94,6 @@ public class AStarAlgorithm extends Location {
                 }
             }
         }
-
         return null;
     }
 

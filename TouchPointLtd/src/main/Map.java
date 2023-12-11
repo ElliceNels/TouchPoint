@@ -40,7 +40,6 @@ public class Map {
       return mapLocations;
     }
     public void addLocationsToMap(User passenger){
-        storeMapLocations();
         for(int i = 0;i < 30;i++){
             Location location = mapLocations.get(i);
             int houseX = location.getX();
@@ -60,12 +59,12 @@ public class Map {
             grid[poiX][poiY] = location;
             grid[poiX][poiY].setDisplayPOI();//this sets poi
         }for (int i = 88; i < 198; i++) {
-            Location location = mapLocations.get(i);
-            int roadX = location.getX();
-            int roadY = location.getY();
-            grid[roadX][roadY] = location;
-            grid[roadX][roadY].setDisplayRoad();//this sets road
-        }if (passenger.getCurrentLocation() != null){
+                Location location = mapLocations.get(i);
+                int roadX = location.getX();
+                int roadY = location.getY();
+                grid[roadX][roadY] = new Location(roadX, roadY);
+                grid[roadX][roadY].setDisplayRoad();//this sets road
+            }if (passenger.getCurrentLocation() != null){
             grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
             grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
         }for (int i = 35; i < 66; i++) {
@@ -89,21 +88,21 @@ public class Map {
         this.grid = grid;
     }
     public void getTaxiDrivers(){
-        storeMapLocations();
-        //singleton.storeTaxiDetails(singleton.getList());
+        singleton.storeTaxiDetails(singleton.getList());
         Random rand = new Random();
         for(int i = 0;i < singleton.getList().size();i++){
             int startIndex = 88;
             int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
-            Location location = mapLocations.get(randInt);
-            singleton.setTaxiLocation(location);
-            location.setDisplayTaxi();
-            grid[location.getX()][location.getY()] = location; // Store taxi directly in the roadMap //??HUH
+            Location taxiLocation = mapLocations.get(randInt);
+            grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+            singleton.setTaxiLocation(taxiLocation);
+            grid[taxiLocation.getX()][taxiLocation.getY()].setDisplayTaxi();
         }
     }
 
     public void Display(User passenger) {
+        storeMapLocations();
         addLocationsToMap(passenger);
         getTaxiDrivers();
         getLegend();
