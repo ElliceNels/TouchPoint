@@ -2,9 +2,9 @@ import java.util.List;
 
 public interface Bookable {
 
+    double CalculateFare();
 
-
-    public static Taxi RemoveFromMap(List<Taxi> allTaxis, int chosenTaxiIndex){
+    static Taxi RemoveFromMap(List<Taxi> allTaxis, int chosenTaxiIndex){
         //stores chosen taxi as chosenTaxi
         Taxi chosenTaxi = allTaxis.get(chosenTaxiIndex);
 
@@ -17,20 +17,22 @@ public interface Bookable {
         return chosenTaxi;
     }
 
-    //public void ReturnToMap();
+    static void ReturnToMap(List<Taxi> allTaxis, int chosenTaxiIndex){
+        Taxi chosenTaxi = allTaxis.get(chosenTaxiIndex);
 
-    public static void MoveToPassenger(List<Taxi> allTaxis, int chosenTaxiIndex, User passenger){
+        Location location = chosenTaxi.getTaxiLoc();
+        location.setDisplayTaxi();
+    }
+
+    static void MoveToPassenger(List<Taxi> allTaxis, int chosenTaxiIndex, User passenger){
         Taxi chosenTaxi = RemoveFromMap(allTaxis, chosenTaxiIndex);
         System.out.println("Driver is on the way.");
         chosenTaxi.printTaxiDetails(chosenTaxi);
         chosenTaxi.moveTaxi();
     }
-    public static void MoveToDestination(List<Taxi> allTaxis, TaxiReg chosenTaxi, User passenger){
+    static void MoveToDestination(List<Taxi> allTaxis, TaxiReg chosenTaxi, User passenger){
         System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
         chosenTaxi.moveTaxi();
     }
-
-    public double CalculateFare();
-
 
 }
