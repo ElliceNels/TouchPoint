@@ -4,7 +4,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Random;
 
-public class TPMainTest extends TestCase {
+public class TPMainTest extends TestCase implements VehicleHiringTest{
 
     /*@Test
     public void testLogin(){
@@ -13,6 +13,22 @@ public class TPMainTest extends TestCase {
 
     public void testPlaceholder(){
         assertEquals(5, TPMain.placeholder(3, 2));
+    }
+    @Override
+    public String testGetVehicleLoc(String reg) {
+        Map map = new Map(20, 20);
+        map.getTaxiDrivers();
+        ListSingleton singleton = ListSingleton.getInstance();
+        List<Taxi> allTaxis = singleton.getList();
+        for (Taxi taxi : allTaxis) {
+            if (taxi.getRegistrationNumber().equals(reg)) {
+                return taxi.toString();
+            }
+        }return null;
+    }
+    @Test
+    public void testReg(){
+        assertEquals("2,5",testGetVehicleLoc("L 2BC 3DE"));
     }
     /*public boolean testGetTaxiDrivers(String registrationNumber, Location loc) {
         List<Taxi> t = Taxi.getTaxiDriver(4);

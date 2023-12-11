@@ -106,4 +106,7 @@ public class Taxi {
     public static void setTravelTime(int travelTime) {
         Taxi.travelTime = travelTime;
     }
+    public String toString(){
+        return taxiLoc.getX() + "," + taxiLoc.getY();
+    }
 }

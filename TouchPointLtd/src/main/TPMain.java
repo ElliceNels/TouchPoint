@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TPMain {
+public class TPMain implements VehicleHiringTest{
     public static void main(String[] args) {
        run();
     }
@@ -25,5 +25,18 @@ public class TPMain {
         AStarAlgorithm.roadMapCoordinates(map);
         Taxi.moveTaxi(map);
 
+    }
+
+    @Override
+    public String testGetVehicleLoc(String reg) {
+        ListSingleton singleton = ListSingleton.getInstance();
+        List<Taxi> allTaxis = singleton.getList();
+        singleton.storeTaxiDetails(allTaxis);
+        for (Taxi taxi : allTaxis) {
+            if (taxi.getRegistrationNumber().equals(reg)) {
+                return taxi.getTaxiLoc().toString();
+            }
+        }
+        return null;
     }
 }
