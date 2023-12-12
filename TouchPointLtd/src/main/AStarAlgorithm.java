@@ -111,12 +111,8 @@ public class AStarAlgorithm extends Location {
         for (int i = 88; i < 198; i++) {
             Location location = map.mapLocations.get(i);
             int roadX = location.getX();
-            //System.out.println(roadX);
             int roadY = location.getY();
-            //System.out.println(roadY);
-            roadMap[roadX][roadY] =  location;
-
-            //this sets road
+            roadMap[roadX][roadY] =  location; //this sets road
         }
     }
 

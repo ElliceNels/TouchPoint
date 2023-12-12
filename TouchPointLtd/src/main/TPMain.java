@@ -21,8 +21,9 @@ public class TPMain implements VehicleHiringTest{
 
         map.Display(passenger);
 
-        AStarAlgorithm.printEntireGrid();
+
         AStarAlgorithm.roadMapCoordinates(map);
+        AStarAlgorithm.printEntireGrid();
         Taxi.moveTaxi(map);
 
     }
