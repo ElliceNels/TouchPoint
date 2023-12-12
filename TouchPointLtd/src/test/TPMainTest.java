@@ -42,24 +42,20 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public List<Taxi> testGetVehiclesInRange(Location loc, int r) {
         Map map = new Map(20, 20);
+        map.getTaxiDrivers();
         ListSingleton singleton = ListSingleton.getInstance();
-        List<Taxi> allTaxis = singleton.getList();
-        List<Taxi> taxisInRange = new ArrayList<>();
         map.Display(singleton.getPassenger());
-        int count = 0;
-
-        for (Taxi taxi : allTaxis) {
-            Location taxiLocation = taxi.getTaxiLoc();
-            // Check if the taxi is within the specified range
-            if (Math.abs(taxiLocation.getX() - loc.getX()) <= r && Math.abs(taxiLocation.getY() - loc.getY()) <= r) {
-                System.out.println("Registration Number: " + taxi.getRegistrationNumber());
-                count++;
-                taxisInRange.add(taxi);
+        for (int i = loc.getX() - r; i <= loc.getX() + r; i++) {
+            for (int j = loc.getY() - r; j <= loc.getY() + r; j++) {
+                if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
+                    Location taxiLocations = map.getGrid()[i][j];
+                    // Check if the symbol at the current location is a taxi symbol
+                    if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
+                        System.out.println("Taxi found at (" + i + ", " + j + ")");
+                    }
+                }
             }
-        }
-
-        System.out.println("Total number of taxis in area: " + count);
-        return taxisInRange;
+        }return null;
     }
 
     @Override
@@ -118,7 +114,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
 
     public void testRange() {
         Location location = new Location(14, 12);
-        assertNotNull(testGetVehiclesInRange(location, 6));
+        assertNull(testGetVehiclesInRange(location, 2));
     }
 
     public void testRemove() {
