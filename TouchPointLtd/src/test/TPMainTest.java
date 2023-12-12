@@ -72,12 +72,34 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
                 taxi.setTaxiLoc(null);
                 if(taxi.getTaxiLoc() == null){
                     System.out.println(taxi.getDriverName() + " has been removed from the map.");
-                    map.Display(singleton.getPassenger());
                     return true;
                 }
             }
         }
         return  false;
+    }
+
+    @Override
+    public boolean testAddToMap(String reg, Location loc) {
+        Map map = new Map(20, 20);
+        ListSingleton singleton = ListSingleton.getInstance();
+        List<Taxi> allTaxis = singleton.getList();
+        map.Display(singleton.getPassenger());
+        for(Taxi taxi : allTaxis){
+            if(taxi.getRegistrationNumber().equals(reg)){
+                System.out.println("Taxi already exists");
+                return false;
+            }else{
+                Taxi taxiNew = new Taxi(reg, "La Ferrari", 1, "Tiago",
+                        5, "Premium", loc);
+                allTaxis.add(taxiNew);
+                System.out.println(taxiNew.getDriverName() + " has been added to the map at: " + taxiNew.toString());
+                if(taxi.getTaxiLoc() != null){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -88,7 +110,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
 
     @Test
     public void testMove() {
-        Location location = new Location(2, 2);
+        Location location = new Location(6, 7);
         assertEquals(true, testMoveVehicle("L 4FG 5HI", location));
         assertEquals(false, testMoveVehicle("L 4FwqwdeG 5HI", location));
     }
@@ -102,5 +124,11 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Test
     public void testRemove() {
         assertEquals(true, testRemoveVehicle("W 4LM 5NO"));
+    }
+
+    @Test
+    public void testAdd() {
+        Location location = new Location(2, 3);
+        assertEquals(true, testAddToMap("C M1M H8P", location));
     }
 }
