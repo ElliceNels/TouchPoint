@@ -7,13 +7,16 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public Location testGetVehicleLoc(String reg) {
         Map map = new Map(20, 20);
-        map.getTaxiDrivers();
         ListSingleton singleton = ListSingleton.getInstance();
         List<Taxi> allTaxis = singleton.getList();
+        map.getTaxiDrivers();
         for (Taxi taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
-                System.out.println(taxi);
+                System.out.println(taxi.getDriverName() + " is at: " + taxi);
                 return taxi.getTaxiLoc();
+            }else{
+                System.out.println("Invalid Registration Number");
+                return null;
             }
         }return null;
     }
@@ -41,7 +44,6 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         Map map = new Map(20, 20);
         ListSingleton singleton = ListSingleton.getInstance();
         List<Taxi> allTaxis = singleton.getList();
-        singleton.storeTaxiDetails(allTaxis);
         List<Taxi> taxisInRange = new ArrayList<>();
         map.Display(singleton.getPassenger());
         int count = 0;
@@ -103,32 +105,28 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     }
 
 
-    @Test
     public void testReg() {
-        assertNotNull(testGetVehicleLoc("L 4QR 5ST"));
+        assertNotNull(testGetVehicleLoc("M 2UV 3WX"));
+        assertNull(testGetVehicleLoc("C 2QV 8DW"));
     }
 
-    @Test
     public void testMove() {
         Location location = new Location(6, 7);
-        assertEquals(true, testMoveVehicle("L 4FG 5HI", location));
-        assertEquals(false, testMoveVehicle("L 4FwqwdeG 5HI", location));
+        assertTrue(testMoveVehicle("L 4FG 5HI", location));
+        assertFalse(testMoveVehicle("L 4eG 5HI", location));
     }
 
-    @Test
     public void testRange() {
         Location location = new Location(14, 12);
         assertNotNull(testGetVehiclesInRange(location, 6));
     }
 
-    @Test
     public void testRemove() {
-        assertEquals(true, testRemoveVehicle("W 4LM 5NO"));
+        assertTrue(testRemoveVehicle("W 4LM 5NO"));
     }
 
-    @Test
     public void testAdd() {
         Location location = new Location(2, 3);
-        assertEquals(true, testAddToMap("C M1M H8P", location));
+        assertTrue(testAddToMap("C M1M H8P", location));
     }
 }

@@ -40,6 +40,7 @@ public class Map {
       return mapLocations;
     }
     public void addLocationsToMap(User passenger){
+        storeMapLocations();
         for(int i = 0;i < 30;i++){
             Location location = mapLocations.get(i);
             int houseX = location.getX();
@@ -88,6 +89,7 @@ public class Map {
         this.grid = grid;
     }
     public void getTaxiDrivers(){
+        storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         Random rand = new Random();
         for(int i = 0;i < singleton.getList().size();i++){
@@ -104,7 +106,6 @@ public class Map {
 
 
     public void Display(User passenger) {
-        storeMapLocations();
         addLocationsToMap(passenger);
         getTaxiDrivers();
         getLegend();
