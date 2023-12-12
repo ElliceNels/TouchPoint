@@ -88,12 +88,11 @@ public class Map {
         this.grid = grid;
     }
     public void getTaxiDrivers(){
-        storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         Random rand = new Random();
         for(int i = 0;i < singleton.getList().size();i++){
             int startIndex = 88;
-            int endIndex = 198;
+            int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
             Location taxiLocation = mapLocations.get(randInt);
             grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
