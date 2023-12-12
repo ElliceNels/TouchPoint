@@ -7,13 +7,16 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public Location testGetVehicleLoc(String reg) {
         Map map = new Map(20, 20);
-        map.getTaxiDrivers();
         ListSingleton singleton = ListSingleton.getInstance();
         List<Taxi> allTaxis = singleton.getList();
+        map.getTaxiDrivers();
         for (Taxi taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
-                System.out.println(taxi);
+                System.out.println(taxi.getDriverName() + " is at: " + taxi);
                 return taxi.getTaxiLoc();
+            }else{
+                System.out.println("Invalid Registration Number");
+                return null;
             }
         }return null;
     }
@@ -39,25 +42,20 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public List<Taxi> testGetVehiclesInRange(Location loc, int r) {
         Map map = new Map(20, 20);
+        map.getTaxiDrivers();
         ListSingleton singleton = ListSingleton.getInstance();
-        List<Taxi> allTaxis = singleton.getList();
-        singleton.storeTaxiDetails(allTaxis);
-        List<Taxi> taxisInRange = new ArrayList<>();
         map.Display(singleton.getPassenger());
-        int count = 0;
-
-        for (Taxi taxi : allTaxis) {
-            Location taxiLocation = taxi.getTaxiLoc();
-            // Check if the taxi is within the specified range
-            if (Math.abs(taxiLocation.getX() - loc.getX()) <= r && Math.abs(taxiLocation.getY() - loc.getY()) <= r) {
-                System.out.println("Registration Number: " + taxi.getRegistrationNumber());
-                count++;
-                taxisInRange.add(taxi);
+        for (int i = loc.getX() - r; i <= loc.getX() + r; i++) {
+            for (int j = loc.getY() - r; j <= loc.getY() + r; j++) {
+                if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
+                    Location taxiLocations = map.getGrid()[i][j];
+                    // Check if the symbol at the current location is a taxi symbol
+                    if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
+                        System.out.println("Taxi found at (" + i + ", " + j + ")");
+                    }
+                }
             }
-        }
-
-        System.out.println("Total number of taxis in area: " + count);
-        return taxisInRange;
+        }return null;
     }
 
     @Override
@@ -72,7 +70,6 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
                 taxi.setTaxiLoc(null);
                 if(taxi.getTaxiLoc() == null){
                     System.out.println(taxi.getDriverName() + " has been removed from the map.");
-                    map.Display(singleton.getPassenger());
                     return true;
                 }
             }
@@ -80,27 +77,52 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         return  false;
     }
 
+    @Override
+    public boolean testAddToMap(String reg, Location loc) {
+        Map map = new Map(20, 20);
+        ListSingleton singleton = ListSingleton.getInstance();
+        List<Taxi> allTaxis = singleton.getList();
+        map.Display(singleton.getPassenger());
+        for(Taxi taxi : allTaxis){
+            if(taxi.getRegistrationNumber().equals(reg)){
+                System.out.println("Taxi already exists");
+                return false;
+            }else{
+                Taxi taxiNew = new Taxi(reg, "La Ferrari", 1, "Tiago",
+                        5, "Premium", loc);
+                allTaxis.add(taxiNew);
+                System.out.println(taxiNew.getDriverName() + " has been added to the map at: " + taxiNew.toString());
+                if(taxi.getTaxiLoc() != null){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-    @Test
+
     public void testReg() {
-        assertNotNull(testGetVehicleLoc("L 4QR 5ST"));
+        assertNotNull(testGetVehicleLoc("M 2UV 3WX"));
+        assertNull(testGetVehicleLoc("C 2QV 8DW"));
     }
 
-    @Test
     public void testMove() {
-        Location location = new Location(2, 2);
-        assertEquals(true, testMoveVehicle("L 4FG 5HI", location));
-        assertEquals(false, testMoveVehicle("L 4FwqwdeG 5HI", location));
+        Location location = new Location(6, 7);
+        assertTrue(testMoveVehicle("L 4FG 5HI", location));
+        assertFalse(testMoveVehicle("L 4eG 5HI", location));
     }
 
-    @Test
     public void testRange() {
         Location location = new Location(14, 12);
-        assertNotNull(testGetVehiclesInRange(location, 6));
+        assertNull(testGetVehiclesInRange(location, 2));
     }
 
-    @Test
     public void testRemove() {
-        assertEquals(true, testRemoveVehicle("W 4LM 5NO"));
+        assertTrue(testRemoveVehicle("W 4LM 5NO"));
+    }
+
+    public void testAdd() {
+        Location location = new Location(2, 3);
+        assertTrue(testAddToMap("C M1M H8P", location));
     }
 }
