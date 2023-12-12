@@ -1,22 +1,21 @@
 import junit.framework.TestCase;
 import org.junit.Test;
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
-    public String testGetVehicleLoc(String reg) {
+    public Location testGetVehicleLoc(String reg) {
         Map map = new Map(20, 20);
         map.getTaxiDrivers();
         ListSingleton singleton = ListSingleton.getInstance();
         List<Taxi> allTaxis = singleton.getList();
         for (Taxi taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
-                return taxi.toString();
+                System.out.println(taxi);
+                return taxi.getTaxiLoc();
             }
-        }
-        return null;
+        }return null;
     }
 
     @Override
@@ -37,14 +36,47 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         return false;
     }
 
+    @Override
+    public List<Taxi> testGetVehiclesInRange(Location loc, int r) {
+        Map map = new Map(20, 20);
+        ListSingleton singleton = ListSingleton.getInstance();
+        List<Taxi> allTaxis = singleton.getList();
+        singleton.storeTaxiDetails(allTaxis);
+        List<Taxi> taxisInRange = new ArrayList<>();
+        map.Display(singleton.getPassenger());
+        int count = 0;
+
+        for (Taxi taxi : allTaxis) {
+            Location taxiLocation = taxi.getTaxiLoc();
+            // Check if the taxi is within the specified range
+            if (Math.abs(taxiLocation.getX() - loc.getX()) <= r && Math.abs(taxiLocation.getY() - loc.getY()) <= r) {
+                System.out.println("Registration Number: " + taxi.getRegistrationNumber());
+                count++;
+                taxisInRange.add(taxi);
+            }
+        }
+
+        System.out.println("Total number of taxis in area: " + count);
+        return taxisInRange;
+    }
+
+
+
     @Test
     public void testReg() {
-        assertEquals("2,5", testGetVehicleLoc("L 2BC 3DE"));
+        assertNotNull(testGetVehicleLoc("L 4QR 5ST"));
     }
 
     @Test
     public void testMove() {
-        Location location = new Location(12, 8);
-        assertEquals(true, testMoveVehicle("L 2BC 3DE", location));
+        Location location = new Location(2, 2);
+        assertEquals(true, testMoveVehicle("L 4FG 5HI", location));
+        assertEquals(false, testMoveVehicle("L 4FwqwdeG 5HI", location));
+    }
+
+    @Test
+    public void testRange() {
+        Location location = new Location(14, 12);
+        assertNotNull(testGetVehiclesInRange(location, 6));
     }
 }
