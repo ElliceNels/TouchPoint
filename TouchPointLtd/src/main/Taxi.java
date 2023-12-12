@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class Taxi {
+public class Taxi implements Bookable{
     private String registrationNumber;//individual registration number
     private String carType;//name of taxi type
     private int capacity;//diff capacity depending on type of taxi
@@ -41,6 +41,44 @@ public class Taxi {
         System.out.println("Registration number: " + chosenTaxi.getRegistrationNumber());
         System.out.println("Car brand: " + chosenTaxi.getCarType());
         System.out.println("Capacity: " + chosenTaxi.getCapacity() + " seats");
+    }
+
+    public Taxi RemoveFromMap(List<Taxi> allTaxis, int chosenTaxiIndex){
+        //stores chosen taxi as chosenTaxi
+        Taxi chosenTaxi = allTaxis.get(chosenTaxiIndex);
+
+        //stores taxis current location as variable 'location'
+        Location location = chosenTaxi.getTaxiLoc();
+
+        //change taxi location back to road
+        location.setDisplayRoad();
+
+        return chosenTaxi;
+    }
+
+    public void ReturnToMap(List<Taxi> allTaxis, int chosenTaxiIndex){
+        Taxi chosenTaxi = allTaxis.get(chosenTaxiIndex);
+
+        Location location = chosenTaxi.getTaxiLoc();
+        location.setDisplayTaxi();
+    }
+
+    public void MoveToPassenger(List<Taxi> allTaxis, int chosenTaxiIndex, User passenger, Map map){
+        Taxi chosenTaxi = RemoveFromMap(allTaxis, chosenTaxiIndex);
+        System.out.println("Driver is on the way.");
+        chosenTaxi.printTaxiDetails(chosenTaxi);
+        chosenTaxi.moveTaxi(map);
+    }
+
+    public void MoveToDestination(List<Taxi> allTaxis, TaxiReg chosenTaxi, User passenger, Map map){
+        System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
+        chosenTaxi.moveTaxi(map);
+    }
+
+    public double CalculateFare() {
+        int startPrice = 6;
+        double rate = 1.2;
+        return startPrice + (rate * getTravelTime());
     }
 
     public String getRegistrationNumber() {
