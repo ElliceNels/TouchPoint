@@ -11,7 +11,7 @@ public class AStarAlgorithm extends Location {
 
     //roadMap with obstacles represented as null
     static Location[][] roadMap = new Location[ROWS][COLS];
-    static Location startLocation = new Location(passenger.getCurrentLocation()); // Starting node
+    static Location startLocation = new Location(passenger.getPickupPoint()); // Starting node
     static Location endLocation = new Location(passenger.getDestination()); // Destination node
     static int movementCost = 1;
 
@@ -19,7 +19,7 @@ public class AStarAlgorithm extends Location {
         super(x, y);
     }
 
-    static List<Location> getNeighbours(Location location) {
+    public static List<Location> getNeighbours(Location location) {
         List<Location> neighbours = new ArrayList<>();
         // Logic to get neighbouring nodes based on the roadMap boundaries
         // Define possible moves (up, down, left, right)
@@ -38,19 +38,19 @@ public class AStarAlgorithm extends Location {
         return neighbours;
     }
 
-    static boolean isValid(int x, int y) {
+    public static boolean isValid(int x, int y) {
         return x >= 0 && x < ROWS && y >= 0 && y < COLS && roadMap[x][y] != null;
         //Coordinate: not = to 0, between the number of rows and columns and is not = to null(obstacle)
     }
 
-    static int calculateHCost(Location location) {
+    public static int calculateHCost(Location location) {
         // Calculate heuristic (h) with Manhattan distance from current location to endLocation (estimation)
         return Math.abs(location.x - endLocation.x) + Math.abs(location.y - endLocation.y);
 
     }
 
-    static List<Location> findPath(Map map) {
-        roadMapCoordinates(map);
+    public static List<Location> findPath(Map map) {
+        //roadMapCoordinates(map);
         List<Location> uncheckedSet = new ArrayList<>();
         Set<Location> checkedSet = new HashSet<>();
 

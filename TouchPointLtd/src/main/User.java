@@ -2,6 +2,7 @@ public abstract class User {
     private String username;
     private Location currentLocation;
     private Location destination;
+    private Location pickupPoint;
 
 
     public void orderTaxi(){//once used,all taxis in a cube around user is listed
@@ -37,5 +38,13 @@ public abstract class User {
 
     public int getPreferredRadius() {
         return 4;
+    }
+
+    public Location getPickupPoint() {
+        return pickupPoint;
+    }
+
+    public void setPickupPoint(Location pickupPoint) {
+        this.pickupPoint = pickupPoint;
     }
 }

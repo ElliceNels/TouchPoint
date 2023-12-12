@@ -2,6 +2,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Passenger extends User {
+
+
+    Location pickupPoint;
     ListSingleton singleton = ListSingleton.getInstance();
     Scanner in = new Scanner(System.in);
 
@@ -20,14 +23,14 @@ public class Passenger extends User {
         int choice = in.nextInt();
         switch (choice) {
             case 0:
-                ChooseARoad(map, passenger);
                 RegisterPassengerDetails(passenger);
+                ChooseARoad(map, passenger);
                 ChooseATaxi(passenger, map);
                 break;
             case 1:
                 placeSearch();
-                ChooseARoad(map, passenger);
                 RegisterPassengerDetails(passenger);
+                ChooseARoad(map, passenger);
                 break;
             default:
                 System.out.println("invalid input");
@@ -39,7 +42,7 @@ public class Passenger extends User {
 
         while (!validInput) {
             try {
-                System.out.println("Enter the x and y coordinates of pickup point");
+                System.out.println("Enter the x and y coordinates of your current Location");
                 int xCoord = in.nextInt();
                 int yCoord = in.nextInt();
                 passenger.setCurrentLocation(new Location(xCoord, yCoord));
@@ -103,18 +106,20 @@ public class Passenger extends User {
         }
     }
     public void ChooseARoad(Map map, User passenger) {
-        System.out.println("Enter current Location:");
-        int passX = in.nextInt();
-        int passY = in.nextInt();
-        Location currentPassenger = new Location(passX, passY);
-        passenger.setCurrentLocation(currentPassenger);
-            for (int i = currentPassenger.getX() - 3; i <= currentPassenger.getX() + 3; i++) {
-                for (int j = currentPassenger.getY() - 3; j <= currentPassenger.getY() + 3; j++) {
+        int passX = passenger.getCurrentLocation().getX();
+        int passY = passenger.getCurrentLocation().getX();
+        Location pickupPassenger = new Location(passX, passY);
+        int roadRadius = 3;
+        passenger.setCurrentLocation(pickupPassenger);
+            for (int i = pickupPassenger.getX() - roadRadius; i <= pickupPassenger.getX() + roadRadius; i++) {
+                for (int j = pickupPassenger.getY() - roadRadius; j <= pickupPassenger.getY() + roadRadius; j++) {
                     if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
                         Location roadLocation = map.getGrid()[i][j];
                         // Check if the symbol at the current location is a taxi symbol
                         if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
+                            passenger.setPickupPoint(new Location(i,j));
                             System.out.println("Road found at (" + i + ", " + j + ")");
+                            break;
                         }
                     }
                 }
@@ -136,4 +141,6 @@ public class Passenger extends User {
             }
         }in.close();
     }
+
+
 }
