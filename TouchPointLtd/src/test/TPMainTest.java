@@ -60,6 +60,25 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         return taxisInRange;
     }
 
+    @Override
+    public boolean testRemoveVehicle(String reg) {
+        Map map = new Map(20, 20);
+        ListSingleton singleton = ListSingleton.getInstance();
+        List<Taxi> allTaxis = singleton.getList();
+        map.Display(singleton.getPassenger());
+        for(Taxi taxi : allTaxis){
+            if(taxi.getRegistrationNumber().equals(reg)){
+                System.out.println(taxi.getDriverName() + " is at: " + taxi.toString());
+                taxi.setTaxiLoc(null);
+                if(taxi.getTaxiLoc() == null){
+                    System.out.println(taxi.getDriverName() + " has been removed from the map.");
+                    map.Display(singleton.getPassenger());
+                    return true;
+                }
+            }
+        }
+        return  false;
+    }
 
 
     @Test
@@ -78,5 +97,10 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     public void testRange() {
         Location location = new Location(14, 12);
         assertNotNull(testGetVehiclesInRange(location, 6));
+    }
+
+    @Test
+    public void testRemove() {
+        assertEquals(true, testRemoveVehicle("W 4LM 5NO"));
     }
 }
