@@ -9,16 +9,21 @@ public class ListSingleton {
     private User passenger;
     //masterlist
     private List<Taxi> allTaxis;
+    private boolean[]presentLocations;
 
     //Creates a new arraylist with all values of the allTaxis list (for access in all classes)
     private ListSingleton() {
         // Initialize the list in the constructor
         allTaxis = new ArrayList<>();
         passenger = new Passenger();
+        presentLocations = new boolean[]{false, false, false, false, false, false, false, false};
     }
 
     public static ListSingleton getInstance() {
         return INSTANCE;
+    }
+    public boolean[] getPresentLocations(){
+        return presentLocations;
     }
 
     public List<Taxi> getList() {

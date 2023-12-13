@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class Taxi implements Bookable{
+public abstract class Taxi implements Bookable{
     private String registrationNumber;//individual registration number
     private String carType;//name of taxi type
     private int capacity;//diff capacity depending on type of taxi

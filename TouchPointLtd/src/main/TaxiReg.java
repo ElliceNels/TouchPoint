@@ -10,4 +10,3 @@ public class TaxiReg extends Taxi {
     //List<Taxi> allTaxis = singleton.getList();
     //User passenger = singleton.getPassenger();
 }
-   
