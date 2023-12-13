@@ -6,6 +6,7 @@ public class Passenger extends User {
 
     Location pickupPoint;
     ListSingleton singleton = ListSingleton.getInstance();
+    //boolean[]presentLocation  = singleton.getPresentLocations();
     Scanner in = new Scanner(System.in);
 
     public Passenger() {

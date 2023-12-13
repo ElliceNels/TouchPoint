@@ -1,17 +1,15 @@
 public class Location {
     int x;
     int y;
-    private char displayOffice;//set as empty to read building type
-    private char displayHouse;//displays houses as H
-    private char displayRoad;//displays roads as *
-    private char displaySea;//displays seas as ~
-    private char displayPOI;//displays point of interest as $
-    private char displayNoRoad;//road is not empty as it is always inputted last
-    static char displayPassenger;
-    private char displayPassengerDestination;
-    private char displayTaxi;
-    private boolean[] presentLocations = new boolean[8];
-
+    final private char displayOffice = 'O';//set as empty to read building type
+    final private char displayHouse = 'H';//displays houses as H
+    final private char displayRoad = '*';//displays roads as *
+    final private char displaySea = '/';//displays seas as ~
+    final private char displayPOI = '$';//displays point of interest as $
+    final private char displayNoRoad = '.';//road is not empty as it is always inputted last
+    final char displayPassenger = '&';
+    final private char displayPassengerDestination = '@';
+    final private char displayTaxi = '!';
     boolean passengerPresent;
     boolean passengerDestPresent;
     boolean taxiPresent;
@@ -19,11 +17,13 @@ public class Location {
     boolean seaPresent;
     boolean officePresent;
     boolean housePresent;
+    boolean POIPresent;
     boolean nonRoadPresent;
+    private boolean[] presentLocations;
     int gCost, hCost;
     Location parent; //location
     static ListSingleton singleton = ListSingleton.getInstance();
-    boolean[]presentLocation  = singleton.getPresentLocations();
+    //boolean[]presentLocation  = singleton.getPresentLocations();
 
     int getFCost() {
         return gCost + hCost;
@@ -32,7 +32,7 @@ public class Location {
     public Location(int x, int y) {
         this.x = x;
         this.y = y;
-        presentLocations = presentLocation;
+        //presentLocations = presentLocation;
     }
 
     public Location(Location loc) {
@@ -52,6 +52,36 @@ public class Location {
         this.presentLocations = presentLocations;
     }
 
+    public boolean[] array(){
+        boolean[] presentLocation = {passengerPresent, passengerDestPresent, taxiPresent, roadPresent, seaPresent, officePresent, housePresent, POIPresent, nonRoadPresent};
+        return presentLocation;
+    }
+
+    public void choosePlace() { //i is array element with location
+            for (int j = 0; j < array().length; j++) {       //j is the index of the type of this is looking for
+                if (array()[0]) {
+                    System.out.println(displayPassenger);
+                } else if (array()[1]) {
+                    System.out.println(displayPassengerDestination);
+                } else if (array()[2]) {
+                    System.out.println(displayTaxi);
+                } else if (array()[3]) {
+                    System.out.println(displayRoad);
+                } else if (array()[4]) {
+                    System.out.println(displaySea);
+                } else if (array()[5]) {
+                    System.out.println(displayOffice);
+                } else if (array()[6]) {
+                    System.out.println(displayHouse);
+                } else if (array()[7]) {
+                    System.out.println(displayPOI);
+                } else if (array()[8]) {
+                    System.out.println(displayNoRoad);
+                }
+            }
+
+    }
+
     public void setX(int x) {
         this.x = x;
     }
@@ -68,6 +98,7 @@ public class Location {
         return y;
     }
 
+    /*
     public char getDisplayOffice() {
         return displayOffice;
     }
@@ -140,6 +171,8 @@ public class Location {
         displayPassengerDestination = '@';
     }
 
+
+     */
     public boolean isPassengerPresent() {
         return passengerPresent;
     }
@@ -204,6 +237,13 @@ public class Location {
         this.nonRoadPresent = nonRoadPresent;
     }
 
+    public boolean isPOIPresent() {
+        return POIPresent;
+    }
+
+    public void setPOIPresent(boolean POIPresent) {
+        this.POIPresent = POIPresent;
+    }
 }
 
 

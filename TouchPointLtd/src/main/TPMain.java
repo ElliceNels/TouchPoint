@@ -10,9 +10,12 @@ public class TPMain{
         Map map = new Map(20, 20); //length and width of the map
         ListSingleton singleton = ListSingleton.getInstance();
         User passenger = singleton.getPassenger();
+        map.addLocationsToMap(passenger);
         List<Taxi> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis);
         map.Display(passenger);
+        Location loc = new Location(1,3);
+        loc.choosePlace(map);
         //allows list of taxis to be accessed from singleton
         ((Passenger) passenger).mainMenuRun(passenger, map);
 

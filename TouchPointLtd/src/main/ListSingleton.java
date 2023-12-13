@@ -16,15 +16,15 @@ public class ListSingleton {
         // Initialize the list in the constructor
         allTaxis = new ArrayList<>();
         passenger = new Passenger();
-        presentLocations = new boolean[]{false, false, false, false, false, false, false, false};
+        //presentLocations = new boolean[]{false, false, false, false, false, false, false, false};
     }
 
     public static ListSingleton getInstance() {
         return INSTANCE;
     }
-    public boolean[] getPresentLocations(){
-        return presentLocations;
-    }
+    //public boolean[] getPresentLocations(){
+   //     return presentLocations;
+    //}
 
     public List<Taxi> getList() {
         return allTaxis;

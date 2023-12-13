@@ -22,6 +22,7 @@ public class Map {
 
     //Take all values from csv
     public List<Location> storeMapLocations() {
+        boolean[]presentloc = {false, false, false, false, false, false, false, false};
         String coordinates = "src//main//MapLocations.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(coordinates))) {
             String line;
@@ -32,7 +33,7 @@ public class Map {
                 String[] fields = line.split(",");
                 int x = Integer.parseInt(fields[0]);
                 int y = Integer.parseInt(fields[1]);
-                mapLocations.add(new Location(x, y));
+                mapLocations.add(new Location(x, y, presentloc));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,39 +43,47 @@ public class Map {
     public void addLocationsToMap(User passenger){
         storeMapLocations();
         for(int i = 0;i < 30;i++){
-            Location location = mapLocations.get(i);
+            Location location = new Location(mapLocations.get(i));
             int houseX = location.getX();
             int houseY = location.getY();
             grid[houseX][houseY] = location;
-            grid[houseX][houseY].setDisplayHouse();//this sets house
-        } for(int i = 30;i < 35;i++){
-            Location location = mapLocations.get(i);
+            location.setHousePresent(true);
+        }
+        for(int i = 30;i < 35;i++){
+            Location location = new Location(mapLocations.get(i));
             int officeX = location.getX();
             int officeY = location.getY();
             grid[officeX][officeY] = location;
-            grid[officeX][officeY].setDisplayOffice();//this sets office
-        }for (int i = 66; i < 88; i++) {
-            Location location = mapLocations.get(i);
+            location.setOfficePresent(true);
+        }
+        for (int i = 66; i < 88; i++) {
+            Location location = new Location(mapLocations.get(i));
             int poiX = location.getX();
             int poiY = location.getY();
             grid[poiX][poiY] = location;
-            grid[poiX][poiY].setDisplayPOI();//this sets poi
-        }for (int i = 88; i < 198; i++) {
-                Location location = mapLocations.get(i);
-                int roadX = location.getX();
-                int roadY = location.getY();
-                grid[roadX][roadY] = new Location(roadX, roadY);
-                grid[roadX][roadY].setDisplayRoad();//this sets road
-            }if (passenger.getCurrentLocation() != null){
+            location.setPOIPresent(true);
+        }
+        for (int i = 88; i < 198; i++) {
+            Location location = new Location(mapLocations.get(i));
+            int roadX = location.getX();
+            int roadY = location.getY();
+            grid[roadX][roadY] = location;
+            location.setRoadPresent(true);
+        }
+        if (passenger.getCurrentLocation() != null){
             grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
-            grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
-        }for (int i = 35; i < 66; i++) {
-            Location location = mapLocations.get(i);
+            //grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
+        }
+        for (int i = 35; i < 66; i++) {
+            boolean[]presentloc = {false, false, false, false, false, false, false, false};
+            Location location = new Location(mapLocations.get(i), presentloc);
             int seaX = location.getX();
             int seaY = location.getY();
             grid[seaX][seaY] = location;
             grid[seaX][seaY].setDisplaySea();//this sets sea
-        } if (passenger.getDestination() != null) {
+            location.setSeaPresent(true);
+        }
+        if (passenger.getDestination() != null) {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
         }
@@ -109,13 +118,16 @@ public class Map {
         addLocationsToMap(passenger);
         getTaxiDrivers();
         getLegend();
+
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null) {
                     String symbol = getSymbol(i, j);
                     System.out.print(symbol);
                 } else {
-                    System.out.print(ANSI_BLACK + "  .  " + ANSI_RESET); // Dot which represents no road
+                        //map.getGrid()[i]
+                        //System.out.print(ANSI_BLACK + "  .  " + ANSI_RESET); // Dot which represents no road
+                    Location.choosePlace();
                 }
             }
             System.out.println();
