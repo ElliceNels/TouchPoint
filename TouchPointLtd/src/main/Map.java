@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 public class Map {
+    int X;
+    int Y;
 
     static private Location[][] grid;
     List<Location> mapLocations = new ArrayList<>();
@@ -42,59 +44,18 @@ public class Map {
         }
       return mapLocations;
     }
-    public void addLocationsToMap(User passenger){
+    public void addToMap(User passenger){
         storeMapLocations();
-        for(int i = 0;i < 30;i++){
-            Location location = new Location(mapLocations.get(i));
-            int houseX = location.getX();
-            int houseY = location.getY();
-            grid[houseX][houseY] = location;
-            location.setHousePresent(true);
-            //location.choosePlace(location);
-        }
-        for(int i = 30;i < 35;i++){
-            Location location = new Location(mapLocations.get(i));
-            int officeX = location.getX();
-            int officeY = location.getY();
-            grid[officeX][officeY] = location;
-            location.setOfficePresent(true);
-            //location.choosePlace(location);
-
-        }
-        for (int i = 66; i < 88; i++) {
-            Location location = new Location(mapLocations.get(i));
-            int poiX = location.getX();
-            int poiY = location.getY();
-            grid[poiX][poiY] = location;
-            location.setPOIPresent(true);
-            //location.choosePlace(location);
-
-        }
-        for (int i = 88; i < 198; i++) {
-            Location location = new Location(mapLocations.get(i));
-            int roadX = location.getX();
-            int roadY = location.getY();
-            grid[roadX][roadY] = location;
-            location.setRoadPresent(true);
-            //location.choosePlace(location);
-
-        }
+        addToGrid(0, 30, LocationType.HOUSE);
+        addToGrid(30, 35, LocationType.OFFICE);
+        addToGrid(66, 88, LocationType.POI);
+        addToGrid(88, 198, LocationType.ROAD);
         if (passenger.getCurrentLocation() != null){
             grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
-            //grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
         }
-        for (int i = 35; i < 66; i++) {
-            Location location = new Location(mapLocations.get(i));
-            int seaX = location.getX();
-            int seaY = location.getY();
-            grid[seaX][seaY] = location;
-            location.setSeaPresent(true);
-            //choosePlace(location);
-
-        }
+        addToGrid(35, 66, LocationType.SEA);
         if (passenger.getDestination() != null) {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
-            //grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
         }
         choosePlace();
     }
@@ -118,13 +79,11 @@ public class Map {
             Location taxiLocation = mapLocations.get(randInt);
             grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
             singleton.setTaxiLocation(taxiLocation);
-            //grid[taxiLocation.getX()][taxiLocation.getY()].setDisplayTaxi();
         }
     }
 
 
-    public void choosePlace() { //i is array element with location
-        //for (int j = 0; j < Map.grid[][].array().length; j++) {       //j is the index of the type of this is looking for
+    public void choosePlace() { //i is an array element with location
         for (int i = 0; i < grid.length; i++) {
             System.out.println();
             for (int j = 0; j < grid.length; j++) {
@@ -155,10 +114,30 @@ public class Map {
     }
     public void Display(User passenger) {
         getLegend();
-        addLocationsToMap(passenger);
+        addToMap(passenger);
         getTaxiDrivers();
     }
     public void getLegend(){
-        System.out.println("Piltover Legend\nHouses: H      " + ANSI_YELLOW + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *" + ANSI_RESET);
+        System.out.println("Piltover Legend\nHouses: H      " + ANSI_LIGHT_BROWN + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *" + ANSI_RESET);
+    }
+    private void addToGrid(int start, int end, LocationType locationType) {
+        for (int i = start; i < end; i++) {
+            Location location = new Location(mapLocations.get(i));
+             int x = location.getX();
+             int y = location.getY();
+            grid[x][y] = location;
+
+            if (locationType == LocationType.HOUSE) {
+                location.setHousePresent(true);
+            } else if (locationType == LocationType.OFFICE) {
+                location.setOfficePresent(true);
+            } else if (locationType == LocationType.POI) {
+                location.setPOIPresent(true);
+            } else if (locationType == LocationType.ROAD) {
+                location.setRoadPresent(true);
+            }else if (locationType == LocationType.SEA){
+                location.setSeaPresent(true);
+            }
+        }
     }
 }
