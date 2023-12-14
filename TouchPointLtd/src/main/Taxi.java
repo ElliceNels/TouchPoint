@@ -20,19 +20,7 @@ public abstract class Taxi implements Bookable{
         this.taxiLoc = taxiLoc;
     }
 
-    public static void moveTaxi(Map map){
-        List<Location> path = AStarAlgorithm.findPath(map);
-        setTravelTime(0);
-        //ensures there is an actual path
-        if (path != null) {
-            for (Location location : path) {
-                System.out.println("(" + location.x + ", " + location.y + ")");
-                travelTime++;
-            }
-        } else {
-            System.out.println("Your location cannot be accessed by taxi.");
-        }
-    }
+
 
     public static void printTaxiDetails(Taxi chosenTaxi){
         System.out.println("Taxi tier is " + chosenTaxi.getTier());
