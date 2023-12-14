@@ -1,15 +1,15 @@
 public class Location {
     int x;
     int y;
-    final private char displayOffice = 'O';//set as empty to read building type
-    final private char displayHouse = 'H';//displays houses as H
-    final private char displayRoad = '*';//displays roads as *
-    final private char displaySea = '/';//displays seas as ~
-    final private char displayPOI = '$';//displays point of interest as $
-    final private char displayNoRoad = '.';//road is not empty as it is always inputted last
-    final char displayPassenger = '&';
-    final private char displayPassengerDestination = '@';
-    final private char displayTaxi = '!';
+    static final private char displayOffice = 'O';//set as empty to read building type
+    static final private char displayHouse = 'H';//displays houses as H
+    static final private char displayRoad = '*';//displays roads as *
+    static final private char displaySea = '/';//displays seas as ~
+    static final private char displayPOI = '$';//displays point of interest as $
+    static final private char displayNoRoad = '.';//road is not empty as it is always inputted last
+    static final char displayPassenger = '&';
+    static final private char displayPassengerDestination = '@';
+    static final private char displayTaxi = '!';
     boolean passengerPresent;
     boolean passengerDestPresent;
     boolean taxiPresent;
@@ -53,34 +53,12 @@ public class Location {
     }
 
     public boolean[] array(){
-        boolean[] presentLocation = {passengerPresent, passengerDestPresent, taxiPresent, roadPresent, seaPresent, officePresent, housePresent, POIPresent, nonRoadPresent};
+        boolean[] presentLocation = {passengerPresent, passengerDestPresent, taxiPresent, roadPresent,
+                seaPresent, officePresent, housePresent, POIPresent, nonRoadPresent};
         return presentLocation;
     }
 
-    public void choosePlace() { //i is array element with location
-            for (int j = 0; j < array().length; j++) {       //j is the index of the type of this is looking for
-                if (array()[0]) {
-                    System.out.println(displayPassenger);
-                } else if (array()[1]) {
-                    System.out.println(displayPassengerDestination);
-                } else if (array()[2]) {
-                    System.out.println(displayTaxi);
-                } else if (array()[3]) {
-                    System.out.println(displayRoad);
-                } else if (array()[4]) {
-                    System.out.println(displaySea);
-                } else if (array()[5]) {
-                    System.out.println(displayOffice);
-                } else if (array()[6]) {
-                    System.out.println(displayHouse);
-                } else if (array()[7]) {
-                    System.out.println(displayPOI);
-                } else if (array()[8]) {
-                    System.out.println(displayNoRoad);
-                }
-            }
 
-    }
 
     public void setX(int x) {
         this.x = x;
@@ -98,81 +76,49 @@ public class Location {
         return y;
     }
 
-    /*
-    public char getDisplayOffice() {
+    public static char getDisplayOffice() {
         return displayOffice;
     }
 
-    public void setDisplayOffice() {
-        displayOffice = 'O';
-    }
 
-    public char getDisplayHouse() {
+    public static char getDisplayHouse() {
         return displayHouse;
     }
 
-    public void setDisplayHouse() {
-        displayHouse = 'H';
-    }
 
-    public char getDisplayRoad() {
+    public static char getDisplayRoad() {
         return displayRoad;
     }
 
-    public void setDisplayRoad() {
-        displayRoad = '*';
-    }
-
-    public char getDisplaySea() {
+    public static char getDisplaySea() {
         return displaySea;
     }
 
-    public void setDisplaySea() {
-        displaySea = '/';
-    }
 
-    public char getDisplayPOI() {
+    public static char getDisplayPOI() {
         return displayPOI;
     }
 
-    public void setDisplayPOI() {
-        displayPOI = '$';
-    }
-
-    public char getDisplayPassenger() {
+    public static char getDisplayPassenger() {
         return displayPassenger;
     }
 
-    public void setDisplayPassenger(){
-        displayPassenger = '&';
-    }
 
-    public char getDisplayTaxi() {
+    public static char getDisplayTaxi() {
         return displayTaxi;
     }
 
-    public void setDisplayTaxi() {
-        displayTaxi = '!';
-    }
 
-    public char getDisplayNoRoad() {
+    public static char getDisplayNoRoad() {
         return displayNoRoad;
     }
 
-    public void setDisplayNoRoad() {
-        displayNoRoad = '.';
-    }
 
-    public char getDisplayPassengerDestination() {
+    public static char getDisplayPassengerDestination() {
         return displayPassengerDestination;
     }
 
-    public void setDisplayPassengerDestination() {
-        displayPassengerDestination = '@';
-    }
 
-
-     */
     public boolean isPassengerPresent() {
         return passengerPresent;
     }

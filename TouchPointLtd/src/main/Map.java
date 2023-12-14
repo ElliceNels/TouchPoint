@@ -48,6 +48,7 @@ public class Map {
             int houseY = location.getY();
             grid[houseX][houseY] = location;
             location.setHousePresent(true);
+            //location.choosePlace(location);
         }
         for(int i = 30;i < 35;i++){
             Location location = new Location(mapLocations.get(i));
@@ -55,6 +56,8 @@ public class Map {
             int officeY = location.getY();
             grid[officeX][officeY] = location;
             location.setOfficePresent(true);
+            //location.choosePlace(location);
+
         }
         for (int i = 66; i < 88; i++) {
             Location location = new Location(mapLocations.get(i));
@@ -62,6 +65,8 @@ public class Map {
             int poiY = location.getY();
             grid[poiX][poiY] = location;
             location.setPOIPresent(true);
+            //location.choosePlace(location);
+
         }
         for (int i = 88; i < 198; i++) {
             Location location = new Location(mapLocations.get(i));
@@ -69,24 +74,27 @@ public class Map {
             int roadY = location.getY();
             grid[roadX][roadY] = location;
             location.setRoadPresent(true);
+            //location.choosePlace(location);
+
         }
         if (passenger.getCurrentLocation() != null){
             grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
             //grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
         }
         for (int i = 35; i < 66; i++) {
-            boolean[]presentloc = {false, false, false, false, false, false, false, false};
-            Location location = new Location(mapLocations.get(i), presentloc);
+            Location location = new Location(mapLocations.get(i));
             int seaX = location.getX();
             int seaY = location.getY();
             grid[seaX][seaY] = location;
-            grid[seaX][seaY].setDisplaySea();//this sets sea
             location.setSeaPresent(true);
+            //choosePlace(location);
+
         }
         if (passenger.getDestination() != null) {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
-            grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
+            //grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
         }
+        choosePlace();
     }
     public Map(int rows, int cols) {
         grid = new Location[rows][cols];
@@ -108,12 +116,42 @@ public class Map {
             Location taxiLocation = mapLocations.get(randInt);
             grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
             singleton.setTaxiLocation(taxiLocation);
-            grid[taxiLocation.getX()][taxiLocation.getY()].setDisplayTaxi();
+            //grid[taxiLocation.getX()][taxiLocation.getY()].setDisplayTaxi();
         }
     }
 
 
+    public void choosePlace() { //i is array element with location
+        //for (int j = 0; j < Map.grid[][].array().length; j++) {       //j is the index of the type of this is looking for
 
+        for (int i = 0; i < grid.length - 1; i++) {
+            System.out.println();
+            for (int j = 0; j < grid.length - 1; j++) {
+                if (grid[i][j]== null){
+                    System.out.print(" "+Location.getDisplayNoRoad()+" ");
+                } else if (grid[i][j].array()[1]) {
+                    System.out.print(ANSI_BLACK +" "+ Location.getDisplayPassengerDestination()+" " + ANSI_RESET);
+                } else if (grid[i][j].array()[2]) {
+                    System.out.print(ANSI_RED + " "+Location.getDisplayTaxi() +" "+ ANSI_RESET);
+                } else if (grid[i][j].array()[3]) {
+                    System.out.print(ANSI_WHITE + " "+ Location.getDisplayRoad()+" " + ANSI_RESET);
+                } else if (grid[i][j].array()[4]) {
+                    System.out.print(ANSI_BLUE + " "+Location.getDisplaySea()+ " "+ANSI_RESET);
+                } else if (grid[i][j].array()[5]) {
+                    System.out.print(ANSI_YELLOW + " "+Location.getDisplayOffice()+" "+ ANSI_RESET);
+                } else if (grid[i][j].array()[6]) {
+                    System.out.print(" "+Location.getDisplayHouse()+" ");
+                } else if (grid[i][j].array()[7]) {
+                    System.out.print(ANSI_YELLOW + " "+Location.getDisplayPOI()+" "+ ANSI_RESET);
+                } else if (grid[i][j].array()[8]) {
+                    System.out.print(ANSI_BLACK +" "+ Location.getDisplayNoRoad()+" "+ ANSI_RESET);
+                }else if (grid[i][j].array()[0]) {
+                    System.out.print(ANSI_PURPLE +" "+ Location.getDisplayPassenger()+" "+ ANSI_RESET);
+                }
+            }
+        }
+
+    }
     public void Display(User passenger) {
         addLocationsToMap(passenger);
         getTaxiDrivers();
@@ -122,18 +160,18 @@ public class Map {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null) {
-                    String symbol = getSymbol(i, j);
-                    System.out.print(symbol);
+                    //String symbol = getSymbol(i, j);
+                    //System.out.print(symbol);
                 } else {
                         //map.getGrid()[i]
                         //System.out.print(ANSI_BLACK + "  .  " + ANSI_RESET); // Dot which represents no road
-                    Location.choosePlace();
+                    //Location.choosePlace();
                 }
             }
             System.out.println();
         }
     }
-    private String getSymbol(int i, int j) {//method to get symbol
+   /* private String getSymbol(int i, int j) {//method to get symbol
         String symbol = "."; // Default to road symbol
         Location location = grid[i][j]; // Get the location from the roadMap
         if (location.getDisplayHouse() == 'H') {
@@ -156,6 +194,8 @@ public class Map {
         }
         return symbol;
     }
+
+    */
     public void getLegend(){
         System.out.println("Piltover Legend\nHouses: H      " + ANSI_YELLOW + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *\n" + ANSI_RESET);
     }

@@ -14,8 +14,7 @@ public class TPMain{
         List<Taxi> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis);
         map.Display(passenger);
-        Location loc = new Location(1,3);
-        loc.choosePlace(map);
+        
         //allows list of taxis to be accessed from singleton
         ((Passenger) passenger).mainMenuRun(passenger, map);
 

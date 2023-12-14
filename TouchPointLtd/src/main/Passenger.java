@@ -117,7 +117,7 @@ public class Passenger extends User {
                     if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
                         Location roadLocation = map.getGrid()[i][j];
                         // Check if the symbol at the current location is a taxi symbol
-                        if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
+                        //if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
                             passenger.setPickupPoint(new Location(i,j));
                             System.out.println("Road found at (" + i + ", " + j + ")");
                             break;
@@ -125,7 +125,7 @@ public class Passenger extends User {
                     }
                 }
             }
-        }
+        //}
 
     public void ChooseATaxi(User passenger, Map map) {
         Location searchCentre = passenger.getCurrentLocation();
@@ -135,9 +135,9 @@ public class Passenger extends User {
                 if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
                     Location taxiLocations = map.getGrid()[i][j];
                     // Check if the symbol at the current location is a taxi symbol
-                    if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
+                    //if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
                         System.out.println("Taxi found at (" + i + ", " + j + ")");
-                    }
+                    //}
                 }
             }
         }in.close();

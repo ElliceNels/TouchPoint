@@ -51,7 +51,7 @@ public abstract class Taxi implements Bookable{
         Location location = chosenTaxi.getTaxiLoc();
 
         //change taxi location back to road
-        location.setDisplayRoad();
+        //location.setDisplayRoad();
 
         return chosenTaxi;
     }
@@ -60,7 +60,7 @@ public abstract class Taxi implements Bookable{
         Taxi chosenTaxi = allTaxis.get(chosenTaxiIndex);
 
         Location location = chosenTaxi.getTaxiLoc();
-        location.setDisplayTaxi();
+        //location.setDisplayTaxi();
     }
 
     public void MoveToPassenger(List<Taxi> allTaxis, int chosenTaxiIndex, User passenger, Map map){
