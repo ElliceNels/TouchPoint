@@ -7,7 +7,7 @@ public class ListSingleton {
     private static final ListSingleton INSTANCE = new ListSingleton();
 
     private User passenger;
-    //masterlist
+    //masterList
     private List<Taxi> allTaxis;
     private boolean[]presentLocations;
 

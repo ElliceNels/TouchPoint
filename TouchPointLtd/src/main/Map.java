@@ -74,6 +74,7 @@ public class Map {
             int seaY = location.getY();
             grid[seaX][seaY] = location;
             grid[seaX][seaY].setDisplaySea();//this sets sea
+            System.out.println(seaX + "," + seaY);
         } if (passenger.getDestination() != null) {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();

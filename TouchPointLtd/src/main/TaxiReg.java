@@ -6,7 +6,4 @@ public class TaxiReg extends Taxi {
         super(registrationNumber, carType, 4, driverName, driverRating, tier, taxiLoc);
     }
 
-    //static ListSingleton singleton = ListSingleton.getInstance();
-    //List<Taxi> allTaxis = singleton.getList();
-    //User passenger = singleton.getPassenger();
 }

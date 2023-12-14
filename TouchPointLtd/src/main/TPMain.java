@@ -1,10 +1,13 @@
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TPMain{
     public static void main(String[] args) {
-       run();
+
+//        run();
+        Map map = new Map(20, 20); //length and width of the map
+        ListSingleton singleton = ListSingleton.getInstance();
+        User passenger = singleton.getPassenger();
+        map.addLocationsToMap(passenger);
     }
     public static void run(){
         Map map = new Map(20, 20); //length and width of the map

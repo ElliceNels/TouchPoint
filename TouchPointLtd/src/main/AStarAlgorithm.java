@@ -56,9 +56,10 @@ public class AStarAlgorithm extends Location {
 
         uncheckedSet.add(startLocation);
 
-        while (!uncheckedSet.isEmpty()) { //keeps going til the unchecked list is empty (everything is checked)
+        //keeps going til the unchecked list is empty (everything is checked)
+        while (!uncheckedSet.isEmpty()) {
             Location currentLocation = uncheckedSet.get(0);
-            //to find lowest total cost (f and h but f is considered first)
+            //to find the lowest total cost (f and h but f is considered first)
             for (int i = 1; i < uncheckedSet.size(); i++) {
                 if (uncheckedSet.get(i).getFCost() < currentLocation.getFCost() ||
                         (uncheckedSet.get(i).getFCost() == currentLocation.getFCost() &&
@@ -125,10 +126,3 @@ public class AStarAlgorithm extends Location {
         }
     }
 }
-
-/*for (int i = 0; i < roadMap.length - 1; i++){
-        System.out.print(roadMap[i][0]);
-        System.out.print(roadMap[i][1]);
-        }
-
- */
