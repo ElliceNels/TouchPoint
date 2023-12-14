@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 public class Location {
     int x;
     int y;
@@ -13,9 +15,8 @@ public class Location {
     private boolean[] presentLocations;
     int gCost, hCost;
     Location parent; //location
+    private List<User> objectList;
     static ListSingleton singleton = ListSingleton.getInstance();
-    //boolean[]presentLocation  = singleton.getPresentLocations();
-
     int getFCost() {
         return gCost + hCost;
     }

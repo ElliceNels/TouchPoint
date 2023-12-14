@@ -1,6 +1,6 @@
 import java.util.List;
 
-public abstract class Taxi implements Bookable{
+public abstract class TaxiDriver extends User implements Bookable{
     private String registrationNumber;//individual registration number
     private String carType;//name of taxi type
     private int capacity;//diff capacity depending on type of taxi
@@ -10,7 +10,7 @@ public abstract class Taxi implements Bookable{
     private Location taxiLoc;
     static private int travelTime;
 
-    public Taxi(String registrationNumber, String carType, int capacity, String driverName, int driverRating, String tier, Location taxiLoc) {
+    public TaxiDriver(String registrationNumber, String carType, int capacity, String driverName, int driverRating, String tier, Location taxiLoc) {
         this.registrationNumber = registrationNumber;
         this.carType = carType;
         this.capacity = capacity;
@@ -34,7 +34,7 @@ public abstract class Taxi implements Bookable{
         }
     }
 
-    public static void printTaxiDetails(Taxi chosenTaxi){
+    public static void printTaxiDetails(TaxiDriver chosenTaxi){
         System.out.println("Taxi tier is " + chosenTaxi.getTier());
         System.out.println("Driver name: " + chosenTaxi.getDriverName());
         System.out.println("Driver rating: " + chosenTaxi.getDriverRating());
@@ -43,9 +43,9 @@ public abstract class Taxi implements Bookable{
         System.out.println("Capacity: " + chosenTaxi.getCapacity() + " seats");
     }
 
-    public Taxi RemoveFromMap(List<Taxi> allTaxis, int chosenTaxiIndex){
+    public TaxiDriver RemoveFromMap(List<TaxiDriver> allTaxis, int chosenTaxiIndex){
         //stores chosen taxi as chosenTaxi
-        Taxi chosenTaxi = allTaxis.get(chosenTaxiIndex);
+        TaxiDriver chosenTaxi = allTaxis.get(chosenTaxiIndex);
 
         //stores taxis current location as variable 'location'
         Location location = chosenTaxi.getTaxiLoc();
@@ -56,21 +56,21 @@ public abstract class Taxi implements Bookable{
         return chosenTaxi;
     }
 
-    public void ReturnToMap(List<Taxi> allTaxis, int chosenTaxiIndex){
-        Taxi chosenTaxi = allTaxis.get(chosenTaxiIndex);
+    public void ReturnToMap(List<TaxiDriver> allTaxis, int chosenTaxiIndex){
+        TaxiDriver chosenTaxi = allTaxis.get(chosenTaxiIndex);
 
         Location location = chosenTaxi.getTaxiLoc();
         //location.setDisplayTaxi();
     }
 
-    public void MoveToPassenger(List<Taxi> allTaxis, int chosenTaxiIndex, User passenger, Map map){
-        Taxi chosenTaxi = RemoveFromMap(allTaxis, chosenTaxiIndex);
+    public void MoveToPassenger(List<TaxiDriver> allTaxis, int chosenTaxiIndex, User passenger, Map map){
+        TaxiDriver chosenTaxi = RemoveFromMap(allTaxis, chosenTaxiIndex);
         System.out.println("Driver is on the way.");
         chosenTaxi.printTaxiDetails(chosenTaxi);
         chosenTaxi.moveTaxi(map);
     }
 
-    public void MoveToDestination(List<Taxi> allTaxis, TaxiReg chosenTaxi, User passenger, Map map){
+    public void MoveToDestination(List<TaxiDriver> allTaxis, TaxiReg chosenTaxi, User passenger, Map map){
         System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
         chosenTaxi.moveTaxi(map);
     }
@@ -142,7 +142,7 @@ public abstract class Taxi implements Bookable{
     }
 
     public static void setTravelTime(int travelTime) {
-        Taxi.travelTime = travelTime;
+        TaxiDriver.travelTime = travelTime;
     }
     public String toString(){
         return taxiLoc.getX() + "," + taxiLoc.getY();

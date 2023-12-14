@@ -1,4 +1,4 @@
-public class TaxiPremium extends Taxi implements Bookable{
+public class TaxiPremium extends TaxiDriver implements Bookable{
     public TaxiPremium(String registrationNumber, String carType, String driverName, int driverRating, String tier, Location taxiLoc) {
         super(registrationNumber, carType, 1, driverName, driverRating, tier, taxiLoc);
     }
