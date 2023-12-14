@@ -144,7 +144,5 @@ public abstract class TaxiDriver extends User implements Bookable{
     public static void setTravelTime(int travelTime) {
         TaxiDriver.travelTime = travelTime;
     }
-    public String toString(){
-        return taxiLoc.getX() + "," + taxiLoc.getY();
-    }
+
 }

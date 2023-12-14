@@ -14,10 +14,6 @@ public class TPMain{
         ((Passenger) passenger).mainMenuRun(passenger, map);
 
         map.Display(passenger);
-        AStarAlgorithm.roadMapCoordinates(map);
-        AStarAlgorithm.printEntireGrid();
-        TaxiDriver.moveTaxi(map);
-
     }
 
 }
