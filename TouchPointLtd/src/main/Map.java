@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 public class Map {
     static private Location[][] grid;
+    private List<User> objectList;
     List<Location> mapLocations = new ArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -98,16 +99,17 @@ public class Map {
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
+        List<User> object = new ArrayList<>();
         Random rand = new Random();
         for(int i = 0;i < singleton.getList().size();i++){
             int startIndex = 88;
             int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
             Location taxiLocation = mapLocations.get(randInt);
-            singleton.setTaxiLocation(taxiLocation);
             grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
             taxiLocation.setTaxiPresent(true);
-            taxiLocation.getObjectList().add(allTaxis.get(i));
+            object.add(allTaxis.get(i));
+            taxiLocation.setObjectList(objectList);
         }
     }
 

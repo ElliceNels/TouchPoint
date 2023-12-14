@@ -149,6 +149,10 @@ public class Location {
     public List<User> getObjectList() {
         return objectList;
     }
+
+    public void setObjectList(List<User> objectList) {
+        this.objectList = objectList;
+    }
 }
 
 

@@ -1,9 +1,5 @@
 //should probably be renamed
 public class TaxiReader {
-
-    //ListSingleton singleton = ListSingleton.getInstance();
-    //<Taxi> allTaxis = singleton.getList();
-
     public static TaxiDriver instanceTaxi(String registrationNumber, String carType, String driverName, int driverRating, String tier, Location taxiLoc) {
         switch (tier) {
             case "Regular":
