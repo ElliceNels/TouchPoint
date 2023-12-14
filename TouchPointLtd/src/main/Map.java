@@ -17,6 +17,8 @@ public class Map {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_LIGHT_BROWN = "\u001B[38;2;205;190;145m";
+
     public static final String CAR_EMOJI = "\uD83D\uDE95";
     ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
 
@@ -137,7 +139,7 @@ public class Map {
                 } else if (grid[i][j].array()[4]) {
                     System.out.print(ANSI_BLUE + " "+Location.getDisplaySea()+ " "+ANSI_RESET);
                 } else if (grid[i][j].array()[5]) {
-                    System.out.print(ANSI_YELLOW + " "+Location.getDisplayOffice()+" "+ ANSI_RESET);
+                    System.out.print(ANSI_LIGHT_BROWN + " "+Location.getDisplayOffice()+" "+ ANSI_RESET);
                 } else if (grid[i][j].array()[6]) {
                     System.out.print(" "+Location.getDisplayHouse()+" ");
                 } else if (grid[i][j].array()[7]) {
