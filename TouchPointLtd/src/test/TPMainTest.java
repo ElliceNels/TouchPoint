@@ -1,6 +1,4 @@
 import junit.framework.TestCase;
-import org.junit.Test;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TPMainTest extends TestCase implements VehicleHiringTest {
@@ -9,6 +7,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         Map map = new Map(20, 20);
         ListSingleton singleton = ListSingleton.getInstance();
         List<Taxi> allTaxis = singleton.getList();
+        singleton.storeTaxiDetails(allTaxis);
         map.getTaxiDrivers();
         for (Taxi taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
@@ -16,11 +15,9 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
                 return taxi.getTaxiLoc();
             }else{
                 System.out.println("Invalid Registration Number");
-                return null;
             }
         }return null;
     }
-//DO THE EXACT SAME TINGG FOR DESTINATIOJN
     @Override
     public boolean testMoveVehicle(String reg, Location loc) {
         Map map = new Map(20, 20);
@@ -88,7 +85,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
                 System.out.println("Taxi already exists");
                 return false;
             }else{
-                Taxi taxiNew = new Taxi(reg, "La Ferrari", 1, "Tiago",
+                Taxi taxiNew = new TaxiPremium(reg, "La Ferrari", "Tiago",
                         5, "Premium", loc);
                 allTaxis.add(taxiNew);
                 System.out.println(taxiNew.getDriverName() + " has been added to the map at: " + taxiNew.toString());
@@ -102,8 +99,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
 
 
     public void testReg() {
-        assertNotNull(testGetVehicleLoc("M 2UV 3WX"));
-//        assertNull(testGetVehicleLoc("C 2QV 8DW"));
+        assertNotNull(testGetVehicleLoc("L 6PQ 7RS"));
     }
 
     public void testMove() {
