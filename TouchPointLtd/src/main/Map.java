@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 public class Map {
-    int X;
-    int Y;
-
     static private Location[][] grid;
     List<Location> mapLocations = new ArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
@@ -46,14 +43,14 @@ public class Map {
     }
     public void addToMap(User passenger){
         storeMapLocations();
-        addToGrid(0, 30, LocationType.HOUSE);
-        addToGrid(30, 35, LocationType.OFFICE);
-        addToGrid(66, 88, LocationType.POI);
-        addToGrid(88, 198, LocationType.ROAD);
+        addToGrid(0, 30);
+        addToGrid(30, 35);
+        addToGrid(66, 88);
+        addToGrid(88, 198);
+        addToGrid(35, 66);
         if (passenger.getCurrentLocation() != null){
             grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
         }
-        addToGrid(35, 66, LocationType.SEA);
         if (passenger.getDestination() != null) {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
         }
@@ -120,22 +117,22 @@ public class Map {
     public void getLegend(){
         System.out.println("Piltover Legend\nHouses: H      " + ANSI_LIGHT_BROWN + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *" + ANSI_RESET);
     }
-    private void addToGrid(int start, int end, LocationType locationType) {
+    private void addToGrid(int start, int end) {
         for (int i = start; i < end; i++) {
             Location location = new Location(mapLocations.get(i));
              int x = location.getX();
              int y = location.getY();
             grid[x][y] = location;
 
-            if (locationType == LocationType.HOUSE) {
+            if (start == 0) {
                 location.setHousePresent(true);
-            } else if (locationType == LocationType.OFFICE) {
+            } else if (start == 30) {
                 location.setOfficePresent(true);
-            } else if (locationType == LocationType.POI) {
+            } else if (start == 66) {
                 location.setPOIPresent(true);
-            } else if (locationType == LocationType.ROAD) {
+            } else if (start == 88) {
                 location.setRoadPresent(true);
-            }else if (locationType == LocationType.SEA){
+            }else if (start == 35){
                 location.setSeaPresent(true);
             }
         }
