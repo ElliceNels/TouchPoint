@@ -33,7 +33,6 @@ public class Map {
 
     //Take all values from csv
     public List<Location> storeMapLocations() {
-        boolean[]presentloc = {false, false, false, false, false, false, false, false};
         String coordinates = "src//main//MapLocations.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(coordinates))) {
             String line;
@@ -44,7 +43,7 @@ public class Map {
                 String[] fields = line.split(",");
                 int x = Integer.parseInt(fields[0]);
                 int y = Integer.parseInt(fields[1]);
-                mapLocations.add(new Location(x, y, presentloc));
+                mapLocations.add(new Location(x, y));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,6 +65,26 @@ public class Map {
         }
         choosePlace();
     }
+    private void addToGrid(int start, int end) {
+        for (int i = start; i < end; i++) {
+            Location location = new Location(mapLocations.get(i));
+            int x = location.getX();
+            int y = location.getY();
+            grid[x][y] = location;
+
+            if (start == 0) {
+                location.setHousePresent(true);
+            } else if (start == 30) {
+                location.setOfficePresent(true);
+            } else if (start == 66) {
+                location.setPOIPresent(true);
+            } else if (start == 88) {
+                location.setRoadPresent(true);
+            }else if (start == 35){
+                location.setSeaPresent(true);
+            }
+        }
+    }
     public Map(int rows, int cols) {
         grid = new Location[rows][cols];
     }
@@ -78,14 +97,17 @@ public class Map {
     public void getTaxiDrivers(){
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
+        List<TaxiDriver> allTaxis = singleton.getList();
         Random rand = new Random();
         for(int i = 0;i < singleton.getList().size();i++){
             int startIndex = 88;
             int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
             Location taxiLocation = mapLocations.get(randInt);
-            grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
             singleton.setTaxiLocation(taxiLocation);
+            grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+            taxiLocation.setTaxiPresent(true);
+            taxiLocation.getObjectList().add(allTaxis.get(i));
         }
     }
 
@@ -126,25 +148,5 @@ public class Map {
     }
     public void getLegend(){
         System.out.println("Piltover Legend\nHouses: H      " + ANSI_LIGHT_BROWN + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *" + ANSI_RESET);
-    }
-    private void addToGrid(int start, int end) {
-        for (int i = start; i < end; i++) {
-            Location location = new Location(mapLocations.get(i));
-             int x = location.getX();
-             int y = location.getY();
-            grid[x][y] = location;
-
-            if (start == 0) {
-                location.setHousePresent(true);
-            } else if (start == 30) {
-                location.setOfficePresent(true);
-            } else if (start == 66) {
-                location.setPOIPresent(true);
-            } else if (start == 88) {
-                location.setRoadPresent(true);
-            }else if (start == 35){
-                location.setSeaPresent(true);
-            }
-        }
     }
 }

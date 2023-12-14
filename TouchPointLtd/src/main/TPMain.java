@@ -8,8 +8,6 @@ public class TPMain{
         Map map = new Map(20, 20); //length and width of the map
         ListSingleton singleton = ListSingleton.getInstance();
         User passenger = singleton.getPassenger();
-        List<TaxiDriver> allTaxis = singleton.getList();
-        singleton.storeTaxiDetails(allTaxis);
         map.Display(passenger);
         
         //allows list of taxis to be accessed from singleton

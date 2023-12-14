@@ -43,6 +43,12 @@ public class Location {
         this.y = loc.y;
         this.presentLocations = presentLocations;
     }
+    public Location(Location loc, boolean[]presentLocations, List<User> objectList) {
+        this.x = loc.x;
+        this.y = loc.y;
+        this.presentLocations = presentLocations;
+        objectList = new ArrayList<>();
+    }
 
     public boolean[] array(){
         boolean[] presentLocation = {passengerPresent, passengerDestPresent, taxiPresent, roadPresent,
@@ -138,6 +144,10 @@ public class Location {
 
     public void setPOIPresent(boolean POIPresent) {
         this.POIPresent = POIPresent;
+    }
+
+    public List<User> getObjectList() {
+        return objectList;
     }
 }
 
