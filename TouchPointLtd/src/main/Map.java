@@ -18,6 +18,16 @@ public class Map {
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_LIGHT_BROWN = "\u001B[38;2;205;190;145m";
 
+    static final private char displayOffice = 'O';//set as empty to read building type
+    static final private char displayHouse = 'H';//displays houses as H
+    static final private char displayRoad = '*';//displays roads as *
+    static final private char displaySea = '/';//displays seas as ~
+    static final private char displayPOI = '$';//displays point of interest as $
+    static final private char displayNoRoad = '.';//road is not empty as it is always inputted last
+    static final char displayPassenger = '&';
+    static final private char displayPassengerDestination = '@';
+    static final private char displayTaxi = '!';
+
     public static final String CAR_EMOJI = "\uD83D\uDE95";
     ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
 
@@ -85,25 +95,25 @@ public class Map {
             System.out.println();
             for (int j = 0; j < grid.length; j++) {
                 if (grid[i][j]== null){
-                    System.out.print(ANSI_BLACK + " "+Location.getDisplayNoRoad()+" " + ANSI_RESET);
+                    System.out.print(ANSI_BLACK + " "+displayNoRoad+" " + ANSI_RESET);
                 } else if (grid[i][j].array()[1]) {
-                    System.out.print(ANSI_BLACK +" "+ Location.getDisplayPassengerDestination()+" " + ANSI_RESET);
+                    System.out.print(ANSI_BLACK +" "+ displayPassengerDestination+" " + ANSI_RESET);
                 } else if (grid[i][j].array()[2]) {
-                    System.out.print(ANSI_RED + " "+Location.getDisplayTaxi() +" "+ ANSI_RESET);
+                    System.out.print(ANSI_RED + " "+displayTaxi +" "+ ANSI_RESET);
                 } else if (grid[i][j].array()[3]) {
-                    System.out.print(ANSI_WHITE + " "+ Location.getDisplayRoad()+" " + ANSI_RESET);
+                    System.out.print(ANSI_WHITE + " "+ displayRoad+" " + ANSI_RESET);
                 } else if (grid[i][j].array()[4]) {
-                    System.out.print(ANSI_BLUE + " "+Location.getDisplaySea()+ " "+ANSI_RESET);
+                    System.out.print(ANSI_BLUE + " "+displaySea+ " "+ANSI_RESET);
                 } else if (grid[i][j].array()[5]) {
-                    System.out.print(ANSI_LIGHT_BROWN + " "+Location.getDisplayOffice()+" "+ ANSI_RESET);
+                    System.out.print(ANSI_LIGHT_BROWN + " "+displayOffice+" "+ ANSI_RESET);
                 } else if (grid[i][j].array()[6]) {
-                    System.out.print(" "+Location.getDisplayHouse()+" ");
+                    System.out.print(" "+displayHouse+" ");
                 } else if (grid[i][j].array()[7]) {
-                    System.out.print(ANSI_YELLOW + " "+Location.getDisplayPOI()+" "+ ANSI_RESET);
+                    System.out.print(ANSI_YELLOW + " "+displayPOI+" "+ ANSI_RESET);
                 } else if (grid[i][j].array()[8]) {
-                    System.out.print(ANSI_BLACK +" "+ Location.getDisplayNoRoad()+" "+ ANSI_RESET);
+                    System.out.print(ANSI_BLACK +" "+ displayNoRoad+" "+ ANSI_RESET);
                 }else if (grid[i][j].array()[0]) {
-                    System.out.print(ANSI_PURPLE +" "+ Location.getDisplayPassenger()+" "+ ANSI_RESET);
+                    System.out.print(ANSI_PURPLE +" "+ displayPassenger+" "+ ANSI_RESET);
                 }
             }
         } System.out.println();

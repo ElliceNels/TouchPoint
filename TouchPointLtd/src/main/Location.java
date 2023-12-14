@@ -1,15 +1,6 @@
 public class Location {
     int x;
     int y;
-    static final private char displayOffice = 'O';//set as empty to read building type
-    static final private char displayHouse = 'H';//displays houses as H
-    static final private char displayRoad = '*';//displays roads as *
-    static final private char displaySea = '/';//displays seas as ~
-    static final private char displayPOI = '$';//displays point of interest as $
-    static final private char displayNoRoad = '.';//road is not empty as it is always inputted last
-    static final char displayPassenger = '&';
-    static final private char displayPassengerDestination = '@';
-    static final private char displayTaxi = '!';
     boolean passengerPresent;
     boolean passengerDestPresent;
     boolean taxiPresent;
@@ -75,49 +66,6 @@ public class Location {
     public int getY() {
         return y;
     }
-
-    public static char getDisplayOffice() {
-        return displayOffice;
-    }
-
-
-    public static char getDisplayHouse() {
-        return displayHouse;
-    }
-
-
-    public static char getDisplayRoad() {
-        return displayRoad;
-    }
-
-    public static char getDisplaySea() {
-        return displaySea;
-    }
-
-
-    public static char getDisplayPOI() {
-        return displayPOI;
-    }
-
-    public static char getDisplayPassenger() {
-        return displayPassenger;
-    }
-
-
-    public static char getDisplayTaxi() {
-        return displayTaxi;
-    }
-
-
-    public static char getDisplayNoRoad() {
-        return displayNoRoad;
-    }
-
-
-    public static char getDisplayPassengerDestination() {
-        return displayPassengerDestination;
-    }
-
 
     public boolean isPassengerPresent() {
         return passengerPresent;
