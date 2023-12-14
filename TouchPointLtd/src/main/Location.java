@@ -23,7 +23,7 @@ public class Location {
     int gCost, hCost;
     Location parent; //location
     static ListSingleton singleton = ListSingleton.getInstance();
-    boolean[]presentLocation  = singleton.getPresentLocations();
+    boolean[] presentLocation = singleton.getPresentLocations();
 
     int getFCost() {
         return gCost + hCost;
@@ -40,13 +40,13 @@ public class Location {
         this.y = loc.y;
     }
 
-    public Location(int x, int y, boolean[]presentLocations) {
+    public Location(int x, int y, boolean[] presentLocations) {
         this.x = x;
         this.y = y;
         this.presentLocations = presentLocations;
     }
 
-    public Location(Location loc, boolean[]presentLocations) {
+    public Location(Location loc, boolean[] presentLocations) {
         this.x = loc.x;
         this.y = loc.y;
         this.presentLocations = presentLocations;
@@ -112,7 +112,7 @@ public class Location {
         return displayPassenger;
     }
 
-    public void setDisplayPassenger(){
+    public void setDisplayPassenger() {
         displayPassenger = '&';
     }
 
@@ -203,8 +203,6 @@ public class Location {
     public void setNonRoadPresent(boolean nonRoadPresent) {
         this.nonRoadPresent = nonRoadPresent;
     }
-
 }
-
 
 

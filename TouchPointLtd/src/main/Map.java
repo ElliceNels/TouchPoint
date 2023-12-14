@@ -19,6 +19,7 @@ public class Map {
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String CAR_EMOJI = "\uD83D\uDE95";
     ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
+    String type;
 
     //Take all values from csv
     public List<Location> storeMapLocations() {
@@ -32,6 +33,8 @@ public class Map {
                 String[] fields = line.split(",");
                 int x = Integer.parseInt(fields[0]);
                 int y = Integer.parseInt(fields[1]);
+                String type = fields[2];
+                setType(type);
                 mapLocations.add(new Location(x, y));
             }
         } catch (IOException e) {
@@ -80,6 +83,14 @@ public class Map {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()].setDisplayPassengerDestination();
         }
     }
+    public void addLocationsDemo() {
+        storeMapLocations();
+        for (int i = 0; i < 198; i++) {
+            Location location = mapLocations.get(i);
+            if()
+            }
+        }
+
     public Map(int rows, int cols) {
         grid = new Location[rows][cols];
     }
@@ -147,5 +158,13 @@ public class Map {
     }
     public void getLegend(){
         System.out.println("Piltover Legend\nHouses: H      " + ANSI_YELLOW + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *\n" + ANSI_RESET);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
