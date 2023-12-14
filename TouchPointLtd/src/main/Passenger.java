@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class Passenger extends User {
 
 
-    Location pickupPoint;
     ListSingleton singleton = ListSingleton.getInstance();
     //boolean[]presentLocation  = singleton.getPresentLocations();
     Scanner in = new Scanner(System.in);
@@ -25,13 +24,15 @@ public class Passenger extends User {
         switch (choice) {
             case 0:
                 RegisterPassengerDetails(passenger);
-                ChooseARoad(map, passenger);
+                ChooseAPickupRoad(map, passenger);
+                ChooseADestinationRoad(map, passenger);
                 ChooseATaxi(passenger, map);
                 break;
             case 1:
                 placeSearch();
                 RegisterPassengerDetails(passenger);
-                ChooseARoad(map, passenger);
+                ChooseAPickupRoad(map, passenger);
+                ChooseADestinationRoad(map, passenger);
                 break;
             default:
                 System.out.println("invalid input");
@@ -106,25 +107,48 @@ public class Passenger extends User {
             }
         }
     }
-    public void ChooseARoad(Map map, User passenger) {
-        int passX = passenger.getCurrentLocation().getX();
-        int passY = passenger.getCurrentLocation().getX();
-        Location pickupPassenger = new Location(passX, passY);
+    public void ChooseAPickupRoad(Map map, User passenger) {
+        Location pickupPassenger = new Location(passenger.getCurrentLocation());
         int roadRadius = 3;
-        passenger.setCurrentLocation(pickupPassenger);
+        boolean roadFound = false;
+        outerLoop: // Label for the outer loop
+        while(!roadFound) {
             for (int i = pickupPassenger.getX() - roadRadius; i <= pickupPassenger.getX() + roadRadius; i++) {
                 for (int j = pickupPassenger.getY() - roadRadius; j <= pickupPassenger.getY() + roadRadius; j++) {
-                    if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
+                    if (i >= 0 && i < 20 && j >= 0 && j < 20) {
                         Location roadLocation = map.getGrid()[i][j];
                         // Check if the symbol at the current location is a taxi symbol
                         //if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
-                            passenger.setPickupPoint(new Location(i,j));
-                            System.out.println("Road found at (" + i + ", " + j + ")");
-                            break;
-                        }
+                        passenger.setPickupPoint(new Location(i, j));
+                        System.out.println("Pickup point is (" + i + ", " + j + ")");
+                        roadFound = true;
+                        break outerLoop; // Break out of the outer loop when a taxi is found
                     }
                 }
             }
+        }
+    }
+    public void ChooseADestinationRoad(Map map, User passenger) {
+        Location pickupPassenger = new Location(passenger.getDestination());
+        int roadRadius = 3;
+        boolean roadFound = false;
+        outerLoop: // Label for the outer loop
+        while(!roadFound) {
+            for (int i = pickupPassenger.getX() - roadRadius; i <= pickupPassenger.getX() + roadRadius; i++) {
+                for (int j = pickupPassenger.getY() - roadRadius; j <= pickupPassenger.getY() + roadRadius; j++) {
+                    if (i >= 0 && i < 20 && j >= 0 && j < 20) {
+                        Location roadLocation = map.getGrid()[i][j];
+                        // Check if the symbol at the current location is a taxi symbol
+                        //if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
+                        passenger.setClosestDestination(new Location(i, j));
+                        System.out.println("The taxi will bring you to (" + i + ", " + j + ")");
+                        roadFound = true;
+                        break outerLoop; // Break out of the outer loop when a taxi is found
+                    }
+                }
+            }
+        }
+    }
         //}
 
     public void ChooseATaxi(User passenger, Map map) {

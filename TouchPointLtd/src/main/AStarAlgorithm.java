@@ -12,7 +12,7 @@ public class AStarAlgorithm extends Location {
     //roadMap with obstacles represented as null
     static Location[][] roadMap = new Location[ROWS][COLS];
     static Location startLocation = new Location(passenger.getPickupPoint()); // Starting node
-    static Location endLocation = new Location(passenger.getDestination()); // Destination node
+    static Location endLocation = new Location(passenger.getClosestDestination()); // Destination node
     static int movementCost = 1;
 
     public AStarAlgorithm(int x, int y) {
