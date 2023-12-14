@@ -150,13 +150,11 @@ public class Passenger extends User {
                 if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
                     Location taxiLocations = map.getGrid()[i][j];
                     // Check if the symbol at the current location is a taxi symbol
-                    //if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
+                    if (taxiLocations != null && taxiLocations.taxiPresent) {
                         System.out.println("Taxi found at (" + i + ", " + j + ")");
-                    //}
+                    }
                 }
             }
         }in.close();
     }
-
-
 }

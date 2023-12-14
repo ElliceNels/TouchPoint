@@ -64,7 +64,6 @@ public class Map {
         if (passenger.getDestination() != null) {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
         }
-        choosePlace();
     }
     private void addToGrid(int start, int end) {
         for (int i = start; i < end; i++) {
@@ -92,9 +91,6 @@ public class Map {
     public Location[][] getGrid() {
         return grid;
     }
-    public void setGrid(Location[][] grid) {
-        this.grid = grid;
-    }
     public void getTaxiDrivers(){
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
@@ -107,9 +103,9 @@ public class Map {
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
             Location taxiLocation = mapLocations.get(randInt);
             grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
-            taxiLocation.setTaxiPresent(true);
             object.add(allTaxis.get(i));
             taxiLocation.setObjectList(objectList);
+            taxiLocation.setTaxiPresent(true);
         }
     }
 
@@ -141,12 +137,12 @@ public class Map {
                 }
             }
         } System.out.println();
-
     }
     public void Display(User passenger) {
         getLegend();
         addToMap(passenger);
         getTaxiDrivers();
+        choosePlace();
     }
     public void getLegend(){
         System.out.println("Piltover Legend\nHouses: H      " + ANSI_LIGHT_BROWN + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *" + ANSI_RESET);

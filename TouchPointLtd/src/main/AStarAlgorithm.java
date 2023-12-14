@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AStarAlgorithm extends Location {
-   static ListSingleton singleton = ListSingleton.getInstance();
-   static User passenger = singleton.getPassenger();
+    static ListSingleton singleton = ListSingleton.getInstance();
+    static User passenger = singleton.getPassenger();
 
     static int ROWS = 20;
     static int COLS = 20;
@@ -112,33 +112,34 @@ public class AStarAlgorithm extends Location {
             Location location = map.mapLocations.get(i);
             int roadX = location.getX();
             int roadY = location.getY();
-            roadMap[roadX][roadY] =  location; //this sets road
+            roadMap[roadX][roadY] = location; //this sets road
         }
     }
 
-    public static void printEntireGrid(){
-        for (int i = 0; i < roadMap.length - 1; i++){
+    public static void printEntireGrid() {
+        for (int i = 0; i < roadMap.length - 1; i++) {
             System.out.println();
-            for(int j = 0; j < roadMap.length -1; j++) {
+            for (int j = 0; j < roadMap.length - 1; j++) {
                 System.out.print(roadMap[i][j]);
             }
         }
     }
+
     public static void main(String[] args) {
 
-        List<Location> path = AStarAlgorithm.findPath();
-        Taxi.setTravelTime(0);
-        //ensures there is an actual path
-        if (path != null) {
-            for (Location location : path) {
-                System.out.println("(" + location.x + ", " + location.y + ")");
-                //Taxi.setTravelTime(Taxi.getTravelTime()++);
-            }
-        } else {
-            System.out.println("Your location cannot be accessed by taxi.");
-        }
-    }
-}
+//        List<Location> path = AStarAlgorithm.findPath();
+//        Taxi.setTravelTime(0);
+//        //ensures there is an actual path
+//        if (path != null) {
+//            for (Location location : path) {
+//                System.out.println("(" + location.x + ", " + location.y + ")");
+//                //Taxi.setTravelTime(Taxi.getTravelTime()++);
+//            }
+//        } else {
+//            System.out.println("Your location cannot be accessed by taxi.");
+//        }
+//    }
+//}
 
 /*for (int i = 0; i < roadMap.length - 1; i++){
         System.out.print(roadMap[i][0]);
@@ -146,3 +147,5 @@ public class AStarAlgorithm extends Location {
         }
 
  */
+    }
+}
