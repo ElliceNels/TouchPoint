@@ -8,7 +8,7 @@ public class ListSingleton {
 
     private User passenger;
     //masterlist
-    private List<Taxi> allTaxis;
+    private List<TaxiDriver> allTaxis;
     private boolean[]presentLocations;
 
     //Creates a new arraylist with all values of the allTaxis list (for access in all classes)
@@ -16,22 +16,17 @@ public class ListSingleton {
         // Initialize the list in the constructor
         allTaxis = new ArrayList<>();
         passenger = new Passenger();
-        //presentLocations = new boolean[]{false, false, false, false, false, false, false, false};
     }
 
     public static ListSingleton getInstance() {
         return INSTANCE;
     }
-    //public boolean[] getPresentLocations(){
-   //     return presentLocations;
-    //}
 
-    public List<Taxi> getList() {
+    public List<TaxiDriver> getList() {
         return allTaxis;
     }
-
     //Takes info from csv, turns them into drivers of their respective type and adds them to list
-    public void storeTaxiDetails(List <Taxi> allTaxis) {
+    public void storeTaxiDetails(List <TaxiDriver> allTaxis) {
         String taxidrivers = "src//main//Taxidrivers.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(taxidrivers))) {
@@ -47,7 +42,7 @@ public class ListSingleton {
                 int driverRating = Integer.parseInt(fields[3]);
                 String tier = fields[4];
 
-                Taxi taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, driverRating, tier, getTaxiLocation());
+                TaxiDriver taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, driverRating, tier, getTaxiLocation());
                 allTaxis.add(taxi);
             }
         } catch (IOException e) {
@@ -55,12 +50,12 @@ public class ListSingleton {
         }
     }
     public void setTaxiLocation(Location location) {
-        for (Taxi taxi : allTaxis) {
+        for (TaxiDriver taxi : allTaxis) {
                 taxi.setTaxiLoc(location);
             }
         }
     public Location getTaxiLocation() {
-        for (Taxi taxi : allTaxis) {
+        for (TaxiDriver taxi : allTaxis) {
                 return taxi.getTaxiLoc();
         }
         return null;

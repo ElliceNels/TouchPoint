@@ -6,10 +6,10 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     public Location testGetVehicleLoc(String reg) {
         Map map = new Map(20, 20);
         ListSingleton singleton = ListSingleton.getInstance();
-        List<Taxi> allTaxis = singleton.getList();
+        List<TaxiDriver> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis);
         map.getTaxiDrivers();
-        for (Taxi taxi : allTaxis) {
+        for (TaxiDriver taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
                 System.out.println(taxi.getDriverName() + " is at: " + taxi);
                 return taxi.getTaxiLoc();
@@ -23,8 +23,8 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         Map map = new Map(20, 20);
         map.getTaxiDrivers();
         ListSingleton singleton = ListSingleton.getInstance();
-        List<Taxi> allTaxis = singleton.getList();
-        for (Taxi taxi : allTaxis) {
+        List<TaxiDriver> allTaxis = singleton.getList();
+        for (TaxiDriver taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
                 System.out.println(taxi.getDriverName() + " is at " + taxi.toString());
                 taxi.setTaxiLoc(loc);
@@ -37,7 +37,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     }
 
     @Override
-    public List<Taxi> testGetVehiclesInRange(Location loc, int r) {
+    public List<TaxiDriver> testGetVehiclesInRange(Location loc, int r) {
         Map map = new Map(20, 20);
         map.getTaxiDrivers();
         ListSingleton singleton = ListSingleton.getInstance();
@@ -47,7 +47,8 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
                 if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
                     Location taxiLocations = map.getGrid()[i][j];
                     // Check if the symbol at the current location is a taxi symbol
-                    if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
+//                    if (taxiLocations != null && taxiLocations == '!') {
+                    {
                         System.out.println("Taxi found at (" + i + ", " + j + ")");
                     }
                 }
@@ -59,9 +60,9 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     public boolean testRemoveVehicle(String reg) {
         Map map = new Map(20, 20);
         ListSingleton singleton = ListSingleton.getInstance();
-        List<Taxi> allTaxis = singleton.getList();
+        List<TaxiDriver> allTaxis = singleton.getList();
         map.Display(singleton.getPassenger());
-        for(Taxi taxi : allTaxis){
+        for(TaxiDriver taxi : allTaxis){
             if(taxi.getRegistrationNumber().equals(reg)){
                 System.out.println(taxi.getDriverName() + " is at: " + taxi.toString());
                 taxi.setTaxiLoc(null);
@@ -78,14 +79,14 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     public boolean testAddToMap(String reg, Location loc) {
         Map map = new Map(20, 20);
         ListSingleton singleton = ListSingleton.getInstance();
-        List<Taxi> allTaxis = singleton.getList();
+        List<TaxiDriver> allTaxis = singleton.getList();
         map.Display(singleton.getPassenger());
-        for(Taxi taxi : allTaxis){
+        for(TaxiDriver taxi : allTaxis){
             if(taxi.getRegistrationNumber().equals(reg)){
                 System.out.println("Taxi already exists");
                 return false;
             }else{
-                Taxi taxiNew = new TaxiPremium(reg, "La Ferrari", "Tiago",
+                TaxiDriver taxiNew = new TaxiPremium(reg, "La Ferrari", "Tiago",
                         5, "Premium", loc);
                 allTaxis.add(taxiNew);
                 System.out.println(taxiNew.getDriverName() + " has been added to the map at: " + taxiNew.toString());

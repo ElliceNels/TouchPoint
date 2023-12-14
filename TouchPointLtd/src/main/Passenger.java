@@ -5,16 +5,7 @@ public class Passenger extends User {
 
 
     ListSingleton singleton = ListSingleton.getInstance();
-    //boolean[]presentLocation  = singleton.getPresentLocations();
     Scanner in = new Scanner(System.in);
-
-    public Passenger() {
-        super();
-    }
-
-    /* public findTaxisInRadius(){
-
-     }*/
     public void mainMenuRun(User passenger, Map map) {
         System.out.println("Name?");
         passenger.setUsername(in.nextLine());
@@ -117,7 +108,7 @@ public class Passenger extends User {
                 for (int j = pickupPassenger.getY() - roadRadius; j <= pickupPassenger.getY() + roadRadius; j++) {
                     if (i >= 0 && i < 20 && j >= 0 && j < 20) {
                         Location roadLocation = map.getGrid()[i][j];
-                        // Check if the symbol at the current location is a taxi symbol
+                        // Check if the symbol at   the current location is a taxi symbol
                         //if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
                         passenger.setPickupPoint(new Location(i, j));
                         System.out.println("Pickup point is (" + i + ", " + j + ")");

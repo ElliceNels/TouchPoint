@@ -4,8 +4,6 @@ public abstract class User {
     private Location destination;
     private Location pickupPoint;
     private Location closestDestination;
-
-
     public void orderTaxi(){//once used,all taxis in a cube around user is listed
 
     }

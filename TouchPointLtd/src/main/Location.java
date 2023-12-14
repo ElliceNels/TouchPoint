@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 public class Location {
     int x;
     int y;
@@ -13,9 +15,8 @@ public class Location {
     private boolean[] presentLocations;
     int gCost, hCost;
     Location parent; //location
+    private List<User> objectList;
     static ListSingleton singleton = ListSingleton.getInstance();
-    //boolean[]presentLocation  = singleton.getPresentLocations();
-
     int getFCost() {
         return gCost + hCost;
     }
@@ -41,6 +42,12 @@ public class Location {
         this.x = loc.x;
         this.y = loc.y;
         this.presentLocations = presentLocations;
+    }
+    public Location(Location loc, boolean[]presentLocations, List<User> objectList) {
+        this.x = loc.x;
+        this.y = loc.y;
+        this.presentLocations = presentLocations;
+        objectList = new ArrayList<>();
     }
 
     public boolean[] array(){
@@ -137,6 +144,10 @@ public class Location {
 
     public void setPOIPresent(boolean POIPresent) {
         this.POIPresent = POIPresent;
+    }
+
+    public List<User> getObjectList() {
+        return objectList;
     }
 }
 
