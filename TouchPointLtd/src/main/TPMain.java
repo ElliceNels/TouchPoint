@@ -9,10 +9,8 @@ public class TPMain{
         ListSingleton singleton = ListSingleton.getInstance();
         User passenger = singleton.getPassenger();
         map.Display(passenger);
-        
         //allows list of taxis to be accessed from singleton
         ((Passenger) passenger).mainMenuRun(passenger, map);
-
         map.Display(passenger);
     }
 

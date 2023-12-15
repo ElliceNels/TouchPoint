@@ -1,4 +1,5 @@
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Passenger extends User {
@@ -101,46 +102,52 @@ public class Passenger extends User {
     public void ChooseAPickupRoad(Map map, User passenger) {
         Location pickupPassenger = new Location(passenger.getCurrentLocation());
         int roadRadius = 3;
-        boolean roadFound = false;
-        outerLoop: // Label for the outer loop
-        while(!roadFound) {
+        outerLoop:
+        // Label for the outer loop
+        if (passenger.getCurrentLocation() != null && passenger.getCurrentLocation().roadPresent) {
+            passenger.setPickupPoint(passenger.getCurrentLocation());
+            ChooseADestinationRoad(map, passenger);
+        } else {
             for (int i = pickupPassenger.getX() - roadRadius; i <= pickupPassenger.getX() + roadRadius; i++) {
                 for (int j = pickupPassenger.getY() - roadRadius; j <= pickupPassenger.getY() + roadRadius; j++) {
                     if (i >= 0 && i < 20 && j >= 0 && j < 20) {
                         Location roadLocation = map.getGrid()[i][j];
                         // Check if the symbol at   the current location is a taxi symbol
-                        //if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
-                        passenger.setPickupPoint(new Location(i, j));
-                        System.out.println("Pickup point is (" + i + ", " + j + ")");
-                        roadFound = true;
-                        break outerLoop; // Break out of the outer loop when a taxi is found
+                        if (roadLocation != null && roadLocation.roadPresent) {
+                            passenger.setPickupPoint(new Location(i, j));
+                            System.out.println("Pickup point is (" + i + ", " + j + ")");
+                            break outerLoop; // Break out of the outer loop when a taxi is found
+                        }
                     }
                 }
             }
         }
     }
+
     public void ChooseADestinationRoad(Map map, User passenger) {
         Location pickupPassenger = new Location(passenger.getDestination());
         int roadRadius = 3;
-        boolean roadFound = false;
-        outerLoop: // Label for the outer loop
-        while(!roadFound) {
+        outerLoop:
+        // Label for the outer loop
+        if (passenger.getDestination() != null && passenger.getDestination().roadPresent) {
+            passenger.setClosestDestination(new Location(passenger.getDestination()));
+            ChooseATaxi(passenger, map);
+        } else {
             for (int i = pickupPassenger.getX() - roadRadius; i <= pickupPassenger.getX() + roadRadius; i++) {
                 for (int j = pickupPassenger.getY() - roadRadius; j <= pickupPassenger.getY() + roadRadius; j++) {
                     if (i >= 0 && i < 20 && j >= 0 && j < 20) {
                         Location roadLocation = map.getGrid()[i][j];
                         // Check if the symbol at the current location is a taxi symbol
-                        //if (roadLocation != null && roadLocation.getDisplayRoad() == '*') {
-                        passenger.setClosestDestination(new Location(i, j));
-                        System.out.println("The taxi will bring you to (" + i + ", " + j + ")");
-                        roadFound = true;
-                        break outerLoop; // Break out of the outer loop when a taxi is found
+                        if (roadLocation != null && roadLocation.roadPresent) {
+                            passenger.setClosestDestination(new Location(i, j));
+                            System.out.println("The taxi will bring you to (" + i + ", " + j + ")");
+                            break outerLoop; // Break out of the outer loop when a taxi is found
+                        }
                     }
                 }
             }
         }
     }
-        //}
 
     public void ChooseATaxi(User passenger, Map map) {
         Location searchCentre = passenger.getCurrentLocation();
@@ -150,13 +157,23 @@ public class Passenger extends User {
                 if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
                     Location taxiLocations = map.getGrid()[i][j];
                     // Check if the symbol at the current location is a taxi symbol
-                    //if (taxiLocations != null && taxiLocations.getDisplayTaxi() == '!') {
-                        System.out.println("Taxi found at (" + i + ", " + j + ")");
-                    //}
+                    if (taxiLocations.taxiPresent) {
+                        List<TaxiDriver> allTaxis = singleton.getList();
+                        for(TaxiDriver taxiDriver : allTaxis){
+                           int distance = calculateDistance(taxiDriver.getTaxiLoc(), passenger.getClosestDestination());
+                            if (distance < 4){
+                                System.out.println(allTaxis);
+                            }
+                        }
+                    }
                 }
             }
         }in.close();
     }
-
-
+    private int calculateDistance(Location loc1, Location loc2) {
+        // Calculate distance between two locations
+        int dx = loc1.getX() - loc2.getX();
+        int dy = loc1.getY() - loc2.getY();
+        return (int) Math.sqrt(dx * dx + dy * dy);
+    }
 }

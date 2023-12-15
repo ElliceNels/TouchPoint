@@ -55,12 +55,18 @@ public abstract class TaxiDriver extends User implements Bookable{
         TaxiDriver chosenTaxi = RemoveFromMap(allTaxis, chosenTaxiIndex);
         System.out.println("Driver is on the way.");
         chosenTaxi.printTaxiDetails(chosenTaxi);
+<<<<<<< HEAD
         //chosenTaxi.moveTaxi(map);
+=======
+>>>>>>> c44e153d1de6b33f9674935fb824fe56eb074b88
     }
 
     public void MoveToDestination(List<TaxiDriver> allTaxis, TaxiReg chosenTaxi, User passenger, Map map){
         System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
+<<<<<<< HEAD
         //chosenTaxi.moveTaxi(map);
+=======
+>>>>>>> c44e153d1de6b33f9674935fb824fe56eb074b88
     }
 
     public double CalculateFare() {
