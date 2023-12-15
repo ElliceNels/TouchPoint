@@ -12,7 +12,7 @@ public class TPMain{
         map.Display(passenger);
         //allows list of taxis to be accessed from singleton
         ((Passenger) passenger).mainMenuRun(passenger, map);
-        singleton.chooseTaxi(1).taxiSequence(allTaxis, chosenTaxiIndex, passenger, map);
+//        singleton.chooseTaxi(1).taxiSequence(allTaxis, chosenTaxiIndex, passenger, map);
         map.getTaxiDrivers(passenger);
         map.Display(passenger);
     }

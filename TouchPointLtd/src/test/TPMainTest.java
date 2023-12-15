@@ -9,7 +9,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         List<TaxiDriver> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis);
         map.storeMapLocations();
-        map.TestGetTaxiDrivers(singleton.getPassenger().getDestination());
+        map.TestGetTaxiDrivers(map.mapLocations.get(10));
         for (TaxiDriver taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
                 System.out.println(taxi.getDriverName() + " is at: " + TaxiDriver.getTaxiLoc().getX()
@@ -26,7 +26,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         List<TaxiDriver> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis);
         map.storeMapLocations();
-        map.TestGetTaxiDrivers(singleton.getPassenger().getDestination());
+        map.TestGetTaxiDrivers(map.mapLocations.get(10));
         for (TaxiDriver taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
                 System.out.println(taxi.getDriverName() + " is at " + TaxiDriver.getTaxiLoc().getX()
@@ -53,7 +53,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         List<TaxiDriver> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis);
         map.storeMapLocations();
-        map.TestGetTaxiDrivers(singleton.getPassenger().getDestination());
+        map.TestGetTaxiDrivers(map.mapLocations.get(10));
         for(TaxiDriver taxi : allTaxis){
             if(taxi.getRegistrationNumber().equals(reg)){
                 System.out.println(taxi.getDriverName() + " is at: " + TaxiDriver.getTaxiLoc().getX()
@@ -74,7 +74,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         List<TaxiDriver> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis);
         map.storeMapLocations();
-        map.TestGetTaxiDrivers(singleton.getPassenger().getDestination());
+        map.TestGetTaxiDrivers(map.mapLocations.get(10));
         for(TaxiDriver taxi : allTaxis){
             if(taxi.getRegistrationNumber().equals(reg)){
                 System.out.println("Taxi already exists");

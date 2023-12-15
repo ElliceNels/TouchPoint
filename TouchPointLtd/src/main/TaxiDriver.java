@@ -49,13 +49,13 @@ public abstract class TaxiDriver extends User implements Bookable{
     }
 
     public void ReturnToMap(int chosenTaxiIndex){
-        Location location = singleton.chooseTaxi().getTaxiLoc();
+        Location location = singleton.chooseTaxi(chosenTaxiIndex).getTaxiLoc();
 
         //location.setDisplayTaxi();
     }
 
     public void MoveToPassenger(List<TaxiDriver> allTaxis, int chosenTaxiIndex, User passenger, Map map){
-        TaxiDriver chosenTaxi = singleton.chooseTaxi();
+        TaxiDriver chosenTaxi = singleton.chooseTaxi(chosenTaxiIndex);
         System.out.println("Driver is on the way.");
         chosenTaxi.printTaxiDetails(chosenTaxi);
         //chosenTaxi.moveTaxi(map);
