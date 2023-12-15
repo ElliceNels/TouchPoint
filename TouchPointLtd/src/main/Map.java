@@ -25,7 +25,7 @@ public class Map {
     static final private char displayPOI = '$';//displays point of interest as $
     static final private char displayNoRoad = '.';//road is not empty as it is always inputted last
     static final char displayPassenger = '&';
-    static final private char displayPassengerDestination = '@';
+    static final char displayPassengerDestination = '@';
     static final private char displayTaxi = '!';
 
     public static final String CAR_EMOJI = "\uD83D\uDE95";
@@ -57,11 +57,13 @@ public class Map {
         addToGrid(66, 88);
         addToGrid(88, 198);
         addToGrid(35, 66);
-        if (passenger.getCurrentLocation() != null){
-            grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
+        if (passenger.getPickupPoint() != null){
+            grid[passenger.getPickupPoint().getX()][passenger.getPickupPoint().getY()] = passenger.getCurrentLocation();
+            passenger.getCurrentLocation().setPassengerPresent(true);
         }
         if (passenger.getDestination() != null) {
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
+            passenger.getDestination().setPassengerDestPresent(true);
         }
     }
     private void addToGrid(int start, int end) {
@@ -106,14 +108,25 @@ public class Map {
             TaxiDriver.setTaxiLoc(taxiLocation);
 
             int distance = calculateDistance(TaxiDriver.getTaxiLoc(), passenger.getPickupPoint());
-            if (distance < 10) {
-                object.add(allTaxis.get(i));
-                taxiLocation.setObjectList(object);
-                taxiLocation.setTaxiPresent(true);
-                grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+            if (taxiLocation != null) {
+                if (distance < 4) {
+                    object.add(allTaxis.get(i));
+                    taxiLocation.setObjectList(object);
+                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+                    taxiLocation.setTaxiPresent(true);
+                }
             }
-        }for(int j = 0;j < object.size();j++){
+        }
+        System.out.println("Taxis in Range:");
+        for(int j = 0;j < object.size();j++){
             TaxiDriver.printTaxiDetails(allTaxis.get(j));
+            try {
+                // Sleep for 3 seconds (3000 milliseconds)
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                // Handle the exception (e.g., log or print an error message)
+                e.printStackTrace();
+            }
         }
     }
 
@@ -124,8 +137,10 @@ public class Map {
             for (int j = 0; j < grid.length; j++) {
                 if (grid[i][j]== null){
                     System.out.print(ANSI_BLACK + " "+displayNoRoad+" " + ANSI_RESET);
+                }else if (grid[i][j].array()[0]) {
+                    System.out.print(ANSI_PURPLE +" "+ displayPassenger+" "+ ANSI_RESET);
                 } else if (grid[i][j].array()[1]) {
-                    System.out.print(ANSI_BLACK +" "+ displayPassengerDestination+" " + ANSI_RESET);
+                    System.out.print(ANSI_GREEN +" "+ displayPassengerDestination+" " + ANSI_RESET);
                 } else if (grid[i][j].array()[2]) {
                     System.out.print(ANSI_RED + " "+displayTaxi +" "+ ANSI_RESET);
                 } else if (grid[i][j].array()[3]) {
@@ -138,10 +153,8 @@ public class Map {
                     System.out.print(" "+displayHouse+" ");
                 } else if (grid[i][j].array()[7]) {
                     System.out.print(ANSI_YELLOW + " "+displayPOI+" "+ ANSI_RESET);
-                } else if (grid[i][j].array()[8]) {
+                } else {
                     System.out.print(ANSI_BLACK +" "+ displayNoRoad+" "+ ANSI_RESET);
-                }else if (grid[i][j].array()[0]) {
-                    System.out.print(ANSI_PURPLE +" "+ displayPassenger+" "+ ANSI_RESET);
                 }
             }
         } System.out.println();
@@ -152,13 +165,42 @@ public class Map {
         choosePlace();
     }
     public void getLegend(){
-        System.out.println("Piltover Legend\nHouses: H      " + ANSI_LIGHT_BROWN + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *" + ANSI_RESET);
+        System.out.println("Piltover Legend\nHouses: H      " + ANSI_LIGHT_BROWN + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &       " + ANSI_GREEN + "Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *" + ANSI_RESET);
     }
 
-    private int calculateDistance(Location loc1, Location loc2) {
+    public int calculateDistance(Location loc1, Location loc2) {
         // Calculate distance between two locations
         int dx = loc1.getX() - loc2.getX();
         int dy = loc1.getY() - loc2.getY();
         return (int) Math.sqrt(dx * dx + dy * dy);
+    }
+    public void TestGetTaxiDrivers(Location location) {//basically taxi drivers but for the test part
+        storeMapLocations();
+        singleton.storeTaxiDetails(singleton.getList());
+        List<TaxiDriver> allTaxis = singleton.getList();
+        List<User> object = new ArrayList<>();
+        Random rand = new Random();
+
+        int startIndex = 88;
+        int endIndex = 197;
+
+        for (int i = 0; i < singleton.getList().size(); i++) {
+            int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
+            Location taxiLocation = mapLocations.get(randInt);
+            TaxiDriver.setTaxiLoc(taxiLocation);
+
+            int distance = calculateDistance(TaxiDriver.getTaxiLoc(), location);
+            if (taxiLocation != null) {
+                if (distance < 4) {
+                    object.add(allTaxis.get(i));
+                    taxiLocation.setObjectList(object);
+                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+                    taxiLocation.setTaxiPresent(true);
+                }
+            }
+        }
+        for (int j = 0; j < object.size(); j++) {
+            TaxiDriver.printTaxiDetails(allTaxis.get(j));
+        }
     }
 }

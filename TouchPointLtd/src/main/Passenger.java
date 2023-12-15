@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Passenger extends User {
-
-
     ListSingleton singleton = ListSingleton.getInstance();
     Scanner in = new Scanner(System.in);
     public void mainMenuRun(User passenger, Map map) {

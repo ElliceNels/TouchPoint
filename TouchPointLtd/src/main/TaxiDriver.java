@@ -17,18 +17,21 @@ public abstract class TaxiDriver extends User implements Bookable{
         this.driverName = driverName;
         this.driverRating = driverRating;
         this.tier = tier;
-        this.taxiLoc = taxiLoc;
+        TaxiDriver.taxiLoc = taxiLoc;
     }
 
 
 
     public static void printTaxiDetails(TaxiDriver chosenTaxi){
-        System.out.println("Taxi tier is " + chosenTaxi.getTier());
+        System.out.println();
+        System.out.println(chosenTaxi.getTier());
         System.out.println("Driver name: " + chosenTaxi.getDriverName());
         System.out.println("Driver rating: " + chosenTaxi.getDriverRating());
         System.out.println("Registration number: " + chosenTaxi.getRegistrationNumber());
         System.out.println("Car brand: " + chosenTaxi.getCarType());
         System.out.println("Capacity: " + chosenTaxi.getCapacity() + " seats");
+        System.out.println();
+
     }
 
     public TaxiDriver RemoveFromMap(List<TaxiDriver> allTaxis, int chosenTaxiIndex){
@@ -135,5 +138,4 @@ public abstract class TaxiDriver extends User implements Bookable{
     public static void setTravelTime(int travelTime) {
         TaxiDriver.travelTime = travelTime;
     }
-
 }
