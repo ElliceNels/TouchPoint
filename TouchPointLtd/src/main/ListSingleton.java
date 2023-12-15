@@ -25,6 +25,9 @@ public class ListSingleton {
     public List<TaxiDriver> getList() {
         return allTaxis;
     }
+    public TaxiDriver chooseTaxi(int chosenTaxiIndex){
+        return allTaxis.get(chosenTaxiIndex);
+    }
     //Takes info from csv, turns them into drivers of their respective type and adds them to list
     public void storeTaxiDetails(List <TaxiDriver> allTaxis) {
         String taxidrivers = "src//main//Taxidrivers.csv";
