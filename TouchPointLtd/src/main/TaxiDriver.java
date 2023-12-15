@@ -7,7 +7,7 @@ public abstract class TaxiDriver extends User implements Bookable{
     private int driverRating;
     private String driverName;
     private String tier;
-    private Location taxiLoc;
+    private static Location taxiLoc;
     static private int travelTime;
 
     public TaxiDriver(String registrationNumber, String carType, int capacity, String driverName, int driverRating, String tier, Location taxiLoc) {
@@ -115,12 +115,12 @@ public abstract class TaxiDriver extends User implements Bookable{
         this.tier = tier;
     }
 
-    public Location getTaxiLoc() {
+    public static Location getTaxiLoc() {
         return taxiLoc;
     }
 
-    public void setTaxiLoc(Location taxiLoc) {
-        this.taxiLoc = taxiLoc;
+    public static void setTaxiLoc(Location taxiLoc) {
+        TaxiDriver.taxiLoc = taxiLoc;
     }
 
     public static int getTravelTime() {

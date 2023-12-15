@@ -84,27 +84,33 @@ public class Map {
             }
         }
     }
-    public Map(int rows, int cols) {
+    public Map(int rows, int cols){
         grid = new Location[rows][cols];
     }
     public Location[][] getGrid() {
         return grid;
     }
-    public void getTaxiDrivers(){
+    public void getTaxiDrivers(User passenger){
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
         List<User> object = new ArrayList<>();
         Random rand = new Random();
-        for(int i = 0;i < singleton.getList().size();i++){
+        for(int i = 0;i < singleton.getList().size();i++) {
             int startIndex = 88;
             int endIndex = 197;
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
             Location taxiLocation = mapLocations.get(randInt);
-            grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
-            object.add(allTaxis.get(i));
-            taxiLocation.setObjectList(object);
-            taxiLocation.setTaxiPresent(true);
+            TaxiDriver.setTaxiLoc(taxiLocation);
+            for (int j = 0; j < singleton.getList().size(); j++) {
+                int distance = calculateDistance(TaxiDriver.getTaxiLoc(),passenger.getPickupPoint());
+                if (distance < 10) {
+                    object.add(allTaxis.get(i));
+                    taxiLocation.setObjectList(object);
+                    taxiLocation.setTaxiPresent(true);
+                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+                }
+            }
         }
     }
 
@@ -140,10 +146,16 @@ public class Map {
     public void Display(User passenger) {
         getLegend();
         addToMap(passenger);
-        getTaxiDrivers();
         choosePlace();
     }
     public void getLegend(){
         System.out.println("Piltover Legend\nHouses: H      " + ANSI_LIGHT_BROWN + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &        Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *" + ANSI_RESET);
+    }
+
+    private int calculateDistance(Location loc1, Location loc2) {
+        // Calculate distance between two locations
+        int dx = loc1.getX() - loc2.getX();
+        int dy = loc1.getY() - loc2.getY();
+        return (int) Math.sqrt(dx * dx + dy * dy);
     }
 }

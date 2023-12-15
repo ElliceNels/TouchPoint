@@ -11,6 +11,7 @@ public class TPMain{
         map.Display(passenger);
         //allows list of taxis to be accessed from singleton
         ((Passenger) passenger).mainMenuRun(passenger, map);
+        map.getTaxiDrivers(passenger);
         map.Display(passenger);
     }
 

@@ -24,7 +24,7 @@ public class Location {
     public Location(int x, int y) {
         this.x = x;
         this.y = y;
-        //presentLocations = presentLocation;
+        this.objectList = new ArrayList<>();
     }
 
     public Location(Location loc) {
@@ -47,7 +47,7 @@ public class Location {
         this.x = loc.x;
         this.y = loc.y;
         this.presentLocations = presentLocations;
-        objectList = new ArrayList<>();
+        this.objectList = objectList;
     }
 
     public boolean[] array(){
