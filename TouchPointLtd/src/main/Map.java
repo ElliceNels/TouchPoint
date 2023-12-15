@@ -90,35 +90,30 @@ public class Map {
     public Location[][] getGrid() {
         return grid;
     }
-    public void getTaxiDrivers(User passenger){
+    public void getTaxiDrivers(User passenger) {
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
         List<User> object = new ArrayList<>();
         Random rand = new Random();
-        for(int i = 0;i < singleton.getList().size();i++) {
-            int startIndex = 88;
-            int endIndex = 197;
+
+        int startIndex = 88;
+        int endIndex = 197;
+
+        for (int i = 0; i < singleton.getList().size(); i++) {
             int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
             Location taxiLocation = mapLocations.get(randInt);
-<<<<<<< HEAD
-            grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
-            object.add(allTaxis.get(i));
-
-            taxiLocation.setObjectList(object);
-            taxiLocation.setTaxiPresent(true);
-=======
             TaxiDriver.setTaxiLoc(taxiLocation);
-            for (int j = 0; j < singleton.getList().size(); j++) {
-                int distance = calculateDistance(TaxiDriver.getTaxiLoc(),passenger.getPickupPoint());
-                if (distance < 10) {
-                    object.add(allTaxis.get(i));
-                    taxiLocation.setObjectList(object);
-                    taxiLocation.setTaxiPresent(true);
-                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
-                }
+
+            int distance = calculateDistance(TaxiDriver.getTaxiLoc(), passenger.getPickupPoint());
+            if (distance < 10) {
+                object.add(allTaxis.get(i));
+                taxiLocation.setObjectList(object);
+                taxiLocation.setTaxiPresent(true);
+                grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
             }
->>>>>>> 2df8c72a68d8433411cb11b9282ebfbb9c965321
+        }for(int j = 0;j < object.size();j++){
+            TaxiDriver.printTaxiDetails(allTaxis.get(j));
         }
     }
 
