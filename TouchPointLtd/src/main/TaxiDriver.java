@@ -9,6 +9,7 @@ public abstract class TaxiDriver extends User implements Bookable{
     private String tier;
     private static Location taxiLoc;
     static private int travelTime;
+    ListSingleton singleton = ListSingleton.getInstance();
 
     public TaxiDriver(String registrationNumber, String carType, int capacity, String driverName, int driverRating, String tier, Location taxiLoc) {
         this.registrationNumber = registrationNumber;
@@ -44,26 +45,36 @@ public abstract class TaxiDriver extends User implements Bookable{
         return chosenTaxi;
     }
 
-    public void ReturnToMap(List<TaxiDriver> allTaxis, int chosenTaxiIndex){
-        TaxiDriver chosenTaxi = allTaxis.get(chosenTaxiIndex);
+    public void ReturnToMap(int chosenTaxiIndex){
+        Location location = singleton.chooseTaxi().getTaxiLoc();
 
-        Location location = chosenTaxi.getTaxiLoc();
         //location.setDisplayTaxi();
     }
 
     public void MoveToPassenger(List<TaxiDriver> allTaxis, int chosenTaxiIndex, User passenger, Map map){
-        TaxiDriver chosenTaxi = RemoveFromMap(allTaxis, chosenTaxiIndex);
+        TaxiDriver chosenTaxi = singleton.chooseTaxi();
         System.out.println("Driver is on the way.");
         chosenTaxi.printTaxiDetails(chosenTaxi);
+        //chosenTaxi.moveTaxi(map);
+        AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
+        aStar.roadMapCoordinates(map);
+        aStar.aStarRun(chosenTaxi.getTaxiLoc(), getPickupPoint());
+
+    }
+
+    public void MoveToDestination( User passenger, Map map){
+        System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
+        AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
+        aStar.roadMapCoordinates(map);
+        aStar.aStarRun(getPickupPoint(), getClosestDestination());
         //chosenTaxi.moveTaxi(map);
 
     }
 
-    public void MoveToDestination(List<TaxiDriver> allTaxis, TaxiReg chosenTaxi, User passenger, Map map){
-        System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
-
-        //chosenTaxi.moveTaxi(map);
-
+    public void taxiSequence(List<TaxiDriver> allTaxis, int chosenTaxiIndex, Passenger passenger, Map map){
+        RemoveFromMap(allTaxis, chosenTaxiIndex);
+        MoveToPassenger(allTaxis, chosenTaxiIndex, passenger, map);
+        MoveToDestination(passenger, map);
     }
 
     public double CalculateFare() {
