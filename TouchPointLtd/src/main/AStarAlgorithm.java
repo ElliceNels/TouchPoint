@@ -3,13 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AStarAlgorithm extends Location {
-<<<<<<< HEAD
+
    ListSingleton singleton = ListSingleton.getInstance();
    User passenger = singleton.getPassenger();
-=======
-    static ListSingleton singleton = ListSingleton.getInstance();
-    static User passenger = singleton.getPassenger();
->>>>>>> c44e153d1de6b33f9674935fb824fe56eb074b88
+
 
     int ROWS = 20;
     int COLS = 20;
@@ -59,14 +56,13 @@ public class AStarAlgorithm extends Location {
     }
 
     public List<Location> findPath() {
-        Map map = new Map(20,20);
-        roadMapCoordinates(map);
         List<Location> uncheckedSet = new ArrayList<>();
         Set<Location> checkedSet = new HashSet<>();
 
         uncheckedSet.add(startLocation);
-
+        System.out.println(startLocation+ "added to unchecked");
         while (!uncheckedSet.isEmpty()) { //keeps going til the unchecked list is empty (everything is checked)
+            System.out.println(uncheckedSet + "is not empty");
             Location currentLocation = uncheckedSet.get(0);
             //to find lowest total cost (f and h but f is considered first)
             for (int i = 1; i < uncheckedSet.size(); i++) {
@@ -74,13 +70,14 @@ public class AStarAlgorithm extends Location {
                         (uncheckedSet.get(i).getFCost() == currentLocation.getFCost() &&
                                 uncheckedSet.get(i).hCost < currentLocation.hCost)) {
                     currentLocation = uncheckedSet.get(i); //stores element with the lowest cost
+                    System.out.println(currentLocation + "has the lowest cost");
                 }
             }
 
             //removed because it is checked
             uncheckedSet.remove(currentLocation);
             checkedSet.add(currentLocation);
-
+            System.out.println(currentLocation +"is checked");
             //if destination is reached
             if (currentLocation.equals(endLocation)) {
                 return reconstructPath(currentLocation);
@@ -118,6 +115,7 @@ public class AStarAlgorithm extends Location {
     }
 
     public void roadMapCoordinates(Map map) {
+        map.storeMapLocations();
         for (int i = 88; i < 198; i++) {
             Location location = map.mapLocations.get(i);
             int roadX = location.getX();
@@ -126,13 +124,8 @@ public class AStarAlgorithm extends Location {
         }
     }
 
-<<<<<<< HEAD
     public void printEntireGrid(){
         for (int i = 0; i < roadMap.length - 1; i++){
-=======
-    public static void printEntireGrid() {
-        for (int i = 0; i < roadMap.length - 1; i++) {
->>>>>>> c44e153d1de6b33f9674935fb824fe56eb074b88
             System.out.println();
             for (int j = 0; j < roadMap.length - 1; j++) {
                 System.out.print(roadMap[i][j]);
@@ -142,8 +135,8 @@ public class AStarAlgorithm extends Location {
 
     public static void main(String[] args) {
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
+        //printEntireGrid();
 
-<<<<<<< HEAD
         List<Location> path = aStar.findPath();
         TaxiDriver.setTravelTime(0);
         //ensures there is an actual path
@@ -157,21 +150,7 @@ public class AStarAlgorithm extends Location {
         }
     }
 }
-=======
-//        List<Location> path = AStarAlgorithm.findPath();
-//        Taxi.setTravelTime(0);
-//        //ensures there is an actual path
-//        if (path != null) {
-//            for (Location location : path) {
-//                System.out.println("(" + location.x + ", " + location.y + ")");
-//                //Taxi.setTravelTime(Taxi.getTravelTime()++);
-//            }
-//        } else {
-//            System.out.println("Your location cannot be accessed by taxi.");
-//        }
-//    }
-//}
->>>>>>> c44e153d1de6b33f9674935fb824fe56eb074b88
+
 
 /*for (int i = 0; i < roadMap.length - 1; i++){
         System.out.print(roadMap[i][0]);
@@ -179,5 +158,3 @@ public class AStarAlgorithm extends Location {
         }
 
  */
-    }
-}

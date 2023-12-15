@@ -103,13 +103,9 @@ public class Map {
             Location taxiLocation = mapLocations.get(randInt);
             grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
             object.add(allTaxis.get(i));
-<<<<<<< HEAD
-            taxiLocation.setObjectList(objectList);
-            System.out.println(objectList);
-=======
+
             taxiLocation.setObjectList(object);
             taxiLocation.setTaxiPresent(true);
->>>>>>> c44e153d1de6b33f9674935fb824fe56eb074b88
         }
     }
 
