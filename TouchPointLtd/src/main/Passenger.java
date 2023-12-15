@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +19,6 @@ public class Passenger extends User {
                 RegisterPassengerDetails(passenger);
                 ChooseAPickupRoad(map, passenger);
                 ChooseADestinationRoad(map, passenger);
-                ChooseATaxi(passenger, map);
                 break;
             case 1:
                 placeSearch();
@@ -131,7 +131,6 @@ public class Passenger extends User {
         // Label for the outer loop
         if (passenger.getDestination() != null && passenger.getDestination().roadPresent) {
             passenger.setClosestDestination(new Location(passenger.getDestination()));
-            ChooseATaxi(passenger, map);
         } else {
             for (int i = pickupPassenger.getX() - roadRadius; i <= pickupPassenger.getX() + roadRadius; i++) {
                 for (int j = pickupPassenger.getY() - roadRadius; j <= pickupPassenger.getY() + roadRadius; j++) {
@@ -147,33 +146,5 @@ public class Passenger extends User {
                 }
             }
         }
-    }
-
-    public void ChooseATaxi(User passenger, Map map) {
-        Location searchCentre = passenger.getCurrentLocation();
-        int r = passenger.getPreferredRadius();//set as r to shorten code
-        for (int i = searchCentre.getX() - r; i <= searchCentre.getX() + r; i++) {
-            for (int j = searchCentre.getY() - r; j <= searchCentre.getY() + r; j++) {
-                if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
-                    Location taxiLocations = map.getGrid()[i][j];
-                    // Check if the symbol at the current location is a taxi symbol
-                    if (taxiLocations.taxiPresent) {
-                        List<TaxiDriver> allTaxis = singleton.getList();
-                        for(TaxiDriver taxiDriver : allTaxis){
-                           int distance = calculateDistance(taxiDriver.getTaxiLoc(), passenger.getClosestDestination());
-                            if (distance < 4){
-                                System.out.println(allTaxis);
-                            }
-                        }
-                    }
-                }
-            }
-        }in.close();
-    }
-    private int calculateDistance(Location loc1, Location loc2) {
-        // Calculate distance between two locations
-        int dx = loc1.getX() - loc2.getX();
-        int dy = loc1.getY() - loc2.getY();
-        return (int) Math.sqrt(dx * dx + dy * dy);
     }
 }

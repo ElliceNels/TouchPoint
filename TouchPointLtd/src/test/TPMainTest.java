@@ -2,13 +2,13 @@ import junit.framework.TestCase;
 import java.util.List;
 
 public class TPMainTest extends TestCase implements VehicleHiringTest {
+    ListSingleton singleton = ListSingleton.getInstance();
     @Override
     public Location testGetVehicleLoc(String reg) {
         Map map = new Map(20, 20);
-        ListSingleton singleton = ListSingleton.getInstance();
         List<TaxiDriver> allTaxis = singleton.getList();
         singleton.storeTaxiDetails(allTaxis);
-        map.getTaxiDrivers();
+        map.getTaxiDrivers(singleton.getPassenger());
         for (TaxiDriver taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
                 System.out.println(taxi.getDriverName() + " is at: " + taxi);
@@ -21,7 +21,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public boolean testMoveVehicle(String reg, Location loc) {
         Map map = new Map(20, 20);
-        map.getTaxiDrivers();
+        map.getTaxiDrivers(singleton.getPassenger());
         ListSingleton singleton = ListSingleton.getInstance();
         List<TaxiDriver> allTaxis = singleton.getList();
         for (TaxiDriver taxi : allTaxis) {
@@ -39,7 +39,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public List<TaxiDriver> testGetVehiclesInRange(Location loc, int r) {
         Map map = new Map(20, 20);
-        map.getTaxiDrivers();
+        map.getTaxiDrivers(singleton.getPassenger());
         ListSingleton singleton = ListSingleton.getInstance();
         map.Display(singleton.getPassenger());
         for (int i = loc.getX() - r; i <= loc.getX() + r; i++) {

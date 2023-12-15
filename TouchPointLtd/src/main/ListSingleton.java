@@ -42,25 +42,13 @@ public class ListSingleton {
                 int driverRating = Integer.parseInt(fields[3]);
                 String tier = fields[4];
 
-                TaxiDriver taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, driverRating, tier, getTaxiLocation());
+                TaxiDriver taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, driverRating, tier, TaxiDriver.getTaxiLoc());
                 allTaxis.add(taxi);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void setTaxiLocation(Location location) {
-        for (TaxiDriver taxi : allTaxis) {
-                taxi.setTaxiLoc(location);
-            }
-        }
-    public Location getTaxiLocation() {
-        for (TaxiDriver taxi : allTaxis) {
-                return taxi.getTaxiLoc();
-        }
-        return null;
-    }
-
     public User getPassenger() {
         return passenger;
     }
