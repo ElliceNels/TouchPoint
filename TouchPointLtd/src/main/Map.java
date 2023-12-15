@@ -110,6 +110,7 @@ public class Map {
             taxiLocation.setTaxiPresent(true);
             object.add(allTaxis.get(i));
             taxiLocation.setObjectList(objectList);
+            System.out.println(objectList);
         }
     }
 

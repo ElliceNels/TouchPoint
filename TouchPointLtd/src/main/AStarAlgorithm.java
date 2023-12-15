@@ -3,23 +3,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AStarAlgorithm extends Location {
-   static ListSingleton singleton = ListSingleton.getInstance();
-   static User passenger = singleton.getPassenger();
+   ListSingleton singleton = ListSingleton.getInstance();
+   User passenger = singleton.getPassenger();
 
-    static int ROWS = 20;
-    static int COLS = 20;
+    int ROWS = 20;
+    int COLS = 20;
 
     //roadMap with obstacles represented as null
-    static Location[][] roadMap = new Location[ROWS][COLS];
-    static Location startLocation = new Location(passenger.getPickupPoint()); // Starting node
-    static Location endLocation = new Location(passenger.getClosestDestination()); // Destination node
-    static int movementCost = 1;
+    Location[][] roadMap = new Location[ROWS][COLS];
+    //Location startLocation = new Location(passenger.getPickupPoint()); // Starting node
+    //Location endLocation = new Location(passenger.getClosestDestination()); // Destination node
+    Location startLocation = new Location(2, 3); // Starting node
+    Location endLocation = new Location(6, 8);
+    int movementCost = 1;
 
     public AStarAlgorithm(int x, int y) {
         super(x, y);
     }
 
-    public static List<Location> getNeighbours(Location location) {
+
+
+    public List<Location> getNeighbours(Location location) {
         List<Location> neighbours = new ArrayList<>();
         // Logic to get neighbouring nodes based on the roadMap boundaries
         // Define possible moves (up, down, left, right)
@@ -38,19 +42,20 @@ public class AStarAlgorithm extends Location {
         return neighbours;
     }
 
-    public static boolean isValid(int x, int y) {
+    public boolean isValid(int x, int y) {
         return x >= 0 && x < ROWS && y >= 0 && y < COLS && roadMap[x][y] != null;
         //Coordinate: not = to 0, between the number of rows and columns and is not = to null(obstacle)
     }
 
-    public static int calculateHCost(Location location) {
+    public int calculateHCost(Location location) {
         // Calculate heuristic (h) with Manhattan distance from current location to endLocation (estimation)
         return Math.abs(location.x - endLocation.x) + Math.abs(location.y - endLocation.y);
 
     }
 
-    public static List<Location> findPath(Map map) {
-        //roadMapCoordinates(map);
+    public List<Location> findPath() {
+        Map map = new Map(20,20);
+        roadMapCoordinates(map);
         List<Location> uncheckedSet = new ArrayList<>();
         Set<Location> checkedSet = new HashSet<>();
 
@@ -97,7 +102,7 @@ public class AStarAlgorithm extends Location {
         return null;
     }
 
-    static List<Location> reconstructPath(Location current) {
+    List<Location> reconstructPath(Location current) {
         List<Location> path = new ArrayList<>();
         while (current != null) {
             path.add(current);
@@ -107,7 +112,7 @@ public class AStarAlgorithm extends Location {
         return path;
     }
 
-    public static void roadMapCoordinates(Map map) {
+    public void roadMapCoordinates(Map map) {
         for (int i = 88; i < 198; i++) {
             Location location = map.mapLocations.get(i);
             int roadX = location.getX();
@@ -116,7 +121,7 @@ public class AStarAlgorithm extends Location {
         }
     }
 
-    public static void printEntireGrid(){
+    public void printEntireGrid(){
         for (int i = 0; i < roadMap.length - 1; i++){
             System.out.println();
             for(int j = 0; j < roadMap.length -1; j++) {
@@ -125,14 +130,15 @@ public class AStarAlgorithm extends Location {
         }
     }
     public static void main(String[] args) {
+        AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
 
-        List<Location> path = AStarAlgorithm.findPath();
-        Taxi.setTravelTime(0);
+        List<Location> path = aStar.findPath();
+        TaxiDriver.setTravelTime(0);
         //ensures there is an actual path
         if (path != null) {
             for (Location location : path) {
                 System.out.println("(" + location.x + ", " + location.y + ")");
-                //Taxi.setTravelTime(Taxi.getTravelTime()++);
+                //TaxiDriver.setTravelTime(TaxiDriver.getTravelTime()++);
             }
         } else {
             System.out.println("Your location cannot be accessed by taxi.");
