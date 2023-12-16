@@ -1,56 +1,105 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
-
 public class Passenger extends User {
-    ListSingleton singleton = ListSingleton.getInstance();
     Scanner in = new Scanner(System.in);
     public void mainMenuRun(User passenger, Map map) {
+        boolean signUp = false;
         System.out.println("Name?");
         passenger.setUsername(in.nextLine());
 
-        System.out.println("Enter your location and destination to book a taxi (0)\nSee a list of map areas (1)");
-        int choice = in.nextInt();
-        switch (choice) {
-            case 0:
-                RegisterPassengerDetails(passenger);
-                ChooseAPickupRoad(map, passenger);
-                ChooseADestinationRoad(map, passenger);
-                break;
-            case 1:
-                placeSearch();
-                break;
-            default:
-                System.out.println("Invalid input");
-                RegisterPassengerDetails(passenger);
-                ChooseAPickupRoad(map, passenger);
-                ChooseADestinationRoad(map, passenger);
+        while (!signUp) {
+            System.out.println("Enter your location and destination to book a taxi (0)\nSee a list of map areas (1)");
+            if(in.hasNextInt()) {
+                int choice = in.nextInt();
+                switch (choice) {
+                    case 0:
+                        RegisterPassengerDetails(passenger);
+                        ChooseAPickupRoad(map, passenger);
+                        ChooseADestinationRoad(map, passenger);
+                        signUp = true;
+                        break;
+                    case 1:
+                        placeSearch();
+                        RegisterPassengerDetails(passenger);
+                        ChooseAPickupRoad(map, passenger);
+                        ChooseADestinationRoad(map, passenger);
+                        signUp = true;
+                        break;
+                    default:
+                        System.out.println("Invalid choice.");
+                }
+            }else{
+                in.next();
+                System.out.println("Please enter an integer listed above.");
+            }
         }
     }
 
     public void RegisterPassengerDetails(User passenger) {
-        boolean validInput = false;
+        boolean validLocation = false;
+        boolean validDestination = false;
 
-        while (!validInput) {
-            try {
-                System.out.println("Enter the x and y coordinates of your current Location");
-                int xCoord = in.nextInt();
-                int yCoord = in.nextInt();
-                passenger.setCurrentLocation(new Location(xCoord, yCoord));
+        // Input for current location
+        System.out.println("Enter the x and y coordinates of your current location");
+        int xCoord;
+        int yCoord;
 
-                System.out.println("Enter the x and y coordinates of your destination");
-                int DxCoord = in.nextInt();
-                int DyCoord = in.nextInt();
-                passenger.setDestination(new Location(DxCoord, DyCoord));
-                validInput = true;
-                System.out.println(passenger.getUsername() + " is at " + passenger.getCurrentLocation().getX() + ", " + passenger.getCurrentLocation().getY() + " and wants to go to " + passenger.getDestination().getX() + ", " + passenger.getDestination().getY());
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input");
-                in.nextLine();
+        while (!validLocation) {
+            if (in.hasNextInt()) {
+                xCoord = in.nextInt();
+                if (in.hasNextInt()) {
+                    yCoord = in.nextInt();
+
+                    if (xCoord >= 0 && xCoord <= 19 && yCoord >= 0 && yCoord <= 19) {//check if inout is within parameters
+                        passenger.setCurrentLocation(new Location(xCoord, yCoord));
+                        validLocation = true;
+                    } else {
+                        System.out.println("Please enter valid coordinates between 0 and 19.");
+                    }
+                } else {
+                    System.out.println("Please enter valid integer coordinates for both x and y.");
+                    in.next(); // Consume the invalid input
+                }
+            } else {
+                System.out.println("Please enter valid integer coordinates for both x and y.");
+                in.next();
             }
         }
+
+        // Input for destination
+        int DxCoord;
+        int DyCoord;
+
+        while (!validDestination) {
+            System.out.println("Enter the x and y coordinates of your destination");
+
+            if (in.hasNextInt()) {
+                DxCoord = in.nextInt();
+                if (in.hasNextInt()) {
+                    DyCoord = in.nextInt();
+
+                    if (DxCoord >= 0 && DxCoord <= 19 && DyCoord >= 0 && DyCoord <= 19) {
+                        passenger.setDestination(new Location(DxCoord, DyCoord));
+                        validDestination = true;
+                    } else {
+                        System.out.println("Please enter valid coordinates between 0 and 19.");
+                    }
+                } else {
+                    System.out.println("Please enter valid integer coordinates for both x and y.");
+                    in.next(); // Consume the invalid input
+                }
+            } else {
+                System.out.println("Please enter valid integer coordinates for both x and y.");
+                in.next();
+            }
+        }
+
+        System.out.println(passenger.getUsername() + " is at " + passenger.getCurrentLocation().getX() + ", " +
+                passenger.getCurrentLocation().getY() + " and wants to go to " + passenger.getDestination().getX() +
+                ", " + passenger.getDestination().getY());
     }
+
+
 
     public void placeSearch() {
         Map map = new Map(20, 20);
@@ -79,7 +128,7 @@ public class Passenger extends User {
                     Location location3 = map.mapLocations.get(87);
                     System.out.println("La Ville Lumiere at " + location.getX() + ", " + location.getY());
                     System.out.println("Steve's Golf & Country Club at " + location2.getX() + ", " + location2.getY());
-                    System.out.println("Cho's Barbecue & Foot Massage at " + location3.getX() + ", " + location3.getY());
+                    System.out.println("Che's Barbecue & Foot Massage at " + location3.getX() + ", " + location3.getY());
                     System.out.println("Press enter\n");
                     break;
                 case "2":

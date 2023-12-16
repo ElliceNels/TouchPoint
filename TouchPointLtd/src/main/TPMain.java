@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-
-public class TPMain{
+ public class TPMain{
     public static void main(String[] args) {
        run();
     }
@@ -15,5 +12,4 @@ public class TPMain{
         singleton.chooseTaxi().taxiSequence((Passenger) passenger, map);
         map.Display(passenger);
     }
-
 }
