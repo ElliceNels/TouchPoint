@@ -120,13 +120,6 @@ public class Map {
         System.out.println("Taxis in Range:");
         for(int j = 0;j < object.size();j++){
             TaxiDriver.printTaxiDetails(allTaxis.get(j));
-            try {
-                // Sleep for 3 seconds (3000 milliseconds)
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                // Handle the exception (e.g., log or print an error message)
-                e.printStackTrace();
-            }
         }
     }
 
