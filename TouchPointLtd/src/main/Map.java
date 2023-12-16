@@ -141,11 +141,11 @@ public class Map {
                     System.out.print(ANSI_PURPLE +" "+ displayPassenger+" "+ ANSI_RESET);
                 } else if (grid[i][j].array()[1]) {
                     System.out.print(ANSI_GREEN +" "+ displayPassengerDestination+" " + ANSI_RESET);
+                }  else if (grid[i][j].array()[3]) {
+                    System.out.print(ANSI_WHITE + " "+ displayRoad+" " + ANSI_RESET);
                 } else if (grid[i][j].array()[2]) {
                     System.out.print(ANSI_RED + " "+displayTaxi +" "+ ANSI_RESET);
-                } else if (grid[i][j].array()[3]) {
-                    System.out.print(ANSI_WHITE + " "+ displayRoad+" " + ANSI_RESET);
-                } else if (grid[i][j].array()[4]) {
+                }else if (grid[i][j].array()[4]) {
                     System.out.print(ANSI_BLUE + " "+displaySea+ " "+ANSI_RESET);
                 } else if (grid[i][j].array()[5]) {
                     System.out.print(ANSI_LIGHT_BROWN + " "+displayOffice+" "+ ANSI_RESET);
@@ -164,6 +164,12 @@ public class Map {
         addToMap(passenger);
         choosePlace();
     }
+    public void DisplayTaxis(User passenger){
+        addToMap(passenger);
+        getTaxiDrivers(passenger);
+        choosePlace();
+    }
+
     public void getLegend(){
         System.out.println("Piltover Legend\nHouses: H      " + ANSI_LIGHT_BROWN + "Offices: O      " + ANSI_BLUE + "Body of Water: /        " + ANSI_BLACK + "Non Road: .     " + ANSI_PURPLE + "Passenger: &       " + ANSI_GREEN + "Passenger Destination: @       " + ANSI_RED + "Taxis: !        " + ANSI_YELLOW + "Points of Interest: $        " + ANSI_WHITE + "Roads: *" + ANSI_RESET);
     }

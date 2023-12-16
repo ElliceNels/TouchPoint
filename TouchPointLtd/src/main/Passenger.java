@@ -14,6 +14,9 @@ public class Passenger extends User {
         int choice = in.nextInt();
         switch (choice) {
             case 0:
+                RegisterPassengerDetails(passenger);
+                ChooseAPickupRoad(map, passenger);
+                ChooseADestinationRoad(map, passenger);
                 break;
             case 1:
                 placeSearch();
