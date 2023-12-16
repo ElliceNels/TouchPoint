@@ -13,8 +13,8 @@ public class AStarAlgorithm extends Location {
 
     //roadMap with obstacles represented as null
     Location[][] roadMap = new Location[ROWS][COLS];
-    Location startLocation = new Location(passenger.getPickupPoint()); // Starting node
-    Location endLocation = new Location(passenger.getClosestDestination()); // Destination node
+    //Location startLocation = new Location(passenger.getPickupPoint()); // Starting node
+    //Location endLocation = new Location(); // Destination node
     //static Location startLocation = new Location(2, 1); // Starting node
     //static Location endLocation = new Location(6, 4);
     static int movementCost = 1;
@@ -50,7 +50,7 @@ public class AStarAlgorithm extends Location {
         //Coordinate: not = to 0, between the number of rows and columns and is not = to null(obstacle)
     }
 
-    public int calculateHCost(Location location) {
+    public int calculateHCost(Location location, Location endLocation) {
         // Calculate heuristic (h) with Manhattan distance from current location to endLocation (estimation)
         return Math.abs(location.x - endLocation.x) + Math.abs(location.y - endLocation.y);
 
@@ -96,7 +96,7 @@ public class AStarAlgorithm extends Location {
                 int newCost = currentLocation.gCost + movementCost; // cost from currentLocation to neighbour //
                 if (newCost < neighbour.gCost || !uncheckedSet.contains(neighbour)) {
                     neighbour.gCost = newCost;
-                    neighbour.hCost = calculateHCost(neighbour);
+                    neighbour.hCost = calculateHCost(neighbour, endLocation);
                     neighbour.parent = currentLocation;
 
                     if (!uncheckedSet.contains(neighbour)) {
@@ -158,9 +158,11 @@ public class AStarAlgorithm extends Location {
         if (path != null) {
             for (Location location : path) {
                 System.out.println("(" + location.x + ", " + location.y + ")");
+                TaxiDriver.setTaxiLoc(location);
+                //System.out.println(TaxiDriver.getTaxiLoc());
                 //TaxiDriver.setTravelTime(TaxiDriver.getTravelTime()++);
             }
-            System.out.println("Destination reached. Rate your driver: ");
+            System.out.println("Arrived");
         } else {
             System.out.println("Your location cannot be accessed by taxi.");
         }

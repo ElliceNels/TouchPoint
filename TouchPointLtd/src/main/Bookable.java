@@ -8,7 +8,7 @@ public interface Bookable {
 
     public void ReturnToMap(List<TaxiDriver> allTaxis, int chosenTaxiIndex);
 
-    public void MoveToPassenger(List<TaxiDriver> allTaxis, int chosenTaxiIndex, User passenger, Map map);
+    public void MoveToPassenger( User passenger, Map map);
 
     public void MoveToDestination(List<TaxiDriver> allTaxis, TaxiReg chosenTaxi, User passenger, Map map);
 
