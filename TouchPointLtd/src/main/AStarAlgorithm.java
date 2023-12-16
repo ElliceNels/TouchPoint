@@ -60,7 +60,6 @@ public class AStarAlgorithm extends Location {
     }
 
     public List<Location> findPath(Location startLocation, Location endLocation) {
-        System.out.println("starting path search");
         List<Location> uncheckedSet = new ArrayList<>();
         Set<Location> checkedSet = new HashSet<>();
         //System.out.println(Arrays.deepToString(roadMap));//test line
@@ -172,7 +171,7 @@ public class AStarAlgorithm extends Location {
             }
             System.out.println("Arrived");
         } else {
-            System.out.println("Your location cannot be accessed by taxi.");
+            System.out.println("Driver is already here.");
         }
     }
 

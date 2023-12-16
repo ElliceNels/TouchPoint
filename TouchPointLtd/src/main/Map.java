@@ -119,13 +119,13 @@ public class Map {
                 }
             }
             if(object.isEmpty()){
-                System.out.println("No taxi found within " + range + " blocks. Increasing search range..");
+                System.out.println("No taxi found within " + range + " blocks. Increasing search range..\n");
                 range++;
             }else {
                 taxisWereFound = true;
             }
         }
-        System.out.println("Taxis in Range:");
+        System.out.println("\nTaxis in Range:");
         for(int j = 0;j < object.size();j++){
             TaxiDriver.printTaxiDetails(allTaxis.get(j));
         }
