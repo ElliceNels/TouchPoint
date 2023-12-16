@@ -1,3 +1,4 @@
+import java.security.spec.RSAOtherPrimeInfo;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +154,7 @@ public class AStarAlgorithm extends Location {
         }
     }
 
-    public void aStarRun(Location startLocation, Location endLocation) throws InterruptedException {
+    public void aStarRun(Location startLocation, Location endLocation)  {
         List<Location> path = findPath(startLocation, endLocation);
         TaxiDriver.setTravelTime(0);
         //ensures there is an actual path
@@ -161,7 +162,11 @@ public class AStarAlgorithm extends Location {
             for (Location location : path) {
                 System.out.println("(" + location.x + ", " + location.y + ")");
                 TaxiDriver.setTaxiLoc(location);
-                sleep(1000);
+                try {
+                    sleep(1000);
+                }catch (InterruptedException e){
+                    System.out.println("sorry, small break");
+                }
                 //System.out.println(TaxiDriver.getTaxiLoc());
                 //TaxiDriver.setTravelTime(TaxiDriver.getTravelTime()++);
             }
