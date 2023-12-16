@@ -15,8 +15,7 @@ public class Location {
     private boolean[] presentLocations;
     int gCost, hCost;
     Location parent; //location
-    private static List<User> objectList;
-    static ListSingleton singleton = ListSingleton.getInstance();
+    private static List<TaxiDriver> taxisInProximity;
     int getFCost() {
         return gCost + hCost;
     }
@@ -24,7 +23,7 @@ public class Location {
     public Location(int x, int y) {
         this.x = x;
         this.y = y;
-        this.objectList = new ArrayList<>();
+        taxisInProximity = new ArrayList<>();
     }
 
     public Location(Location loc) {
@@ -43,11 +42,11 @@ public class Location {
         this.y = loc.y;
         this.presentLocations = presentLocations;
     }
-    public Location(Location loc, boolean[]presentLocations, List<User> objectList) {
+    public Location(Location loc, boolean[]presentLocations, List<TaxiDriver> taxisInProximity) {
         this.x = loc.x;
         this.y = loc.y;
         this.presentLocations = presentLocations;
-        this.objectList = objectList;
+        Location.taxisInProximity = taxisInProximity;
     }
 
     public boolean[] array(){
@@ -146,12 +145,12 @@ public class Location {
         this.POIPresent = POIPresent;
     }
 
-    public static List<User> getObjectList() {
-        return objectList;
+    public static List<TaxiDriver> getTaxisInProximity() {
+        return taxisInProximity;
     }
 
-    public void setObjectList(List<User> objectList) {
-        Location.objectList = objectList;
+    public void setTaxisInProximity(List<TaxiDriver> objectList) {
+        Location.taxisInProximity = objectList;
     }
 }
 

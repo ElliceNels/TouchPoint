@@ -96,7 +96,7 @@ public class Map {
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
-        List<User> object = new ArrayList<>();
+        List<TaxiDriver> taxisInProx = new ArrayList<>();
         Random rand = new Random();
         int startIndex = 88;
         int endIndex = 197;
@@ -110,24 +110,36 @@ public class Map {
                     TaxiDriver.setTaxiLoc(taxiLocation);
                     int distance = calculateDistance(TaxiDriver.getTaxiLoc(), location);
                     if (distance < range) {
-                        object.add(allTaxis.get(i));
-                        taxiLocation.setObjectList(object);
+                        taxisInProx.add(allTaxis.get(i));
+                        taxiLocation.setTaxisInProximity(taxisInProx);
                         grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
                         taxiLocation.setTaxiPresent(true);
                     }
 
                 }
             }
+<<<<<<< HEAD
             if(object.isEmpty()){
                 System.out.println("No taxi found within " + range + " blocks. Increasing search range..\n");
+=======
+            if(taxisInProx.isEmpty()){
+                System.out.println("No taxi found within " + range + " blocks. Increasing search range..");
+>>>>>>> ba979207157274c7a9d31b840fe36ae65b1cd168
                 range++;
             }else {
                 taxisWereFound = true;
             }
         }
+<<<<<<< HEAD
         System.out.println("\nTaxis in Range:");
         for(int j = 0;j < object.size();j++){
             TaxiDriver.printTaxiDetails(allTaxis.get(j));
+=======
+        System.out.println();
+        System.out.println("Taxis in Range:");
+        for(int j = 0;j < taxisInProx.size();j++){
+            TaxiDriver.printTaxiDetails(taxisInProx.get(j));
+>>>>>>> ba979207157274c7a9d31b840fe36ae65b1cd168
         }
     }
 
