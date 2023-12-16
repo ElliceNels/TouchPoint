@@ -24,7 +24,6 @@ public abstract class TaxiDriver extends User implements Bookable{
 
 
     public static void printTaxiDetails(TaxiDriver chosenTaxi){
-        System.out.println();
         System.out.println(chosenTaxi.getTier());
         System.out.println("Driver name: " + chosenTaxi.getDriverName());
         System.out.println("Driver rating: " + chosenTaxi.getDriverRating());
@@ -49,25 +48,25 @@ public abstract class TaxiDriver extends User implements Bookable{
     }
 
     public void ReturnToMap(int chosenTaxiIndex){
-        Location location = singleton.chooseTaxi(chosenTaxiIndex).getTaxiLoc();
+        Location location = singleton.chooseTaxi().getTaxiLoc();
 
         //location.setDisplayTaxi();
     }
 
     public void MoveToPassenger(User passenger, Map map){
-        System.out.println("Driver is on the way.");
+        System.out.println(driverName + " is on the way.");
         //printTaxiDetails();
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
         aStar.aStarRun(getTaxiLoc(), passenger.getPickupPoint());
-        System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
+        System.out.println(driverName + " has arrived, now leaving with " + passenger.getUsername());
     }
 
     public void MoveToDestination( User passenger, Map map){
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
         aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
-        System.out.println("Destination reached. Rate your driver: ");
+        System.out.println("Destination reached. Rate " + driverName + ":");
         //chosenTaxi.moveTaxi(map);
 
     }
