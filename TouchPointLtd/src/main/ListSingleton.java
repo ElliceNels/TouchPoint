@@ -29,15 +29,16 @@ public class ListSingleton {
         return allTaxis;
     }
     public TaxiDriver chooseTaxi() {
+        List<TaxiDriver> taxisInProx = Location.getTaxisInProximity();
         Scanner in = new Scanner(System.in);
 
         while (true) {
             System.out.println("Enter Name of preferred Driver:");
             String driverName = in.nextLine().toLowerCase();
 
-            for (int i = 0; i < allTaxis.size(); i++) {
-                if (driverName.equals(allTaxis.get(i).getDriverName().toLowerCase())) {
-                    return allTaxis.get(i);  // Return the chosen taxi if the name matches
+            for (int i = 0; i < taxisInProx.size(); i++) {
+                if (driverName.equals(taxisInProx.get(i).getDriverName().toLowerCase())) {
+                    return taxisInProx.get(i);  // Return the chosen taxi if the name matches
                 }
             }
 
