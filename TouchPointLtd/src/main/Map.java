@@ -118,28 +118,21 @@ public class Map {
 
                 }
             }
-<<<<<<< HEAD
-            if(object.isEmpty()){
-                System.out.println("No taxi found within " + range + " blocks. Increasing search range..\n");
-=======
+
             if(taxisInProx.isEmpty()){
                 System.out.println("No taxi found within " + range + " blocks. Increasing search range..");
->>>>>>> ba979207157274c7a9d31b840fe36ae65b1cd168
+
                 range++;
             }else {
                 taxisWereFound = true;
             }
         }
-<<<<<<< HEAD
-        System.out.println("\nTaxis in Range:");
-        for(int j = 0;j < object.size();j++){
-            TaxiDriver.printTaxiDetails(allTaxis.get(j));
-=======
+
         System.out.println();
         System.out.println("Taxis in Range:");
         for(int j = 0;j < taxisInProx.size();j++){
             TaxiDriver.printTaxiDetails(taxisInProx.get(j));
->>>>>>> ba979207157274c7a9d31b840fe36ae65b1cd168
+
         }
     }
 
