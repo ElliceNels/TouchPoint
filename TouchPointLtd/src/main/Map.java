@@ -92,7 +92,7 @@ public class Map {
     public Location[][] getGrid() {
         return grid;
     }
-    public void getTaxiDrivers(User passenger) {
+    public void getTaxiDrivers(Location location) {
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
@@ -108,7 +108,7 @@ public class Map {
                 Location taxiLocation = mapLocations.get(randInt);
                 if (taxiLocation != null) {
                     TaxiDriver.setTaxiLoc(taxiLocation);
-                    int distance = calculateDistance(TaxiDriver.getTaxiLoc(), passenger.getPickupPoint());
+                    int distance = calculateDistance(TaxiDriver.getTaxiLoc(), location);
                     if (distance < range) {
                         object.add(allTaxis.get(i));
                         taxiLocation.setObjectList(object);
@@ -124,8 +124,6 @@ public class Map {
             }else {
                 taxisWereFound = true;
             }
-
-
         }
         System.out.println("Taxis in Range:");
         for(int j = 0;j < object.size();j++){
@@ -140,14 +138,14 @@ public class Map {
             for (int j = 0; j < grid.length; j++) {
                 if (grid[i][j]== null){
                     System.out.print(ANSI_BLACK + " "+displayNoRoad+" " + ANSI_RESET);
-                }else if (grid[i][j].array()[0]) {
-                    System.out.print(ANSI_PURPLE +" "+ displayPassenger+" "+ ANSI_RESET);
-                } else if (grid[i][j].array()[1]) {
-                    System.out.print(ANSI_GREEN +" "+ displayPassengerDestination+" " + ANSI_RESET);
                 }  else if (grid[i][j].array()[3]) {
                     System.out.print(ANSI_WHITE + " "+ displayRoad+" " + ANSI_RESET);
                 } else if (grid[i][j].array()[2]) {
                     System.out.print(ANSI_RED + " "+displayTaxi +" "+ ANSI_RESET);
+                } else if (grid[i][j].array()[1]) {
+                    System.out.print(ANSI_GREEN +" "+ displayPassengerDestination+" " + ANSI_RESET);
+                }else if (grid[i][j].array()[0]) {
+                    System.out.print(ANSI_PURPLE +" "+ displayPassenger+" "+ ANSI_RESET);
                 }else if (grid[i][j].array()[4]) {
                     System.out.print(ANSI_BLUE + " "+displaySea+ " "+ANSI_RESET);
                 } else if (grid[i][j].array()[5]) {
@@ -169,7 +167,7 @@ public class Map {
     }
     public void DisplayTaxis(User passenger){
         addToMap(passenger);
-        getTaxiDrivers(passenger);
+        getTaxiDrivers(passenger.getPickupPoint());
         choosePlace();
     }
 
@@ -182,34 +180,5 @@ public class Map {
         int dx = loc1.getX() - loc2.getX();
         int dy = loc1.getY() - loc2.getY();
         return (int) Math.sqrt(dx * dx + dy * dy);
-    }
-    public void TestGetTaxiDrivers(Location location) {//basically taxi drivers but for the test part
-        storeMapLocations();
-        singleton.storeTaxiDetails(singleton.getList());
-        List<TaxiDriver> allTaxis = singleton.getList();
-        List<User> object = new ArrayList<>();
-        Random rand = new Random();
-
-        int startIndex = 88;
-        int endIndex = 197;
-
-        for (int i = 0; i < singleton.getList().size(); i++) {
-            int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
-            Location taxiLocation = mapLocations.get(randInt);
-            TaxiDriver.setTaxiLoc(taxiLocation);
-
-            int distance = calculateDistance(TaxiDriver.getTaxiLoc(), location);
-            if (taxiLocation != null) {
-                if (distance < 4) {
-                    object.add(allTaxis.get(i));
-                    taxiLocation.setObjectList(object);
-                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
-                    taxiLocation.setTaxiPresent(true);
-                }
-            }
-        }
-        for (int j = 0; j < object.size(); j++) {
-            TaxiDriver.printTaxiDetails(allTaxis.get(j));
-        }
     }
 }
