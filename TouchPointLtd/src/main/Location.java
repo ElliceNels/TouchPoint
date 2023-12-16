@@ -15,7 +15,7 @@ public class Location {
     private boolean[] presentLocations;
     int gCost, hCost;
     Location parent; //location
-    private List<User> objectList;
+    private static List<User> objectList;
     static ListSingleton singleton = ListSingleton.getInstance();
     int getFCost() {
         return gCost + hCost;
@@ -146,12 +146,12 @@ public class Location {
         this.POIPresent = POIPresent;
     }
 
-    public List<User> getObjectList() {
+    public static List<User> getObjectList() {
         return objectList;
     }
 
     public void setObjectList(List<User> objectList) {
-        this.objectList = objectList;
+        Location.objectList = objectList;
     }
 }
 

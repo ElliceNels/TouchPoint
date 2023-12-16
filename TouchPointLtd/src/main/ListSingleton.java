@@ -3,7 +3,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 public class ListSingleton {
+    Scanner in = new Scanner(System.in);
     private static final ListSingleton INSTANCE = new ListSingleton();
 
     private User passenger;
@@ -25,8 +28,21 @@ public class ListSingleton {
     public List<TaxiDriver> getList() {
         return allTaxis;
     }
-    public TaxiDriver chooseTaxi(int chosenTaxiIndex){
-        return allTaxis.get(chosenTaxiIndex);
+    public TaxiDriver chooseTaxi() {
+        Scanner in = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Enter Name of preferred Driver:");
+            String driverName = in.nextLine().toLowerCase();
+
+            for (int i = 0; i < allTaxis.size(); i++) {
+                if (driverName.equals(allTaxis.get(i).getDriverName().toLowerCase())) {
+                    return allTaxis.get(i);  // Return the chosen taxi if the name matches
+                }
+            }
+
+            System.out.println("Invalid Driver Name. Please try again.");
+        }
     }
     //Takes info from csv, turns them into drivers of their respective type and adds them to list
     public void storeTaxiDetails(List <TaxiDriver> allTaxis) {
