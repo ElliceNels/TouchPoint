@@ -117,7 +117,7 @@ public class Map {
                 }
             }
         }
-        System.out.println("Taxis in Range:");
+        System.out.println("Taxis in Range:\n");
         for(int j = 0;j < object.size();j++){
             TaxiDriver.printTaxiDetails(allTaxis.get(j));
             try {

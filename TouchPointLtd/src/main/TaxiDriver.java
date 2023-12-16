@@ -54,29 +54,27 @@ public abstract class TaxiDriver extends User implements Bookable{
         //location.setDisplayTaxi();
     }
 
-    public void MoveToPassenger(List<TaxiDriver> allTaxis, int chosenTaxiIndex, User passenger, Map map){
-        TaxiDriver chosenTaxi = singleton.chooseTaxi(chosenTaxiIndex);
+    public void MoveToPassenger(User passenger, Map map){
         System.out.println("Driver is on the way.");
-        chosenTaxi.printTaxiDetails(chosenTaxi);
-        //chosenTaxi.moveTaxi(map);
+        //printTaxiDetails();
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
-        aStar.aStarRun(chosenTaxi.getTaxiLoc(), getPickupPoint());
-
+        aStar.aStarRun(getTaxiLoc(), passenger.getPickupPoint());
+        System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
     }
 
     public void MoveToDestination( User passenger, Map map){
-        System.out.println("Taxi has arrived, now leaving with " + passenger.getUsername());
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
-        aStar.aStarRun(getPickupPoint(), getClosestDestination());
+        aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
+        System.out.println("Destination reached. Rate your driver: ");
         //chosenTaxi.moveTaxi(map);
 
     }
 
-    public void taxiSequence(List<TaxiDriver> allTaxis, int chosenTaxiIndex, Passenger passenger, Map map){
-        RemoveFromMap(allTaxis, chosenTaxiIndex);
-        MoveToPassenger(allTaxis, chosenTaxiIndex, passenger, map);
+    public void taxiSequence(Passenger passenger, Map map){
+        //RemoveFromMap(allTaxis, chosenTaxiIndex);
+        MoveToPassenger(passenger, map);
         MoveToDestination(passenger, map);
     }
 
