@@ -98,26 +98,36 @@ public class Map {
         List<TaxiDriver> allTaxis = singleton.getList();
         List<User> object = new ArrayList<>();
         Random rand = new Random();
-
         int startIndex = 88;
         int endIndex = 197;
+        int range = 4;
+        boolean taxisWereFound = false;
+        while(!taxisWereFound){
+            for (int i = 0; i < singleton.getList().size(); i++) {
+                int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
+                Location taxiLocation = mapLocations.get(randInt);
+                if (taxiLocation != null) {
+                    TaxiDriver.setTaxiLoc(taxiLocation);
+                    int distance = calculateDistance(TaxiDriver.getTaxiLoc(), passenger.getPickupPoint());
+                    if (distance < range) {
+                        object.add(allTaxis.get(i));
+                        taxiLocation.setObjectList(object);
+                        grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+                        taxiLocation.setTaxiPresent(true);
+                    }
 
-        for (int i = 0; i < singleton.getList().size(); i++) {
-            int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
-            Location taxiLocation = mapLocations.get(randInt);
-            TaxiDriver.setTaxiLoc(taxiLocation);
-
-            int distance = calculateDistance(TaxiDriver.getTaxiLoc(), passenger.getPickupPoint());
-            if (taxiLocation != null) {
-                if (distance < 4) {
-                    object.add(allTaxis.get(i));
-                    taxiLocation.setObjectList(object);
-                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
-                    taxiLocation.setTaxiPresent(true);
                 }
             }
+            if(object.isEmpty()){
+                System.out.println("No taxi found within " + range + " blocks. Increasing search range..");
+                range++;
+            }else {
+                taxisWereFound = true;
+            }
+
+
         }
-        System.out.println("Taxis in Range:\n");
+        System.out.println("Taxis in Range:");
         for(int j = 0;j < object.size();j++){
             TaxiDriver.printTaxiDetails(allTaxis.get(j));
         }

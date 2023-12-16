@@ -2,6 +2,8 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class AStarAlgorithm extends Location {
 
    ListSingleton singleton = ListSingleton.getInstance();
@@ -151,7 +153,7 @@ public class AStarAlgorithm extends Location {
         }
     }
 
-    public void aStarRun(Location startLocation, Location endLocation){
+    public void aStarRun(Location startLocation, Location endLocation) throws InterruptedException {
         List<Location> path = findPath(startLocation, endLocation);
         TaxiDriver.setTravelTime(0);
         //ensures there is an actual path
@@ -159,6 +161,7 @@ public class AStarAlgorithm extends Location {
             for (Location location : path) {
                 System.out.println("(" + location.x + ", " + location.y + ")");
                 TaxiDriver.setTaxiLoc(location);
+                sleep(1000);
                 //System.out.println(TaxiDriver.getTaxiLoc());
                 //TaxiDriver.setTravelTime(TaxiDriver.getTravelTime()++);
             }
