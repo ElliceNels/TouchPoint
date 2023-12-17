@@ -1,6 +1,8 @@
 import java.util.List;
+import java.util.Scanner;
 
 public abstract class TaxiDriver extends User implements Bookable{
+    Scanner in = new Scanner(System.in);
     private String registrationNumber;//individual registration number
     private String carType;//name of taxi type
     private int capacity;//diff capacity depending on type of taxi
@@ -62,19 +64,27 @@ public abstract class TaxiDriver extends User implements Bookable{
         System.out.println(driverName + " has arrived, now leaving with " + passenger.getUsername());
     }
 
-    public void MoveToDestination( User passenger, Map map){
+    public void MoveToDestination( User passenger, Map map) {
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
         aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
-        System.out.println("Destination reached. Rate " + driverName + ":");
-        //chosenTaxi.moveTaxi(map);
-
+        System.out.println("Destination reached. Rate (1-5) " + driverName + "\nRating: " + driverRating);
+        if (in.hasNextInt()) {
+            int rating = in.nextInt();
+            setDriverRating((getDriverRating() + rating) / 2);
+            System.out.println(driverName + " Rating: " + getDriverRating());
+            //chosenTaxi.moveTaxi(map);
+        }else{
+            System.out.println("Please enter a number between '1' and '5'");
+            in.next();
+        }
     }
 
     public void taxiSequence(Passenger passenger, Map map){
         //RemoveFromMap(allTaxis, chosenTaxiIndex);
         MoveToPassenger(passenger, map);
         MoveToDestination(passenger, map);
+        System.out.println("Fare: £" + CalculateFare());
     }
 
     public double CalculateFare() {
@@ -142,7 +152,6 @@ public abstract class TaxiDriver extends User implements Bookable{
     public static int getTravelTime() {
         return travelTime;
     }
-
     public static void setTravelTime(int travelTime) {
         TaxiDriver.travelTime = travelTime;
     }

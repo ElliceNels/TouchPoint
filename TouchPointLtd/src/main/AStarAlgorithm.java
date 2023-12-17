@@ -154,13 +154,14 @@ public class AStarAlgorithm extends Location {
     }
 
     public void aStarRun(Location startLocation, Location endLocation)  {
+        int time = 0;
         List<Location> path = findPath(startLocation, endLocation);
-        TaxiDriver.setTravelTime(0);
         //ensures there is an actual path
         if (path != null) {
             for (Location location : path) {
                 System.out.println("(" + location.x + ", " + location.y + ")");
                 TaxiDriver.setTaxiLoc(location);
+                time++;
                 try {
                     sleep(1000);
                 }catch (InterruptedException e){
@@ -170,6 +171,7 @@ public class AStarAlgorithm extends Location {
                 //TaxiDriver.setTravelTime(TaxiDriver.getTravelTime()++);
             }
             System.out.println("Arrived");
+            TaxiDriver.setTravelTime(time);
         } else {
             System.out.println("Driver is already here.");
         }
