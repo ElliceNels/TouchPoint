@@ -10,13 +10,10 @@ public class ListSingleton {
     private static final ListSingleton INSTANCE = new ListSingleton();
 
     private User passenger;
-<<<<<<< HEAD
-    //masterList
-    private List<Taxi> allTaxis;
-=======
+
     //masterlist
     private List<TaxiDriver> allTaxis;
->>>>>>> Map-Reimplementation
+
     private boolean[]presentLocations;
 
     //Creates a new arraylist with all values of the allTaxis list (for access in all classes)

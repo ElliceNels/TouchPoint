@@ -64,16 +64,12 @@ public class AStarAlgorithm extends Location {
         Set<Location> checkedSet = new HashSet<>();
         //System.out.println(Arrays.deepToString(roadMap));//test line
         uncheckedSet.add(startLocation);
-<<<<<<< HEAD
 
-        //keeps going til the unchecked list is empty (everything is checked)
-        while (!uncheckedSet.isEmpty()) {
-=======
         //System.out.println(startLocation+ "added to unchecked");
         mainLoop:
         while (!uncheckedSet.isEmpty()) { //keeps going til the unchecked list is empty (everything is checked)
             //System.out.println(uncheckedSet + "is not empty"); //test line
->>>>>>> Map-Reimplementation
+
             Location currentLocation = uncheckedSet.get(0);
             //to find the lowest total cost (f and h but f is considered first)
             for (int i = 1; i < uncheckedSet.size(); i++) {
@@ -184,14 +180,3 @@ public class AStarAlgorithm extends Location {
     }
 
 }
-<<<<<<< HEAD
-=======
-
-
-/*for (int i = 0; i < roadMap.length - 1; i++){
-        System.out.print(roadMap[i][0]);
-        System.out.print(roadMap[i][1]);
-        }
-
- */
->>>>>>> Map-Reimplementation

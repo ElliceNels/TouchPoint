@@ -5,8 +5,7 @@ public class TaxiReg extends TaxiDriver {
         super(registrationNumber, carType, 4, driverName, driverRating, tier, taxiLoc);
     }
 
-<<<<<<< HEAD
-=======
+
     @Override
     public void ReturnToMap(List<TaxiDriver> allTaxis, int chosenTaxiIndex) {
 
@@ -20,5 +19,5 @@ public class TaxiReg extends TaxiDriver {
     //static ListSingleton singleton = ListSingleton.getInstance();
     //List<Taxi> allTaxis = singleton.getList();
     //User passenger = singleton.getPassenger();
->>>>>>> Map-Reimplementation
+
 }

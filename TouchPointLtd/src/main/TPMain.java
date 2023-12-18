@@ -1,17 +1,12 @@
-<<<<<<< HEAD
-import java.util.List;
 
-public class TPMain{
-=======
  public class TPMain{
->>>>>>> Map-Reimplementation
     public static void main(String[] args) {
 
-//        run();
-        Map map = new Map(20, 20); //length and width of the map
-        ListSingleton singleton = ListSingleton.getInstance();
-        User passenger = singleton.getPassenger();
-        map.addLocationsToMap(passenger);
+        run();
+        //Map map = new Map(20, 20); //length and width of the map
+        //ListSingleton singleton = ListSingleton.getInstance();
+        //User passenger = singleton.getPassenger();
+        //map.addLocationsToMap(passenger);
     }
     public static void run() {
         Map map = new Map(20, 20); //length and width of the map

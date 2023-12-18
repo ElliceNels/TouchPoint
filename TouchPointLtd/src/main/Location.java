@@ -15,13 +15,9 @@ public class Location {
     private boolean[] presentLocations;
     int gCost, hCost;
     Location parent; //location
-<<<<<<< HEAD
-    static ListSingleton singleton = ListSingleton.getInstance();
-    boolean[] presentLocation = singleton.getPresentLocations();
 
-=======
     private static List<TaxiDriver> taxisInProximity;
->>>>>>> Map-Reimplementation
+
     int getFCost() {
         return gCost + hCost;
     }
@@ -79,81 +75,7 @@ public class Location {
         return y;
     }
 
-<<<<<<< HEAD
-    public char getDisplayOffice() {
-        return displayOffice;
-    }
 
-    public void setDisplayOffice() {
-        displayOffice = 'O';
-    }
-
-    public char getDisplayHouse() {
-        return displayHouse;
-    }
-
-    public void setDisplayHouse() {
-        displayHouse = 'H';
-    }
-
-    public char getDisplayRoad() {
-        return displayRoad;
-    }
-
-    public void setDisplayRoad() {
-        displayRoad = '*';
-    }
-
-    public char getDisplaySea() {
-        return displaySea;
-    }
-
-    public void setDisplaySea() {
-        displaySea = '/';
-    }
-
-    public char getDisplayPOI() {
-        return displayPOI;
-    }
-
-    public void setDisplayPOI() {
-        displayPOI = '$';
-    }
-
-    public char getDisplayPassenger() {
-        return displayPassenger;
-    }
-
-    public void setDisplayPassenger() {
-        displayPassenger = '&';
-    }
-
-    public char getDisplayTaxi() {
-        return displayTaxi;
-    }
-
-    public void setDisplayTaxi() {
-        displayTaxi = '!';
-    }
-
-    public char getDisplayNoRoad() {
-        return displayNoRoad;
-    }
-
-    public void setDisplayNoRoad() {
-        displayNoRoad = '.';
-    }
-
-    public char getDisplayPassengerDestination() {
-        return displayPassengerDestination;
-    }
-
-    public void setDisplayPassengerDestination() {
-        displayPassengerDestination = '@';
-    }
-
-=======
->>>>>>> Map-Reimplementation
     public boolean isPassengerPresent() {
         return passengerPresent;
     }
@@ -217,8 +139,6 @@ public class Location {
     public void setNonRoadPresent(boolean nonRoadPresent) {
         this.nonRoadPresent = nonRoadPresent;
     }
-<<<<<<< HEAD
-=======
 
     public boolean isPOIPresent() {
         return POIPresent;
@@ -235,7 +155,7 @@ public class Location {
     public void setTaxisInProximity(List<TaxiDriver> objectList) {
         Location.taxisInProximity = objectList;
     }
->>>>>>> Map-Reimplementation
+
 }
 
 

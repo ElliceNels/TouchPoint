@@ -55,43 +55,7 @@ public class Map {
     }
     public void addToMap(User passenger){
         storeMapLocations();
-<<<<<<< HEAD
-        for(int i = 0;i < 30;i++){
-            Location location = mapLocations.get(i);
-            int houseX = location.getX();
-            int houseY = location.getY();
-            grid[houseX][houseY] = location;
-            grid[houseX][houseY].setDisplayHouse();//this sets house
-        } for(int i = 30;i < 35;i++){
-            Location location = mapLocations.get(i);
-            int officeX = location.getX();
-            int officeY = location.getY();
-            grid[officeX][officeY] = location;
-            grid[officeX][officeY].setDisplayOffice();//this sets office
-        }for (int i = 66; i < 88; i++) {
-            Location location = mapLocations.get(i);
-            int poiX = location.getX();
-            int poiY = location.getY();
-            grid[poiX][poiY] = location;
-            grid[poiX][poiY].setDisplayPOI();//this sets poi
-        }for (int i = 88; i < 198; i++) {
-                Location location = mapLocations.get(i);
-                int roadX = location.getX();
-                int roadY = location.getY();
-                grid[roadX][roadY] = new Location(roadX, roadY);
-                grid[roadX][roadY].setDisplayRoad();//this sets road
-            }if (passenger.getCurrentLocation() != null){
-            grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()] = passenger.getCurrentLocation();
-            grid[passenger.getCurrentLocation().getX()][passenger.getCurrentLocation().getY()].setDisplayPassenger();
-        }for (int i = 35; i < 66; i++) {
-            Location location = mapLocations.get(i);
-            int seaX = location.getX();
-            int seaY = location.getY();
-            grid[seaX][seaY] = location;
-            grid[seaX][seaY].setDisplaySea();//this sets sea
-            System.out.println(seaX + "," + seaY);
-        } if (passenger.getDestination() != null) {
-=======
+
         addToGrid(0, 30);
         addToGrid(30, 35);
         addToGrid(66, 88);
@@ -102,22 +66,12 @@ public class Map {
             passenger.getCurrentLocation().setPassengerPresent(true);
         }
         if (passenger.getDestination() != null) {
->>>>>>> Map-Reimplementation
+
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
             passenger.getDestination().setPassengerDestPresent(true);
         }
     }
-<<<<<<< HEAD
-    public void addLocationsDemo() {
-        storeMapLocations();
-        for (int i = 0; i < 198; i++) {
-            Location location = mapLocations.get(i);
-            if()
-            }
-        }
 
-    public Map(int rows, int cols) {
-=======
     private void addToGrid(int start, int end) {
         for (int i = start; i < end; i++) {
             Location location = new Location(mapLocations.get(i));
@@ -139,7 +93,7 @@ public class Map {
         }
     }
     public Map(int rows, int cols){
->>>>>>> Map-Reimplementation
+
         grid = new Location[rows][cols];
     }
     public Location[][] getGrid() {
