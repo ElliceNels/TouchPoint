@@ -50,9 +50,14 @@ public abstract class TaxiDriver extends User implements Bookable{
         return chosenTaxi;
     }
 
+<<<<<<< HEAD
     public void ReturnToMap(int chosenTaxiIndex){
         Location location = TaxiDriver.getTaxiLoc();
 
+=======
+    public void ReturnToMap(List<TaxiDriver> taxiDrivers){
+        singleton.getList();
+>>>>>>> 3bca061cae240700506e501af207eafb6b1367a4
         //location.setDisplayTaxi();
     }
 
@@ -91,14 +96,25 @@ public abstract class TaxiDriver extends User implements Bookable{
         MoveToPassenger(passenger, map);
         MoveToDestination(passenger, map);
         driverRating();
-        //ReturnToMap(map);
-        System.out.println("Fare: £" + CalculateFare());
+        roundFare(CalculateFare());
     }
 
     public double CalculateFare() {
         int startPrice = 6;
         double rate = 1.2;
         return startPrice + (rate * getTravelTime());
+    }
+    public void roundFare(double x){
+        String fare = String.valueOf(x);
+        if(fare.length() > 5) {
+            if (fare.charAt(1) == '.') {
+                System.out.println("Fare: £" + fare.substring(0, 4));
+            } else {
+                System.out.println("Fare: £" + fare.substring(0, 5));
+            }
+        }else{
+            System.out.println("Fare: £" + CalculateFare());
+        }
     }
     public void updateRating(String nameOfDriver, double rating) throws IOException {
         String taxidrivers = "src//main//Taxidrivers.csv";
@@ -130,7 +146,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         File tempFileObj = new File(tempFile);
         try {
             java.nio.file.Files.move(tempFileObj.toPath(), originalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("Driver rating updated successfully.");
+            System.out.println("Driver Rating Updated.");
         } catch (IOException e) {
             System.out.println("Error adding file.");
         }

@@ -17,7 +17,6 @@ public class Map {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_LIGHT_BROWN = "\u001B[38;2;205;190;145m";
-
     static final private char displayOffice = 'O';//set as empty to read building type
     static final private char displayHouse = 'H';//displays houses as H
     static final private char displayRoad = '*';//displays roads as *
@@ -97,7 +96,7 @@ public class Map {
         return grid;
     }
 
-    public void getTaxiDrivers(Location location) {
+    public void getTaxiDrivers(Location location, int range) {
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
@@ -105,7 +104,6 @@ public class Map {
         Random rand = new Random();
         int startIndex = 88;
         int endIndex = 197;
-        int range = 6;
         boolean taxisWereFound = false;
 
         while(!taxisWereFound){
@@ -122,21 +120,24 @@ public class Map {
                         taxiLocation.setTaxiPresent(true);
                     }
                 }
-            }
-
-            if(taxisInProx.isEmpty()){
+            }if(taxisInProx.isEmpty()){
                 System.out.println("No taxi found within " + range + " blocks. Increasing search range..");
                 range++;
             }else {
                 taxisWereFound = true;
             }
         }
-
+    }
+    public void printTaxisInProx(){
+        List<TaxiDriver> taxisInProx = Location.getTaxisInProximity();
         System.out.println("\nTaxis in Range:");
         for(int j = 0;j < taxisInProx.size();j++){
             TaxiDriver.printTaxiDetails(taxisInProx.get(j));
+<<<<<<< HEAD
             System.out.println(TaxiDriver.getTaxiLoc().getX() + TaxiDriver.getTaxiLoc().getY());
 
+=======
+>>>>>>> 3bca061cae240700506e501af207eafb6b1367a4
         }
     }
 
@@ -177,8 +178,9 @@ public class Map {
     }
     public void DisplayTaxis(User passenger){
         addAllToMap(passenger);
-        getTaxiDrivers(passenger.getPickupPoint());
+        getTaxiDrivers(passenger.getPickupPoint(), 4);
         displayMap();
+        printTaxisInProx();
     }
 
     public void getLegend(){
