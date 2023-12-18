@@ -51,23 +51,25 @@ public abstract class TaxiDriver extends User implements Bookable{
     }
 
     public void ReturnToMap(int chosenTaxiIndex){
-        Location location = singleton.chooseTaxi().getTaxiLoc();
+        Location location = TaxiDriver.getTaxiLoc();
 
         //location.setDisplayTaxi();
     }
 
     public void MoveToPassenger(User passenger, Map map){
         System.out.println(driverName + " is on the way.");
+        System.out.println(TaxiDriver.getTaxiLoc().getX() +","+ TaxiDriver.getTaxiLoc().getY());
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
         aStar.aStarRun(TaxiDriver.getTaxiLoc(), passenger.getPickupPoint());
+        System.out.println(TaxiDriver.getTaxiLoc().getX() +","+ TaxiDriver.getTaxiLoc().getY());
         System.out.println(driverName + " has arrived, now leaving with " + passenger.getUsername());
     }
 
     public void MoveToDestination( User passenger, Map map) {
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
-
+        System.out.println(TaxiDriver.getTaxiLoc().getX() +", "+ TaxiDriver.getTaxiLoc().getY());
         passenger.setCurrentLocation(passenger.getPickupPoint()); //set the passenger to be at the pickup point
         aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
         passenger.setCurrentLocation(passenger.getClosestDestination()); //set passenger at their destination
@@ -78,7 +80,6 @@ public abstract class TaxiDriver extends User implements Bookable{
         if (in.hasNextDouble()) {
             double rating = in.nextDouble();
            updateRating(driverName, rating);
-            //chosenTaxi.moveTaxi(map);
         }else{
             System.out.println("Please enter a number between '1' and '5'");
             in.next();

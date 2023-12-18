@@ -135,6 +135,7 @@ public class Map {
         System.out.println("\nTaxis in Range:");
         for(int j = 0;j < taxisInProx.size();j++){
             TaxiDriver.printTaxiDetails(taxisInProx.get(j));
+            System.out.println(TaxiDriver.getTaxiLoc().getX() + TaxiDriver.getTaxiLoc().getY());
 
         }
     }

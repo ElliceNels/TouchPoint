@@ -12,6 +12,7 @@ public class ListSingleton {
 
     //masterlist
     private List<TaxiDriver> allTaxis;
+    private TaxiDriver chosenTaxi;
 
 
     //Creates a new arraylist with all values of the allTaxis list (for access in all classes)
@@ -39,13 +40,15 @@ public class ListSingleton {
 
             for (int i = 0; i < taxisInProx.size(); i++) {
                 if (driverName.equals(taxisInProx.get(i).getDriverName().toLowerCase())) {
-                    return taxisInProx.get(i);  // Return the chosen taxi if the name matches
+                    setChosenTaxi(taxisInProx.get(i));
+                    return chosenTaxi;  // Return the chosen taxi if the name matches
                 }
             }
 
             System.out.println("Invalid Driver Name. Please try again.");
         }
     }
+
 
     //Takes info from csv, turns them into drivers of their respective type and adds them to list
     public void storeTaxiDetails(List<TaxiDriver> allTaxis) {
@@ -74,5 +77,13 @@ public class ListSingleton {
     public User getPassenger() {
         return passenger;
     }
+
+    public void setChosenTaxi(TaxiDriver chosenTaxi) {
+        this.chosenTaxi = chosenTaxi;
+    }
+    public TaxiDriver getChosenTaxi(){
+        return chosenTaxi;
+    }
+
 }
 

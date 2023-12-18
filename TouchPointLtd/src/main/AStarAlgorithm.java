@@ -1,4 +1,3 @@
-import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +14,6 @@ public class AStarAlgorithm extends Location {
 
     //roadMap with obstacles represented as null
     Location[][] roadMap = new Location[ROWS][COLS];
-    //Location startLocation = new Location(passenger.getPickupPoint()); // Starting node
-    //Location endLocation = new Location(); // Destination node
-    //static Location startLocation = new Location(2, 1); // Starting node
-    //static Location endLocation = new Location(6, 4);
     static int movementCost = 1;
 
     public AStarAlgorithm(int x, int y) {
@@ -59,26 +54,26 @@ public class AStarAlgorithm extends Location {
     }
 
     public List<Location> findPath(Location startLocation, Location endLocation) {
-        List<Location> uncheckedSet = new ArrayList<>();
-        Set<Location> checkedSet = new HashSet<>();
-        uncheckedSet.add(startLocation);
+        List<Location> uncheckedList = new ArrayList<>();
+        List<Location> checkedList = new ArrayList<>();
+        uncheckedList.add(startLocation);
 
-        while (!uncheckedSet.isEmpty()) { //keeps going til the unchecked list is empty (everything is checked)
+        while (!uncheckedList.isEmpty()) { //keeps going til the unchecked list is empty (everything is checked)
 
-            Location currentLocation = uncheckedSet.get(0);
+            Location currentLocation = uncheckedList.get(0);
             //to find the lowest total cost (f and h but f is considered first)
-            for (int i = 1; i < uncheckedSet.size(); i++) {
-                if (uncheckedSet.get(i).getFCost() < currentLocation.getFCost() ||
-                        (uncheckedSet.get(i).getFCost() == currentLocation.getFCost() &&
-                                uncheckedSet.get(i).hCost < currentLocation.hCost)) {
-                    currentLocation = uncheckedSet.get(i); //stores element with the lowest cost
+            for (int i = 1; i < uncheckedList.size(); i++) {
+                if (uncheckedList.get(i).getFCost() < currentLocation.getFCost() ||
+                        (uncheckedList.get(i).getFCost() == currentLocation.getFCost() &&
+                                uncheckedList.get(i).hCost < currentLocation.hCost)) {
+                    currentLocation = uncheckedList.get(i); //stores element with the lowest cost
                 }
             }
 
 
             //removed because it is checked
-            uncheckedSet.remove(currentLocation);
-            checkedSet.add(currentLocation);
+            uncheckedList.remove(currentLocation);
+            checkedList.add(currentLocation);
 
             //if destination is reached
             if (currentLocation.getX() == endLocation.getX() && currentLocation.getY() == endLocation.getY()) { //ISSUE
@@ -87,18 +82,27 @@ public class AStarAlgorithm extends Location {
 
             List<Location> adjacents = getAdjacents(currentLocation);
             for (Location adjacent : adjacents) {
-                if (adjacent == null || checkedSet.contains(adjacent)) {
+
+                //to iterate through and check if adjacent is in list
+                boolean alreadyChecked = false;
+                for (Location checkedLocation : checkedList) {
+                    if (checkedLocation.equals(adjacent)) {
+                        alreadyChecked = true;
+                        break;
+                    }
+                }
+                if (adjacent == null || alreadyChecked) {
                     continue; // skips the rest of the code if there's an invalid adjacent
                 }
 
                 int newCost = currentLocation.gCost + movementCost; // cost from currentLocation to adjacent
-                if (newCost < adjacent.gCost || !uncheckedSet.contains(adjacent)) {
+                if (newCost < adjacent.gCost || !uncheckedList.contains(adjacent)) {
                     adjacent.gCost = newCost;
                     adjacent.hCost = calculateHCost(adjacent, endLocation);
                     adjacent.parent = currentLocation;
 
-                    if (!uncheckedSet.contains(adjacent)) {
-                        uncheckedSet.add(adjacent);
+                    if (!uncheckedList.contains(adjacent)) {
+                        uncheckedList.add(adjacent);
                     }
                 }
             }
@@ -107,13 +111,10 @@ public class AStarAlgorithm extends Location {
     }
 
     static List<Location> reconstructPath(Location current) {
-        int i = 0;
         List<Location> path = new ArrayList<>();
         while (current != null) {
             path.add(current);
             current = current.parent;
-            //i++;
-            //System.out.println(path.get(i));
         }
         int start = 0;
         int end = path.size() - 1;
