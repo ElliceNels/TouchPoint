@@ -59,10 +59,10 @@ public class ListSingleton {
                 String registrationNumber = fields[0];
                 String carType = fields[1];
                 String driverName = fields[2];
-                int driverRating = Integer.parseInt(fields[3]);
+                double driverRating = Double.parseDouble(fields[3]);
                 String tier = fields[4];
 
-                TaxiDriver taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, driverRating, tier, TaxiDriver.getTaxiLoc());
+                TaxiDriver taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, (int) driverRating, tier, TaxiDriver.getTaxiLoc());
                 allTaxis.add(taxi);
             }
         } catch (IOException e) {
@@ -72,5 +72,27 @@ public class ListSingleton {
     public User getPassenger() {
         return passenger;
     }
-}
+    public void updateRating(int x, String nameDriver, String nameInput){
+        String taxiList = "src//main//Taxidrivers.csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(taxiList))) {
+
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(",");
+
+                double driverRating = Double.parseDouble(fields[3]);
+                if (nameDriver.equals(nameInput)) {
+                    driverRating = ((driverRating + x) / 2);
+
+
+                }
+            }
+        }
+             catch (IOException e) {
+                 System.out.println("Error getting Rating");
+            }
+        }
+    }
 

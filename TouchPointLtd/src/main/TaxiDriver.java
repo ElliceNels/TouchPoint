@@ -6,14 +6,14 @@ public abstract class TaxiDriver extends User implements Bookable{
     private String registrationNumber;//individual registration number
     private String carType;//name of taxi type
     private int capacity;//diff capacity depending on type of taxi
-    private int driverRating;
+    private double   driverRating;
     private String driverName;
     private String tier;
     private static Location taxiLoc;
     static private int travelTime;
     ListSingleton singleton = ListSingleton.getInstance();
 
-    public TaxiDriver(String registrationNumber, String carType, int capacity, String driverName, int driverRating, String tier, Location taxiLoc) {
+    public TaxiDriver(String registrationNumber, String carType, int capacity, String driverName, double driverRating, String tier, Location taxiLoc) {
         this.registrationNumber = registrationNumber;
         this.carType = carType;
         this.capacity = capacity;
@@ -117,11 +117,11 @@ public abstract class TaxiDriver extends User implements Bookable{
         this.capacity = capacity;
     }
 
-    public int getDriverRating() {
+    public double getDriverRating() {
         return driverRating;
     }
 
-    public void setDriverRating(int driverRating) {
+    public void setDriverRating(double driverRating) {
         this.driverRating = driverRating;
     }
 
