@@ -155,6 +155,7 @@ public class AStarAlgorithm extends Location {
         if (path != null) {
             for (Location location : path) {
                 System.out.println("(" + location.x + ", " + location.y + ")");
+                singleton.getMap().displayMap();
                 TaxiDriver.setTaxiLoc(location);
                 time++;
                 try {

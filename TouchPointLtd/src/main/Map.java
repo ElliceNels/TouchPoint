@@ -167,6 +167,7 @@ public class Map {
             }
         } System.out.println();
     }
+
     public void MapSet(User passenger) {
         storeMapLocations();
         getLegend();

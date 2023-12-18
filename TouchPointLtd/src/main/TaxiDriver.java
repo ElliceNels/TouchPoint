@@ -103,12 +103,12 @@ public abstract class TaxiDriver extends User implements Bookable{
         String fare = String.valueOf(x);
         if(fare.length() > 5) {
             if (fare.charAt(1) == '.') {
-                System.out.println("Fare: £" + fare.substring(0, 4));
+                System.out.println("Fare: €" + fare.substring(0, 4));
             } else {
-                System.out.println("Fare: £" + fare.substring(0, 5));
+                System.out.println("Fare: €" + fare.substring(0, 5));
             }
         }else{
-            System.out.println("Fare: £" + CalculateFare());
+            System.out.println("Fare: €" + CalculateFare());
         }
     }
     public void updateRating(String nameOfDriver, double rating) throws IOException {

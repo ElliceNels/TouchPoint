@@ -13,6 +13,7 @@ public class ListSingleton {
     //masterlist
     private List<TaxiDriver> allTaxis;
     private TaxiDriver chosenTaxi;
+    private Map map;
 
 
     //Creates a new arraylist with all values of the allTaxis list (for access in all classes)
@@ -20,6 +21,7 @@ public class ListSingleton {
         // Initialize the list in the constructor
         allTaxis = new ArrayList<>();
         passenger = new Passenger();
+        map = new Map(20, 20);
     }
 
     public static ListSingleton getInstance() {
@@ -85,5 +87,12 @@ public class ListSingleton {
         return chosenTaxi;
     }
 
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
 }
 
