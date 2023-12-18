@@ -65,13 +65,20 @@ public abstract class TaxiDriver extends User implements Bookable{
     public void MoveToDestination( User passenger, Map map) {
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
+
+        passenger.setCurrentLocation(passenger.getPickupPoint()); //set the passenger to be at the pickup point
         aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
+        passenger.setCurrentLocation(passenger.getClosestDestination()); //set passenger at their destination
+        driverRating();
+
+    }
+
+    public void driverRating(){
         System.out.println("Destination reached. Rate (1-5) " + driverName + "\nRating: " + driverRating);
-        if (in.hasNextInt()) {
-            int rating = in.nextInt();
+        if (in.hasNextDouble()) {
+            double rating = in.nextDouble();
             setDriverRating((getDriverRating() + rating) / 2);
             System.out.println(driverName + " Rating: " + getDriverRating());
-            //chosenTaxi.moveTaxi(map);
         }else{
             System.out.println("Please enter a number between '1' and '5'");
             in.next();
@@ -82,6 +89,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         //RemoveFromMap(allTaxis, chosenTaxiIndex);
         MoveToPassenger(passenger, map);
         MoveToDestination(passenger, map);
+        //ReturnToMap(map);
         System.out.println("Fare: £" + CalculateFare());
     }
 
