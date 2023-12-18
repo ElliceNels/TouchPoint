@@ -1,3 +1,5 @@
+import java.io.*;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Scanner;
 
@@ -64,15 +66,14 @@ public abstract class TaxiDriver extends User implements Bookable{
         System.out.println(driverName + " has arrived, now leaving with " + passenger.getUsername());
     }
 
-    public void MoveToDestination( User passenger, Map map) {
+    public void MoveToDestination( User passenger, Map map) throws IOException {
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
         aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
         System.out.println("Destination reached. Rate (1-5) " + driverName + "\nRating: " + driverRating);
-        if (in.hasNextInt()) {
-            int rating = in.nextInt();
-            setDriverRating((getDriverRating() + rating) / 2);
-            System.out.println(driverName + " Rating: " + getDriverRating());
+        if (in.hasNextDouble()) {
+            double rating = in.nextDouble();
+           updateRating(driverName, rating);
             //chosenTaxi.moveTaxi(map);
         }else{
             System.out.println("Please enter a number between '1' and '5'");
@@ -80,7 +81,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         }
     }
 
-    public void taxiSequence(Passenger passenger, Map map){
+    public void taxiSequence(Passenger passenger, Map map) throws IOException {
         //RemoveFromMap(allTaxis, chosenTaxiIndex);
         MoveToPassenger(passenger, map);
         MoveToDestination(passenger, map);
@@ -92,7 +93,46 @@ public abstract class TaxiDriver extends User implements Bookable{
         double rate = 1.2;
         return startPrice + (rate * getTravelTime());
     }
-
+    public void updateRating(String nameOfDriver, double rating) throws IOException {
+        String taxidrivers = "src//main//Taxidrivers.csv";
+        String tempFile = "src//main//TempTaxiDrivers.csv";
+        String header = "RegistrationNumber,CarType,DriverName,DriverRating,Tier,Ratings";
+        try (BufferedReader br = new BufferedReader(new FileReader(taxidrivers));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+            bw.write(header + "\n");
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(",");
+                String name = fields[2];
+                double driverRating = Double.parseDouble(fields[3]);
+                int ratings = Integer.parseInt(fields[5]);
+                if(name.equals(nameOfDriver)){
+                    ratings++;
+                    driverRating = (rating + driverRating) / ratings;
+                }
+                String updatedLine = String.join(",", fields[0], fields[1],
+                        fields[2], String.valueOf(driverRating), fields[4], String.valueOf(ratings));
+                bw.write(updatedLine);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error updating rating");
+        }
+        File originalFile = new File(taxidrivers);
+        File tempFileObj = new File(tempFile);
+        try {
+            java.nio.file.Files.move(tempFileObj.toPath(), originalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Driver rating updated successfully.");
+        } catch (IOException e) {
+            System.out.println("Error adding file.");
+        }
+        try (PrintWriter pw = new PrintWriter(tempFileObj)) {
+            pw.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error making file blank");
+        }
+    }
     public String getRegistrationNumber() {
         return registrationNumber;
     }

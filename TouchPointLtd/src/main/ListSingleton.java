@@ -1,6 +1,5 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +13,7 @@ public class ListSingleton {
     //masterlist
     private List<TaxiDriver> allTaxis;
 
-    private boolean[]presentLocations;
+    private boolean[] presentLocations;
 
     //Creates a new arraylist with all values of the allTaxis list (for access in all classes)
     private ListSingleton() {
@@ -30,6 +29,7 @@ public class ListSingleton {
     public List<TaxiDriver> getList() {
         return allTaxis;
     }
+
     public TaxiDriver chooseTaxi() {
         List<TaxiDriver> taxisInProx = Location.getTaxisInProximity();
         Scanner in = new Scanner(System.in);
@@ -47,8 +47,9 @@ public class ListSingleton {
             System.out.println("Invalid Driver Name. Please try again.");
         }
     }
+
     //Takes info from csv, turns them into drivers of their respective type and adds them to list
-    public void storeTaxiDetails(List <TaxiDriver> allTaxis) {
+    public void storeTaxiDetails(List<TaxiDriver> allTaxis) {
         String taxidrivers = "src//main//Taxidrivers.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(taxidrivers))) {
@@ -74,27 +75,5 @@ public class ListSingleton {
     public User getPassenger() {
         return passenger;
     }
-    public void updateRating(int x, String nameDriver, String nameInput){
-        String taxiList = "src//main//Taxidrivers.csv";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(taxiList))) {
-
-            String line;
-            br.readLine();
-            while ((line = br.readLine()) != null) {
-                String[] fields = line.split(",");
-
-                double driverRating = Double.parseDouble(fields[3]);
-                if (nameDriver.equals(nameInput)) {
-                    driverRating = ((driverRating + x) / 2);
-
-
-                }
-            }
-        }
-             catch (IOException e) {
-                 System.out.println("Error getting Rating");
-            }
-        }
-    }
+}
 
