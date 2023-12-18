@@ -64,28 +64,21 @@ public abstract class TaxiDriver extends User implements Bookable{
         System.out.println(driverName + " has arrived, now leaving with " + passenger.getUsername());
     }
 
-    public void MoveToDestination( User passenger, Map map) throws IOException {
+    public void MoveToDestination( User passenger, Map map) {
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
 
         passenger.setCurrentLocation(passenger.getPickupPoint()); //set the passenger to be at the pickup point
         aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
         passenger.setCurrentLocation(passenger.getClosestDestination()); //set passenger at their destination
-        driverRating();
-
     }
 
-    public void driverRating(){
+    public void driverRating() throws IOException {
         System.out.println("Destination reached. Rate (1-5) " + driverName + "\nRating: " + driverRating);
         if (in.hasNextDouble()) {
             double rating = in.nextDouble();
-<<<<<<< HEAD
-            setDriverRating((getDriverRating() + rating) / 2);
-            System.out.println(driverName + " Rating: " + getDriverRating());
-=======
            updateRating(driverName, rating);
             //chosenTaxi.moveTaxi(map);
->>>>>>> cbac09f9832b4d7c15136278d9f890190c90a470
         }else{
             System.out.println("Please enter a number between '1' and '5'");
             in.next();
@@ -96,6 +89,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         //RemoveFromMap(allTaxis, chosenTaxiIndex);
         MoveToPassenger(passenger, map);
         MoveToDestination(passenger, map);
+        driverRating();
         //ReturnToMap(map);
         System.out.println("Fare: £" + CalculateFare());
     }
