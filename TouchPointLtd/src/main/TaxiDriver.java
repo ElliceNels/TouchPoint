@@ -50,14 +50,9 @@ public abstract class TaxiDriver extends User implements Bookable{
         return chosenTaxi;
     }
 
-<<<<<<< HEAD
-    public void ReturnToMap(int chosenTaxiIndex){
-        Location location = TaxiDriver.getTaxiLoc();
 
-=======
     public void ReturnToMap(List<TaxiDriver> taxiDrivers){
         singleton.getList();
->>>>>>> 3bca061cae240700506e501af207eafb6b1367a4
         //location.setDisplayTaxi();
     }
 

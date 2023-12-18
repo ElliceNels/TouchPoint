@@ -133,11 +133,8 @@ public class Map {
         System.out.println("\nTaxis in Range:");
         for(int j = 0;j < taxisInProx.size();j++){
             TaxiDriver.printTaxiDetails(taxisInProx.get(j));
-<<<<<<< HEAD
             System.out.println(TaxiDriver.getTaxiLoc().getX() + TaxiDriver.getTaxiLoc().getY());
 
-=======
->>>>>>> 3bca061cae240700506e501af207eafb6b1367a4
         }
     }
 
