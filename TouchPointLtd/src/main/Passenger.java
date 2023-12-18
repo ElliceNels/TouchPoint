@@ -12,7 +12,7 @@ public class Passenger extends User {
             if(in.hasNextInt()) {
                 int choice = in.nextInt();
                 if (choice == 1) {
-                    placeSearch();
+                    placeSearch(map);
                 }
                         RegisterPassengerDetails(passenger);
                         ChooseAPickupRoad(map, passenger);
@@ -91,9 +91,7 @@ public class Passenger extends User {
 
 
 
-    public void placeSearch() {
-        Map map = new Map(20, 20);
-        map.storeMapLocations();
+    public void placeSearch(Map map) {
         boolean doneSearch = false;
         while (!doneSearch) {
             in.nextLine();
