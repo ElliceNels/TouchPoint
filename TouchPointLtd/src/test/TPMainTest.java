@@ -59,7 +59,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         map.getTaxiDrivers();
         ListSingleton singleton = ListSingleton.getInstance();
         List<Taxi> allTaxis = singleton.getList();
-        map.Display(singleton.getPassenger());
+        map.MapSet(singleton.getPassenger());
         for (int i = loc.getX() - r; i <= loc.getX() + r; i++) {
             for (int j = loc.getY() - r; j <= loc.getY() + r; j++) {
                 if (i >= 0 && i < 20 && j >= 0 && j < 20) { // Ensure the indices are within bounds
