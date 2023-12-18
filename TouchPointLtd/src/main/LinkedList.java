@@ -149,14 +149,5 @@ public class LinkedList<I extends Number> implements List {
             }
         }
 
-        public void roadCreation(){
-            LinkedList<Number> road1 = new LinkedList<Number>();
-            LinkedList<Number> road2 = new LinkedList<Number>();
-            LinkedList<Number> road3 = new LinkedList<Number>();
-            LinkedList<Number> road4 = new LinkedList<Number>();
-            LinkedList<Number> road5 = new LinkedList<Number>();
-            LinkedList<Number> road6 = new LinkedList<Number>();
-            LinkedList<Number> road7 = new LinkedList<Number>();
-        }
 
     }

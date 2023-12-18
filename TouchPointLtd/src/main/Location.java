@@ -51,7 +51,7 @@ public class Location {
         Location.taxisInProximity = taxisInProximity;
     }
 
-    public boolean[] array(){
+    public boolean[] presentArray(){
         boolean[] presentLocation = {passengerPresent, passengerDestPresent, taxiPresent, roadPresent,
                 seaPresent, officePresent, housePresent, POIPresent, nonRoadPresent};
         return presentLocation;

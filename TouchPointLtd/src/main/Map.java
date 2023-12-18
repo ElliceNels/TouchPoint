@@ -53,26 +53,23 @@ public class Map {
         }
       return mapLocations;
     }
-    public void addToMap(User passenger){
-
-
-        addToGrid(0, 30);
-        addToGrid(30, 35);
-        addToGrid(66, 88);
-        addToGrid(88, 198);
-        addToGrid(35, 66);
+    public void addAllToMap(User passenger){
+        addPlacesToGrid(0, 30);
+        addPlacesToGrid(30, 35);
+        addPlacesToGrid(66, 88);
+        addPlacesToGrid(88, 198);
+        addPlacesToGrid(35, 66);
         if (passenger.getPickupPoint() != null){
             grid[passenger.getPickupPoint().getX()][passenger.getPickupPoint().getY()] = passenger.getCurrentLocation();
             passenger.getCurrentLocation().setPassengerPresent(true);
         }
         if (passenger.getDestination() != null) {
-
             grid[passenger.getDestination().getX()][passenger.getDestination().getY()] = passenger.getDestination();
             passenger.getDestination().setPassengerDestPresent(true);
         }
     }
 
-    private void addToGrid(int start, int end) {
+    private void addPlacesToGrid(int start, int end) {
         for (int i = start; i < end; i++) {
             Location location = new Location(mapLocations.get(i));
             int x = location.getX();
@@ -93,12 +90,13 @@ public class Map {
         }
     }
     public Map(int rows, int cols){
-
         grid = new Location[rows][cols];
     }
+
     public Location[][] getGrid() {
         return grid;
     }
+
     public void getTaxiDrivers(Location location) {
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
@@ -107,8 +105,9 @@ public class Map {
         Random rand = new Random();
         int startIndex = 88;
         int endIndex = 197;
-        int range = 4;
+        int range = 6;
         boolean taxisWereFound = false;
+
         while(!taxisWereFound){
             for (int i = 0; i < singleton.getList().size(); i++) {
                 int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
@@ -122,21 +121,18 @@ public class Map {
                         grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
                         taxiLocation.setTaxiPresent(true);
                     }
-
                 }
             }
 
             if(taxisInProx.isEmpty()){
                 System.out.println("No taxi found within " + range + " blocks. Increasing search range..");
-
                 range++;
             }else {
                 taxisWereFound = true;
             }
         }
 
-        System.out.println();
-        System.out.println("Taxis in Range:");
+        System.out.println("\nTaxis in Range:");
         for(int j = 0;j < taxisInProx.size();j++){
             TaxiDriver.printTaxiDetails(taxisInProx.get(j));
 
@@ -144,27 +140,27 @@ public class Map {
     }
 
 
-    public void displayMap() { //i is an array element with location
+    public void displayMap() { //i is an presentArray element with location
         for (int i = 0; i < grid.length; i++) {
             System.out.println();
             for (int j = 0; j < grid.length; j++) {
                 if (grid[i][j]== null){
                     System.out.print(ANSI_BLACK + " "+displayNoRoad+" " + ANSI_RESET);
-                }  else if (grid[i][j].array()[3]) {
+                }  else if (grid[i][j].presentArray()[3]) {
                     System.out.print(ANSI_WHITE + " "+ displayRoad+" " + ANSI_RESET);
-                } else if (grid[i][j].array()[2]) {
+                } else if (grid[i][j].presentArray()[2]) {
                     System.out.print(ANSI_RED + " "+displayTaxi +" "+ ANSI_RESET);
-                } else if (grid[i][j].array()[1]) {
+                } else if (grid[i][j].presentArray()[1]) {
                     System.out.print(ANSI_GREEN +" "+ displayPassengerDestination+" " + ANSI_RESET);
-                }else if (grid[i][j].array()[0]) {
+                }else if (grid[i][j].presentArray()[0]) {
                     System.out.print(ANSI_PURPLE +" "+ displayPassenger+" "+ ANSI_RESET);
-                }else if (grid[i][j].array()[4]) {
+                }else if (grid[i][j].presentArray()[4]) {
                     System.out.print(ANSI_BLUE + " "+displaySea+ " "+ANSI_RESET);
-                } else if (grid[i][j].array()[5]) {
+                } else if (grid[i][j].presentArray()[5]) {
                     System.out.print(ANSI_LIGHT_BROWN + " "+displayOffice+" "+ ANSI_RESET);
-                } else if (grid[i][j].array()[6]) {
+                } else if (grid[i][j].presentArray()[6]) {
                     System.out.print(" "+displayHouse+" ");
-                } else if (grid[i][j].array()[7]) {
+                } else if (grid[i][j].presentArray()[7]) {
                     System.out.print(ANSI_YELLOW + " "+displayPOI+" "+ ANSI_RESET);
                 } else {
                     System.out.print(ANSI_BLACK +" "+ displayNoRoad+" "+ ANSI_RESET);
@@ -175,11 +171,11 @@ public class Map {
     public void MapSet(User passenger) {
         storeMapLocations();
         getLegend();
-        addToMap(passenger);
+        addAllToMap(passenger);
         displayMap();
     }
     public void DisplayTaxis(User passenger){
-        addToMap(passenger);
+        addAllToMap(passenger);
         getTaxiDrivers(passenger.getPickupPoint());
         displayMap();
     }

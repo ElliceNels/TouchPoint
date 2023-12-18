@@ -31,8 +31,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         System.out.println("Driver rating: " + chosenTaxi.getDriverRating());
         System.out.println("Registration number: " + chosenTaxi.getRegistrationNumber());
         System.out.println("Car brand: " + chosenTaxi.getCarType());
-        System.out.println("Capacity: " + chosenTaxi.getCapacity() + " seats");
-        System.out.println();
+        System.out.println("Capacity: " + chosenTaxi.getCapacity() + " seats\n");
 
     }
 
@@ -57,10 +56,9 @@ public abstract class TaxiDriver extends User implements Bookable{
 
     public void MoveToPassenger(User passenger, Map map){
         System.out.println(driverName + " is on the way.");
-        //printTaxiDetails();
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
-        aStar.aStarRun(getTaxiLoc(), passenger.getPickupPoint());
+        aStar.aStarRun(TaxiDriver.getTaxiLoc(), passenger.getPickupPoint());
         System.out.println(driverName + " has arrived, now leaving with " + passenger.getUsername());
     }
 

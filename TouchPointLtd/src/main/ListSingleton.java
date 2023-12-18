@@ -14,8 +14,6 @@ public class ListSingleton {
     //masterlist
     private List<TaxiDriver> allTaxis;
 
-    private boolean[]presentLocations;
-
     //Creates a new arraylist with all values of the allTaxis list (for access in all classes)
     private ListSingleton() {
         // Initialize the list in the constructor
