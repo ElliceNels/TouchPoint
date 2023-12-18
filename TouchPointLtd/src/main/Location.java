@@ -1,17 +1,8 @@
+import java.util.ArrayList;
+import java.util.List;
 public class Location {
     int x;
     int y;
-    private char displayOffice;//set as empty to read building type
-    private char displayHouse;//displays houses as H
-    private char displayRoad;//displays roads as *
-    private char displaySea;//displays seas as ~
-    private char displayPOI;//displays point of interest as $
-    private char displayNoRoad;//road is not empty as it is always inputted last
-    static char displayPassenger;
-    private char displayPassengerDestination;
-    private char displayTaxi;
-    private boolean[] presentLocations = new boolean[8];
-
     boolean passengerPresent;
     boolean passengerDestPresent;
     boolean taxiPresent;
@@ -19,12 +10,18 @@ public class Location {
     boolean seaPresent;
     boolean officePresent;
     boolean housePresent;
+    boolean POIPresent;
     boolean nonRoadPresent;
+    private boolean[] presentLocations;
     int gCost, hCost;
     Location parent; //location
+<<<<<<< HEAD
     static ListSingleton singleton = ListSingleton.getInstance();
     boolean[] presentLocation = singleton.getPresentLocations();
 
+=======
+    private static List<TaxiDriver> taxisInProximity;
+>>>>>>> Map-Reimplementation
     int getFCost() {
         return gCost + hCost;
     }
@@ -32,7 +29,7 @@ public class Location {
     public Location(int x, int y) {
         this.x = x;
         this.y = y;
-        presentLocations = presentLocation;
+        taxisInProximity = new ArrayList<>();
     }
 
     public Location(Location loc) {
@@ -51,6 +48,20 @@ public class Location {
         this.y = loc.y;
         this.presentLocations = presentLocations;
     }
+    public Location(Location loc, boolean[]presentLocations, List<TaxiDriver> taxisInProximity) {
+        this.x = loc.x;
+        this.y = loc.y;
+        this.presentLocations = presentLocations;
+        Location.taxisInProximity = taxisInProximity;
+    }
+
+    public boolean[] array(){
+        boolean[] presentLocation = {passengerPresent, passengerDestPresent, taxiPresent, roadPresent,
+                seaPresent, officePresent, housePresent, POIPresent, nonRoadPresent};
+        return presentLocation;
+    }
+
+
 
     public void setX(int x) {
         this.x = x;
@@ -68,6 +79,7 @@ public class Location {
         return y;
     }
 
+<<<<<<< HEAD
     public char getDisplayOffice() {
         return displayOffice;
     }
@@ -140,6 +152,8 @@ public class Location {
         displayPassengerDestination = '@';
     }
 
+=======
+>>>>>>> Map-Reimplementation
     public boolean isPassengerPresent() {
         return passengerPresent;
     }
@@ -203,6 +217,25 @@ public class Location {
     public void setNonRoadPresent(boolean nonRoadPresent) {
         this.nonRoadPresent = nonRoadPresent;
     }
+<<<<<<< HEAD
+=======
+
+    public boolean isPOIPresent() {
+        return POIPresent;
+    }
+
+    public void setPOIPresent(boolean POIPresent) {
+        this.POIPresent = POIPresent;
+    }
+
+    public static List<TaxiDriver> getTaxisInProximity() {
+        return taxisInProximity;
+    }
+
+    public void setTaxisInProximity(List<TaxiDriver> objectList) {
+        Location.taxisInProximity = objectList;
+    }
+>>>>>>> Map-Reimplementation
 }
 
 
