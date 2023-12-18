@@ -10,9 +10,9 @@ name: Maven CI
 
 on:
   push:
-    branches: [ "Map-Reimplementation" ]
+    branches: [ "Development" ]
   pull_request:
-    branches: [ "Map-Reimplementation" ]
+    branches: [ "Development" ]
 
 jobs:
   build:
