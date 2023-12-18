@@ -11,23 +11,13 @@ public class Passenger extends User {
             System.out.println("Enter your location and destination to book a taxi (0)\nSee a list of map areas (1)");
             if(in.hasNextInt()) {
                 int choice = in.nextInt();
-                switch (choice) {
-                    case 0:
-                        RegisterPassengerDetails(passenger);
-                        ChooseAPickupRoad(map, passenger);
-                        ChooseADestinationRoad(map, passenger);
-                        signUp = true;
-                        break;
-                    case 1:
-                        placeSearch();
-                        RegisterPassengerDetails(passenger);
-                        ChooseAPickupRoad(map, passenger);
-                        ChooseADestinationRoad(map, passenger);
-                        signUp = true;
-                        break;
-                    default:
-                        System.out.println("Invalid choice.");
+                if (choice == 1) {
+                    placeSearch();
                 }
+                        RegisterPassengerDetails(passenger);
+                        ChooseAPickupRoad(map, passenger);
+                        ChooseADestinationRoad(map, passenger);
+                        signUp = true;
             }else{
                 in.next();
                 System.out.println("Please enter an integer listed above.");
