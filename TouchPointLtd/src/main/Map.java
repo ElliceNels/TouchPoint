@@ -1,12 +1,10 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 public class Map {
     static private Location[][] grid;
-    List<Location> mapLocations = new ArrayList<>();
+    List<Location> mapLocations = new CustomArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -113,7 +111,8 @@ public class Map {
         boolean taxisWereFound = false;
 
         while(!taxisWereFound){
-            for (TaxiDriver allTaxi : allTaxis) {
+            for (int i = 0; i < allTaxis.size(); i++) {
+                TaxiDriver allTaxi = allTaxis.get(i);
                 int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
                 Location taxiLocation = mapLocations.get(randInt);
                 allTaxi.setTaxiLoc(taxiLocation);
@@ -123,11 +122,13 @@ public class Map {
                     taxiRange = true;
                     grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
                     TaxiDriver.printTaxiDetails(allTaxi);
-                    if(!taxiLocation.presentArray()[0]) {
+                    if (!taxiLocation.presentArray()[0]) {
                         taxiLocation.setTaxiPresent(true);
-                    }count++;
+                    }
+                    count++;
                 }
             }
+
             if(count == 0){
                 System.out.println("No taxi found within " + range + " blocks. Increasing search range..");
                 range++;

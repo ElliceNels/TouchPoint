@@ -1,4 +1,3 @@
-import java.util.List;
 
 public class TaxiLarge extends TaxiDriver {
     public TaxiLarge(String registrationNumber, String carType, String driverName, double driverRating, String tier, Location taxiLoc) {

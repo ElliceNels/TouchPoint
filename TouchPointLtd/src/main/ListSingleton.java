@@ -1,7 +1,5 @@
 import java.io.*;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ListSingleton {
@@ -19,7 +17,7 @@ public class ListSingleton {
     //Creates a new arraylist with all values of the allTaxis list (for access in all classes)
     private ListSingleton() {
         // Initialize the list in the constructor
-        allTaxis = new ArrayList<>();
+        allTaxis = new CustomArrayList<>();
         passenger = new Passenger();
         map = new Map(20, 20);
     }
@@ -39,7 +37,8 @@ public class ListSingleton {
             System.out.println("Enter Name of preferred Driver:");
             String driverName = in.nextLine().toLowerCase();
 
-            for (TaxiDriver allTaxi : allTaxis) {
+            for (int i = 0; i < allTaxis.size(); i++) {
+                TaxiDriver allTaxi = allTaxis.get(i);
                 if (driverName.equals(allTaxi.getDriverName().toLowerCase())) {
                     allTaxi.setTaxiLoc(allTaxi.getTaxiLoc());
                     setChosenTaxi(allTaxi);
@@ -95,13 +94,15 @@ public class ListSingleton {
         this.map = map;
     }
     public Location getTaxiLocation() {
-        for (TaxiDriver taxi : allTaxis) {
+        for (int i = 0; i < allTaxis.size(); i++) {
+            TaxiDriver taxi = allTaxis.get(i);
             return taxi.getTaxiLoc();
         }
         return null;
     }
     public void RemoveFromMap() {
-        for (TaxiDriver taxiDriver : allTaxis) {
+        for (int i = 0; i < allTaxis.size(); i++) {
+            TaxiDriver taxiDriver = allTaxis.get(i);
             if (!(taxiDriver.equals(getChosenTaxi()))) {
                 Location location = taxiDriver.getTaxiLoc();
                 taxiDriver.setTaxiLoc(null);

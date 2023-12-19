@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.lang.Thread.sleep;
 
 public class AStarAlgorithm extends Location {
@@ -24,7 +21,7 @@ public class AStarAlgorithm extends Location {
 
 
     public List<Location> getAdjacents(Location location) {
-        List<Location> adjacents = new ArrayList<>();
+        List<Location> adjacents = new CustomArrayList<>();
         // Logic to get adjacent nodes based on the roadMap boundaries
         // Define possible moves (up, down, left, right)
         int[] dx = {-1, 1, 0, 0};
@@ -55,8 +52,8 @@ public class AStarAlgorithm extends Location {
     }
 
     public List<Location> findPath(Location startLocation, Location endLocation) {
-        List<Location> uncheckedList = new ArrayList<>();
-        List<Location> checkedList = new ArrayList<>();
+        List<Location> uncheckedList = new CustomArrayList<>();
+        List<Location> checkedList = new CustomArrayList<>();
         uncheckedList.add(startLocation);
 
         while (!uncheckedList.isEmpty()) { //keeps going til the unchecked list is empty (everything is checked)
@@ -82,21 +79,24 @@ public class AStarAlgorithm extends Location {
             }
 
             List<Location> adjacents = getAdjacents(currentLocation);
-            for (Location adjacent : adjacents) {
+            for (int i = 0; i < adjacents.size(); i++) {
+                Location adjacent = adjacents.get(i);
 
-                //to iterate through and check if adjacent is in list
+                // To iterate through and check if adjacent is in the list
                 boolean alreadyChecked = false;
-                for (Location checkedLocation : checkedList) {
+                for (int j = 0; j < checkedList.size(); j++) {
+                    Location checkedLocation = checkedList.get(j);
                     if (checkedLocation.equals(adjacent)) {
                         alreadyChecked = true;
                         break;
                     }
                 }
+
                 if (adjacent == null || alreadyChecked) {
-                    continue; // skips the rest of the code if there's an invalid adjacent
+                    continue; // Skips the rest of the code if there's an invalid adjacent
                 }
 
-                int newCost = currentLocation.gCost + movementCost; // cost from currentLocation to adjacent
+                int newCost = currentLocation.gCost + movementCost; // Cost from currentLocation to adjacent
                 if (newCost < adjacent.gCost || !uncheckedList.contains(adjacent)) {
                     adjacent.gCost = newCost;
                     adjacent.hCost = calculateHCost(adjacent, endLocation);
@@ -107,12 +107,13 @@ public class AStarAlgorithm extends Location {
                     }
                 }
             }
+
         }
         return null;
     }
 
     static List<Location> reconstructPath(Location current) {
-        List<Location> path = new ArrayList<>();
+        List<Location> path = new CustomArrayList<>();
         while (current != null) {
             path.add(current);
             current = current.parent;
@@ -154,23 +155,26 @@ public class AStarAlgorithm extends Location {
         List<Location> path = findPath(startLocation, endLocation);
         //ensures there is an actual path
         if (path != null) {
-            for (Location location : path) {
-                //for loop used to access taxi class
-                for(TaxiDriver taxi : allTaxis) {
-                    if(taxi.getDriverName().equals(name)) {
+            for (int i = 0; i < path.size(); i++) {
+                Location location = path.get(i);
+
+                // For loop used to access the TaxiDriver class
+                for (int j = 0; j < allTaxis.size(); j++) {
+                    TaxiDriver taxi = allTaxis.get(j);
+                    if (taxi.getDriverName().equals(name)) {
                         System.out.println("(" + location.x + ", " + location.y + ")");
                         time++;
-                        //ensures current location of taxi is right
-                        if(location.isVisited()){
+                        // Ensures the current location of the taxi is right
+                        if (location.isVisited()) {
                             location.setTaxiPresent(true);
                             location.setRoadPresent(false);
                         }
-                            taxi.setTaxiLoc(location);
-                            Map.setGrid(location);
-                            location.setVisited(true);
-                            location.setTaxiPresent(true);
-                            singleton.getMap().displayMap();
-                            location.setRoadPresent(true);
+                        taxi.setTaxiLoc(location);
+                        Map.setGrid(location);
+                        location.setVisited(true);
+                        location.setTaxiPresent(true);
+                        singleton.getMap().displayMap();
+                        location.setRoadPresent(true);
                         try {
                             sleep(1000);
                         } catch (InterruptedException e) {
