@@ -155,16 +155,22 @@ public class AStarAlgorithm extends Location {
         //ensures there is an actual path
         if (path != null) {
             for (Location location : path) {
+                //for loop used to access taxi class
                 for(TaxiDriver taxi : allTaxis) {
                     if(taxi.getDriverName().equals(name)) {
                         System.out.println("(" + location.x + ", " + location.y + ")");
-                        taxi.setTaxiLoc(location);
-                        Map.setGrid(location);
-                        location.setTaxiPresent(true);
-                        singleton.getMap().displayMap();
-                        location.setTaxiPresent(false);
-                        location.setRoadPresent(true);
                         time++;
+                        //ensures current location of taxi is right
+                        if(location.isVisited()){
+                            location.setTaxiPresent(true);
+                            location.setRoadPresent(false);
+                        }
+                            taxi.setTaxiLoc(location);
+                            Map.setGrid(location);
+                            location.setVisited(true);
+                            location.setTaxiPresent(true);
+                            singleton.getMap().displayMap();
+                            location.setRoadPresent(true);
                         try {
                             sleep(1000);
                         } catch (InterruptedException e) {
