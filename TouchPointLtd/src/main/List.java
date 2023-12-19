@@ -8,11 +8,15 @@ public interface List<T> {
 
         void add(T value);
 
-        void remove(int index);
+        //void remove(int index);
+
+        void remove(T value);
 
         void set(int index, T value);
 
         boolean contains(T value);
+
+        int indexOf(Object o);
 
     }
 

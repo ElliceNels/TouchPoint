@@ -159,7 +159,7 @@ public class Passenger extends User {
             }
         }
     }
-//Notworking!!!!!!!!!!!!!!!!!!!!
+
     public void ChooseADestinationRoad(Map map, User passenger) throws InterruptedException {
         Location destPassenger = new Location(passenger.getDestination());
         int roadRadius = 3;
@@ -176,6 +176,7 @@ public class Passenger extends User {
                         if (roadLocation != null && roadLocation.roadPresent) {
                             passenger.setClosestDestination(new Location(i, j));
                             System.out.println("The taxi will bring you to (" + i + ", " + j + ")");
+                            Thread.sleep(2000);
                             break outerLoop; // Break out of the outer loop when a taxi is found
                         }
                     }

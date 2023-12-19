@@ -51,7 +51,7 @@
             size++;
         }
 
-        @Override
+        /*@Override
         public void remove(int index) {
             if (index != this.size) {
                 shiftDownToIndex(index);
@@ -60,21 +60,43 @@
             size--;
         }
 
-        /*public void remove(int index) {
-            if (index != this.size) {
-                shiftDownToIndex(index);
-            }
-            this.internalArray[this.size] = null;
-            size--;
-        }
-
          */
 
-        private void shiftDownToIndex(int index) {
-            for (int i = index; i < this.size; i++) {
-                internalArray[i] = internalArray[i + 1];
+        @Override
+        public int indexOf(Object value) {
+            if (value == null) {
+                for (int i = 0; i < size(); i++) {
+                    if (get(i) == null) {
+                        return i;
+                    }
+                }
+            } else {
+                for (int i = 0; i < size(); i++) {
+                    if (value.equals(get(i))) {
+                        return i;
+                    }
+                }
             }
+            return -1;
+        }
 
+        public void remove(T value) {
+            int index = indexOf(value);
+            if (index >= 0 && index < this.size) {
+                shiftDownToIndex(index);
+                this.internalArray[this.size - 1] = null;
+                size--;
+            }
+        }
+
+
+
+        private void shiftDownToIndex(int index) {
+            if (index >= 0 && index < this.size - 1) {
+                for (int i = index; i < this.size - 1; i++) {
+                    internalArray[i] = internalArray[i + 1];
+                }
+            }
         }
 
         @Override
@@ -82,8 +104,8 @@
             this.internalArray[index] = value;
         }
 
-        /*public boolean contains(T value) {
-            for (int i = 0; i <= this.size; i++) {
+        public boolean contains(T value) {
+            for (int i = 0; i < this.size; i++) {
                 T currentValue = (T) internalArray[i];
                 if (currentValue != null && currentValue.equals(value)) {
                     return true;
@@ -92,5 +114,5 @@
             return false;
         }
 
-         */
+
     }
