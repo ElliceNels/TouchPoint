@@ -1,6 +1,7 @@
-public class LinkedList<I extends Number> implements List {
-        private ListNode head;
-        private int listLength;
+public class ArrayList<T> implements List {
+        private static final int capacity = 100;
+        private Object
+        private int size;
 
         private class ListNode{
             public Location data;
@@ -16,7 +17,7 @@ public class LinkedList<I extends Number> implements List {
         public LinkedList()
         {
             head=null;
-            listLength =0;
+            size =0;
         }
 
         @Override
@@ -28,7 +29,7 @@ public class LinkedList<I extends Number> implements List {
 
         @Override
         public int length() {
-            return listLength;
+            return size;
         }
 
         @Override
@@ -38,7 +39,7 @@ public class LinkedList<I extends Number> implements List {
                 System.out.println("list is empty, null will be returned");
                 return null;
             }
-            if ((positionNum +1)> listLength) {
+            if ((positionNum +1)> size) {
                 System.out.println("location exceeds list length, null will be returned");
                 return null;
             }
@@ -62,7 +63,7 @@ public class LinkedList<I extends Number> implements List {
             {
                 System.out.println("list is empty");
             }
-            if ((positionNum +1)> listLength) {
+            if ((positionNum +1)> size) {
                 System.out.println("location exceeds list length");
             }
             else {
@@ -84,10 +85,10 @@ public class LinkedList<I extends Number> implements List {
             {
                 System.out.println("list is empty, however the element will be inserted at location 0");
                 head=new ListNode(newPosition);
-                listLength++;
+                size++;
 
             }
-            else if ((positionNum +1)> listLength) {
+            else if ((positionNum +1)> size) {
                 System.out.println("location exceeds list length, element will be inserted to the end of the list");
                 ListNode tmp = head;
                 while (tmp.next!=null)
@@ -95,14 +96,14 @@ public class LinkedList<I extends Number> implements List {
                     tmp = tmp.next;
                 }
                 tmp.next=new ListNode(newPosition);
-                listLength++;
+                size++;
             }
             else if (positionNum ==0)
             {
                 ListNode tmp=new ListNode(newPosition);
                 tmp.next=head;
                 head=tmp;
-                listLength++;
+                size++;
             }
             else {
                 ListNode tmp = head;
@@ -116,7 +117,7 @@ public class LinkedList<I extends Number> implements List {
                 ListNode newElem=new ListNode(newPosition);
                 newElem.next=tmp.next;
                 tmp.next=newElem;
-                listLength++;
+                size++;
             }
         }
 
@@ -127,14 +128,14 @@ public class LinkedList<I extends Number> implements List {
             {
                 System.out.println("list is empty");
             }
-            else if ((positionNum +1)> listLength) {
+            else if ((positionNum +1)> size) {
                 System.out.println("location exceeds list length");
 
             }
             else if (positionNum ==0)
             {
                 head=head.next;
-                listLength--;
+                size--;
             }
             else {
                 ListNode tmp = head;
@@ -145,7 +146,7 @@ public class LinkedList<I extends Number> implements List {
                 }
 
                 tmp.next=tmp.next.next;
-                listLength--;
+                size--;
             }
         }
 
