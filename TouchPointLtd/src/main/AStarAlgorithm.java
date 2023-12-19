@@ -161,11 +161,16 @@ public class AStarAlgorithm extends Location {
                         System.out.println("(" + location.x + ", " + location.y + ")");
                         time++;
                         //ensures current location of taxi is right
-                        taxi.setTaxiLoc(location);
-                        Map.setGrid(location);
-                        location.setTaxiPresent(true);
-                        singleton.getMap().displayMap();
-                        location.setRoadPresent(true);
+                        if(location.isVisited()){
+                            location.setTaxiPresent(true);
+                            location.setRoadPresent(false);
+                        }
+                            taxi.setTaxiLoc(location);
+                            Map.setGrid(location);
+                            location.setVisited(true);
+                            location.setTaxiPresent(true);
+                            singleton.getMap().displayMap();
+                            location.setRoadPresent(true);
                         try {
                             sleep(1000);
                         } catch (InterruptedException e) {

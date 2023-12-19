@@ -15,6 +15,7 @@ public class Location {
     private boolean[] presentLocations;
     int gCost, hCost;
     Location parent; //location
+    private boolean visited;
 
     int getFCost() {
         return gCost + hCost;
@@ -136,6 +137,14 @@ public class Location {
 
     public void setPOIPresent(boolean POIPresent) {
         this.POIPresent = POIPresent;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 }
 
