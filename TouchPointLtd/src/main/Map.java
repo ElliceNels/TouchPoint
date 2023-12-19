@@ -73,6 +73,10 @@ public class Map {
             int y = location.getY();
             grid[x][y] = location;
 
+            if(location.isTaxiPresent() && location.isPassengerPresent()){
+                location.setPassengerPresent(true);
+                location.setTaxiPresent(false);
+            }
             if (start == 0) {
                 location.setHousePresent(true);
             } else if (start == 30) {

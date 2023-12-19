@@ -61,19 +61,21 @@ public abstract class TaxiDriver implements Bookable{
     }
 
     public void driverRating() throws IOException {
-        System.out.println("Destination reached. Rate (1-5) " + driverName + "\nRating: " + driverRating);
-        //error handle number not being
-        try{
-            double rating = in.nextDouble();
-            if (rating > 0 && rating < 5) {
-                updateRating(driverName, rating);
-            } else {
-                System.out.println("Please enter a number between '1' and '5'");
-                in.next();
+        while (true) {
+            try {
+                System.out.print("Enter driver rating (1-5): ");
+                double rating = in.nextDouble();
+
+                if (rating >= 1 && rating <= 5) {
+                    updateRating(driverName, rating);
+                    break; // Exit the loop if a valid rating is entered
+                } else {
+                    System.out.println("Please enter a number between '1' and '5'");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number.");
+                in.nextLine(); // Consume the invalid input to avoid an infinite loop
             }
-        }catch(InputMismatchException e){
-            System.out.println("Please enter a valid number");
-            in.next();
         }
     }
 
