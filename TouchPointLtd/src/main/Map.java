@@ -30,7 +30,6 @@ public class Map {
 
     public static final String CAR_EMOJI = "\uD83D\uDE95";
     ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
-    String type;
 
     //Take all values from csv
     public List<Location> storeMapLocations() {
@@ -44,8 +43,6 @@ public class Map {
                 String[] fields = line.split(",");
                 int x = Integer.parseInt(fields[0]);
                 int y = Integer.parseInt(fields[1]);
-                String type = fields[2];
-                setType(type);
                 mapLocations.add(new Location(x, y));
             }
         } catch (IOException e) {
@@ -57,7 +54,7 @@ public class Map {
         addPlacesToGrid(0, 30);
         addPlacesToGrid(30, 35);
         addPlacesToGrid(66, 88);
-        addPlacesToGrid(88, 198);
+        addPlacesToGrid(88, 207);
         addPlacesToGrid(35, 66);
         if (passenger.getPickupPoint() != null){
             grid[passenger.getPickupPoint().getX()][passenger.getPickupPoint().getY()] = passenger.getCurrentLocation();
@@ -108,7 +105,7 @@ public class Map {
         List<TaxiDriver> allTaxis = singleton.getList();
         Random rand = new Random();
         int startIndex = 88;
-        int endIndex = 197;
+        int endIndex = 206;
         boolean taxisWereFound = false;
 
         while(!taxisWereFound){
@@ -185,13 +182,5 @@ public class Map {
         int dx = loc1.getX() - loc2.getX();
         int dy = loc1.getY() - loc2.getY();
         return (int) Math.sqrt(dx * dx + dy * dy);
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }
