@@ -10,7 +10,7 @@ public class ListSingleton {
 
     private User passenger;
 
-    //masterlist
+    //masterList
     private List<TaxiDriver> allTaxis;
     private TaxiDriver chosenTaxi;
     private Map map;
@@ -33,16 +33,16 @@ public class ListSingleton {
     }
 
     public TaxiDriver chooseTaxi() {
-        List<TaxiDriver> taxisInProx = Location.getTaxisInProximity();
         Scanner in = new Scanner(System.in);
 
         while (true) {
             System.out.println("Enter Name of preferred Driver:");
             String driverName = in.nextLine().toLowerCase();
 
-            for (int i = 0; i < taxisInProx.size(); i++) {
-                if (driverName.equals(taxisInProx.get(i).getDriverName().toLowerCase())) {
-                    setChosenTaxi(taxisInProx.get(i));
+            for (TaxiDriver allTaxi : allTaxis) {
+                if (driverName.equals(allTaxi.getDriverName().toLowerCase())) {
+                    allTaxi.setTaxiLoc(allTaxi.getTaxiLoc());
+                    setChosenTaxi(allTaxi);
                     return chosenTaxi;  // Return the chosen taxi if the name matches
                 }
             }
@@ -69,7 +69,7 @@ public class ListSingleton {
                 double driverRating = Double.parseDouble(fields[3]);
                 String tier = fields[4];
 
-                TaxiDriver taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, (int) driverRating, tier, TaxiDriver.getTaxiLoc());
+                TaxiDriver taxi = TaxiReader.instanceTaxi(registrationNumber, carType, driverName, driverRating, tier, getTaxiLocation());
                 allTaxis.add(taxi);
             }
         } catch (IOException e) {
@@ -93,6 +93,12 @@ public class ListSingleton {
 
     public void setMap(Map map) {
         this.map = map;
+    }
+    public Location getTaxiLocation() {
+        for (TaxiDriver taxi : allTaxis) {
+            return taxi.getTaxiLoc();
+        }
+        return null;
     }
 }
 

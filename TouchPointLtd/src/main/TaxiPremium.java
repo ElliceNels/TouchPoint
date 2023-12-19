@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class TaxiPremium extends TaxiDriver{
-    public TaxiPremium(String registrationNumber, String carType, String driverName, int driverRating, String tier, Location taxiLoc) {
+    public TaxiPremium(String registrationNumber, String carType, String driverName, double driverRating, String tier, Location taxiLoc) {
         super(registrationNumber, carType, 1, driverName, driverRating, tier, taxiLoc);
     }
 

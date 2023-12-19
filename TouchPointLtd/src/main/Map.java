@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,6 +27,7 @@ public class Map {
     static final char displayPassenger = '&';
     static final char displayPassengerDestination = '@';
     static final private char displayTaxi = '!';
+    boolean taxiRange = false;
 
     public static final String CAR_EMOJI = "\uD83D\uDE95";
     ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
@@ -48,7 +50,7 @@ public class Map {
                 mapLocations.add(new Location(x, y));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error reading csv");
         }
       return mapLocations;
     }
@@ -97,30 +99,31 @@ public class Map {
     }
 
     public void getTaxiDrivers(Location location, int range) {
+        int count = 0;
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
-        List<TaxiDriver> taxisInProx = new ArrayList<>();
         Random rand = new Random();
         int startIndex = 88;
         int endIndex = 197;
         boolean taxisWereFound = false;
 
         while(!taxisWereFound){
-            for (int i = 0; i < singleton.getList().size(); i++) {
+            for (TaxiDriver allTaxi : allTaxis) {
                 int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
                 Location taxiLocation = mapLocations.get(randInt);
-                if (taxiLocation != null) {
-                    TaxiDriver.setTaxiLoc(taxiLocation);
-                    int distance = calculateDistance(TaxiDriver.getTaxiLoc(), location);
-                    if (distance < range) {
-                        taxisInProx.add(allTaxis.get(i));
-                        taxiLocation.setTaxisInProximity(taxisInProx);
-                        grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
-                        taxiLocation.setTaxiPresent(true);
-                    }
+                grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+                allTaxi.setTaxiLoc(taxiLocation);
+                taxiLocation.setTaxiPresent(true);
+                int distance = calculateDistance(allTaxi.getTaxiLoc(), location);
+                taxiRange = false;
+                if (distance < range) {
+                    taxiRange = true;
+                    TaxiDriver.printTaxiDetails(allTaxi);
+                    count++;
                 }
-            }if(taxisInProx.isEmpty()){
+            }
+            if(count == 0){
                 System.out.println("No taxi found within " + range + " blocks. Increasing search range..");
                 range++;
             }else {
@@ -128,17 +131,6 @@ public class Map {
             }
         }
     }
-    public void printTaxisInProx(){
-        List<TaxiDriver> taxisInProx = Location.getTaxisInProximity();
-        System.out.println("\nTaxis in Range:");
-        for(int j = 0;j < taxisInProx.size();j++){
-            TaxiDriver.printTaxiDetails(taxisInProx.get(j));
-            System.out.println(TaxiDriver.getTaxiLoc().getX() + TaxiDriver.getTaxiLoc().getY());
-
-        }
-    }
-
-
     public void displayMap() { //i is an presentArray element with location
         for (int i = 0; i < grid.length; i++) {
             System.out.println();
@@ -178,7 +170,6 @@ public class Map {
         addAllToMap(passenger);
         getTaxiDrivers(passenger.getPickupPoint(), 4);
         displayMap();
-        printTaxisInProx();
     }
 
     public void getLegend(){

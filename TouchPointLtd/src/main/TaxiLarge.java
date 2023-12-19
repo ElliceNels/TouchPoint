@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class TaxiLarge extends TaxiDriver {
-    public TaxiLarge(String registrationNumber, String carType, String driverName, int driverRating, String tier, Location taxiLoc) {
+    public TaxiLarge(String registrationNumber, String carType, String driverName, double driverRating, String tier, Location taxiLoc) {
         super(registrationNumber, carType, 6, driverName, driverRating, tier, taxiLoc);
     }
 

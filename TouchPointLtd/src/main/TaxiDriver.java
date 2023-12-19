@@ -11,7 +11,7 @@ public abstract class TaxiDriver extends User implements Bookable{
     private double   driverRating;
     private String driverName;
     private String tier;
-    private static Location taxiLoc;
+    private Location taxiLoc;
     static private int travelTime;
     ListSingleton singleton = ListSingleton.getInstance();
 
@@ -22,7 +22,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         this.driverName = driverName;
         this.driverRating = driverRating;
         this.tier = tier;
-        TaxiDriver.taxiLoc = taxiLoc;
+        this.taxiLoc = taxiLoc;
     }
 
 
@@ -58,18 +58,17 @@ public abstract class TaxiDriver extends User implements Bookable{
 
     public void MoveToPassenger(User passenger, Map map){
         System.out.println(driverName + " is on the way.");
-        System.out.println(TaxiDriver.getTaxiLoc().getX() +","+ TaxiDriver.getTaxiLoc().getY());
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
-        aStar.aStarRun(TaxiDriver.getTaxiLoc(), passenger.getPickupPoint());
-        System.out.println(TaxiDriver.getTaxiLoc().getX() +","+ TaxiDriver.getTaxiLoc().getY());
+        aStar.aStarRun(getTaxiLoc(), passenger.getPickupPoint());
+        System.out.println(getTaxiLoc().getX() +","+ getTaxiLoc().getY());
         System.out.println(driverName + " has arrived, now leaving with " + passenger.getUsername());
     }
 
     public void MoveToDestination( User passenger, Map map) {
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
-        System.out.println(TaxiDriver.getTaxiLoc().getX() +", "+ TaxiDriver.getTaxiLoc().getY());
+        System.out.println(getTaxiLoc().getX() +", "+ getTaxiLoc().getY());
         passenger.setCurrentLocation(passenger.getPickupPoint()); //set the passenger to be at the pickup point
         aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
         passenger.setCurrentLocation(passenger.getClosestDestination()); //set passenger at their destination
@@ -199,12 +198,12 @@ public abstract class TaxiDriver extends User implements Bookable{
         this.tier = tier;
     }
 
-    public static Location getTaxiLoc() {
+    public Location getTaxiLoc() {
         return taxiLoc;
     }
 
-    public static void setTaxiLoc(Location taxiLoc) {
-        TaxiDriver.taxiLoc = taxiLoc;
+    public void setTaxiLoc(Location taxiLoc) {
+        this.taxiLoc = taxiLoc;
     }
 
     public static int getTravelTime() {
