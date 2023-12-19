@@ -3,7 +3,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class TaxiDriver extends User implements Bookable{
+public abstract class TaxiDriver implements Bookable{
     Scanner in = new Scanner(System.in);
     private String registrationNumber;//individual registration number
     private String carType;//name of taxi type
@@ -61,6 +61,7 @@ public abstract class TaxiDriver extends User implements Bookable{
 
     public void driverRating() throws IOException {
         System.out.println("Destination reached. Rate (1-5) " + driverName + "\nRating: " + driverRating);
+        //error handle number not being
         if (in.hasNextDouble()) {
             double rating = in.nextDouble();
            updateRating(driverName, rating);
