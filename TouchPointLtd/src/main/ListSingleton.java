@@ -100,5 +100,14 @@ public class ListSingleton {
         }
         return null;
     }
+    public void RemoveFromMap() {
+        for (TaxiDriver taxiDriver : allTaxis) {
+            if (!(taxiDriver.equals(getChosenTaxi()))) {
+                Location location = taxiDriver.getTaxiLoc();
+                location.setTaxiPresent(false);
+                location.setRoadPresent(true);
+            }
+        }
+    }
 }
 

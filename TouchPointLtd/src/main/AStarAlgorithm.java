@@ -6,6 +6,7 @@ import static java.lang.Thread.sleep;
 public class AStarAlgorithm extends Location {
 
    ListSingleton singleton = ListSingleton.getInstance();
+   List<TaxiDriver> allTaxis = singleton.getList();
    User passenger = singleton.getPassenger();
 
 
@@ -148,19 +149,28 @@ public class AStarAlgorithm extends Location {
         }
     }
 
-    public void aStarRun(Location startLocation, Location endLocation)  {
+    public void aStarRun(Location startLocation, Location endLocation, String name)  {
         int time = 0;
         List<Location> path = findPath(startLocation, endLocation);
         //ensures there is an actual path
         if (path != null) {
             for (Location location : path) {
-                System.out.println("(" + location.x + ", " + location.y + ")");
-//                singleton.getMap().displayMap();
-                time++;
-                try {
-                    sleep(1000);
-                }catch (InterruptedException e){
-                    System.out.println("sorry, small break");
+                for(TaxiDriver taxi : allTaxis) {
+                    if(taxi.getDriverName().equals(name)) {
+                        System.out.println("(" + location.x + ", " + location.y + ")");
+                        taxi.setTaxiLoc(location);
+                        Map.setGrid(location);
+                        location.setTaxiPresent(true);
+                        singleton.getMap().displayMap();
+                        location.setTaxiPresent(false);
+                        location.setRoadPresent(true);
+                        time++;
+                        try {
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            System.out.println("sorry, small break");
+                        }
+                    }
                 }
             }
             System.out.println("Arrived");

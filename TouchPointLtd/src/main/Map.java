@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -98,6 +97,10 @@ public class Map {
         return grid;
     }
 
+    public static void setGrid(Location location) {
+        grid[location.getX()][location.getY()] = location;
+    }
+
     public void getTaxiDrivers(Location location, int range) {
         int count = 0;
         storeMapLocations();
@@ -112,15 +115,16 @@ public class Map {
             for (TaxiDriver allTaxi : allTaxis) {
                 int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
                 Location taxiLocation = mapLocations.get(randInt);
-                grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
                 allTaxi.setTaxiLoc(taxiLocation);
-                taxiLocation.setTaxiPresent(true);
                 int distance = calculateDistance(allTaxi.getTaxiLoc(), location);
                 taxiRange = false;
                 if (distance < range) {
                     taxiRange = true;
+                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
                     TaxiDriver.printTaxiDetails(allTaxi);
-                    count++;
+                    if(!taxiLocation.presentArray()[0]) {
+                        taxiLocation.setTaxiPresent(true);
+                    }count++;
                 }
             }
             if(count == 0){

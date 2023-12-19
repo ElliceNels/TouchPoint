@@ -14,6 +14,7 @@ public abstract class TaxiDriver extends User implements Bookable{
     private Location taxiLoc;
     static private int travelTime;
     ListSingleton singleton = ListSingleton.getInstance();
+    List<TaxiDriver> allTaxis = singleton.getList();
 
     public TaxiDriver(String registrationNumber, String carType, int capacity, String driverName, double driverRating, String tier, Location taxiLoc) {
         this.registrationNumber = registrationNumber;
@@ -36,21 +37,6 @@ public abstract class TaxiDriver extends User implements Bookable{
         System.out.println("Capacity: " + chosenTaxi.getCapacity() + " seats\n");
 
     }
-
-    public TaxiDriver RemoveFromMap(List<TaxiDriver> allTaxis, int chosenTaxiIndex){
-        //stores chosen taxi as chosenTaxi
-        TaxiDriver chosenTaxi = allTaxis.get(chosenTaxiIndex);
-
-        //stores taxis current location as variable 'location'
-        Location location = chosenTaxi.getTaxiLoc();
-
-        //change taxi location back to road
-        //location.setDisplayRoad();
-
-        return chosenTaxi;
-    }
-
-
     public void ReturnToMap(List<TaxiDriver> taxiDrivers){
         singleton.getList();
         //location.setDisplayTaxi();
@@ -60,8 +46,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         System.out.println(driverName + " is on the way.");
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
-        aStar.aStarRun(getTaxiLoc(), passenger.getPickupPoint());
-        System.out.println(getTaxiLoc().getX() +","+ getTaxiLoc().getY());
+        aStar.aStarRun(getTaxiLoc(), passenger.getPickupPoint(), getDriverName());
         System.out.println(driverName + " has arrived, now leaving with " + passenger.getUsername());
     }
 
@@ -70,7 +55,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         aStar.roadMapCoordinates(map);
         System.out.println(getTaxiLoc().getX() +", "+ getTaxiLoc().getY());
         passenger.setCurrentLocation(passenger.getPickupPoint()); //set the passenger to be at the pickup point
-        aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
+        aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination(), getDriverName());
         passenger.setCurrentLocation(passenger.getClosestDestination()); //set passenger at their destination
     }
 
@@ -86,7 +71,7 @@ public abstract class TaxiDriver extends User implements Bookable{
     }
 
     public void taxiSequence(Passenger passenger, Map map) throws IOException {
-        //RemoveFromMap(allTaxis, chosenTaxiIndex);
+        singleton.RemoveFromMap();
         MoveToPassenger(passenger, map);
         MoveToDestination(passenger, map);
         driverRating();

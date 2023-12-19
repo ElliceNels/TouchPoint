@@ -12,9 +12,9 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         map.getTaxiDrivers(map.mapLocations.get(10), 4);
         for (TaxiDriver taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
-                System.out.println(taxi.getDriverName() + " is at: " + TaxiDriver.getTaxiLoc().getX()
-                        + "," + TaxiDriver.getTaxiLoc().getY());
-                return TaxiDriver.getTaxiLoc();
+                System.out.println(taxi.getDriverName() + " is at: " + taxi.getTaxiLoc().getX()
+                        + "," + taxi.getTaxiLoc().getY());
+                return taxi.getTaxiLoc();
             }else{
                 System.out.println("Invalid Registration Number");
             }
@@ -29,11 +29,11 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         map.getTaxiDrivers(map.mapLocations.get(10), 4);
         for (TaxiDriver taxi : allTaxis) {
             if (taxi.getRegistrationNumber().equals(reg)) {
-                System.out.println(taxi.getDriverName() + " is at " + TaxiDriver.getTaxiLoc().getX()
-                        + "," + TaxiDriver.getTaxiLoc().getY());
-                TaxiDriver.setTaxiLoc(loc);
-                System.out.println(taxi.getDriverName() + " is now at " + TaxiDriver.getTaxiLoc().getX()
-                        + "," + TaxiDriver.getTaxiLoc().getY());
+                System.out.println(taxi.getDriverName() + " is at " + taxi.getTaxiLoc().getX()
+                        + "," + taxi.getTaxiLoc().getY());
+                taxi.setTaxiLoc(loc);
+                System.out.println(taxi.getDriverName() + " is now at " + taxi.getTaxiLoc().getX()
+                        + "," + taxi.getTaxiLoc().getY());
                 return true;
             }
         }
@@ -56,10 +56,10 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         map.getTaxiDrivers(map.mapLocations.get(10), 4);
         for(TaxiDriver taxi : allTaxis){
             if(taxi.getRegistrationNumber().equals(reg)){
-                System.out.println(taxi.getDriverName() + " is at: " + TaxiDriver.getTaxiLoc().getX()
-                        + "," + TaxiDriver.getTaxiLoc().getY());
-                TaxiDriver.setTaxiLoc(null);
-                if(TaxiDriver.getTaxiLoc() == null){
+                System.out.println(taxi.getDriverName() + " is at: " + taxi.getTaxiLoc().getX()
+                        + "," + taxi.getTaxiLoc().getY());
+                taxi.setTaxiLoc(null);
+                if(taxi.getTaxiLoc() == null){
                     System.out.println(taxi.getDriverName() + " has been removed from the map.");
                     return true;
                 }
@@ -83,9 +83,9 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
                 TaxiDriver taxiNew = new TaxiPremium(reg, "La Ferrari", "Tiago",
                         5, "Premium", loc);
                 allTaxis.add(taxiNew);
-                System.out.println(taxiNew.getDriverName() + " has been added to the map at: " + TaxiDriver.getTaxiLoc().getX()
-                        + "," + TaxiDriver.getTaxiLoc().getY());
-                if(TaxiDriver.getTaxiLoc() != null){
+                System.out.println(taxiNew.getDriverName() + " has been added to the map at: " + taxiNew.getTaxiLoc().getX()
+                        + "," + taxi.getTaxiLoc().getY());
+                if(taxi.getTaxiLoc() != null){
                     return true;
                 }
             }
