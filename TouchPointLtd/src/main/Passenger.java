@@ -161,13 +161,8 @@ public class Passenger extends User {
     }
 //Notworking!!!!!!!!!!!!!!!!!!!!
     public void ChooseADestinationRoad(Map map, User passenger) throws InterruptedException {
-<<<<<<< HEAD
-        Location pickupPassenger = new Location(passenger.getDestination());
-        int roadRadius = 3;
-=======
         Location destPassenger = new Location(passenger.getDestination());
-        int roadRadius = 1;
->>>>>>> ab2fada5a5a82020373a9b4b900006b85fa3545b
+        int roadRadius = 3;
         outerLoop:
         // Label for the outer loop
         if (passenger.getDestination() != null && passenger.getDestination().roadPresent) {
