@@ -1,30 +1,20 @@
+import java.util.Objects;
+
 public class ArrayList<T> implements List {
         private static final int capacity = 100;
-        private Object
+        private Object[]elements;
+        private int current;
         private int size;
 
-        private class ListNode{
-            public Location data;
-            public ListNode next;
-
-
-            public ListNode(Location data) {
-                this.data = data;
-                next = null;
-            }
-        }
-
-        public LinkedList()
-        {
-            head=null;
-            size =0;
+        public ArrayList() {
+            this.elements = new Object[capacity];
+            this.size = 0;
+            current =-1;
         }
 
         @Override
         public boolean isEmpty() {
-            if(head == null)
-                return true;
-            return false;
+            return size == 0;
         }
 
         @Override
@@ -33,51 +23,9 @@ public class ArrayList<T> implements List {
         }
 
         @Override
-        public Location retrieve(int positionNum) {
-            if (isEmpty())
-            {
-                System.out.println("list is empty, null will be returned");
-                return null;
-            }
-            if ((positionNum +1)> size) {
-                System.out.println("location exceeds list length, null will be returned");
-                return null;
-            }
-            else {
-                ListNode tmp = head;
-                int j=0;
-                while (j< positionNum)
-                {
-                    tmp = tmp.next;
-                    j++;
-                }
-
-                return tmp.data;
-            }
-
-        }
-
-        @Override
-        public void update(Location newPosition, int positionNum) {
-            if (isEmpty())
-            {
-                System.out.println("list is empty");
-            }
-            if ((positionNum +1)> size) {
-                System.out.println("location exceeds list length");
-            }
-            else {
-                ListNode tmp = head;
-                int j=0;
-                while (j< positionNum)
-                {
-                    tmp = tmp.next;
-                    j++;
-                }
-
-                tmp.data=newPosition;
-            }
-        }
+        public T get(int index) {
+            Objects.checkIndex(index, size);
+            return elementData(index);
 
         @Override
         public void insert(Location newPosition, int positionNum) {
@@ -149,6 +97,12 @@ public class ArrayList<T> implements List {
                 size--;
             }
         }
+
+        public void add(T e, Object[] elements, int s) {
+            if (s == elements.length)
+                elements = grow();
+            elementData[s] = e;
+            size = s + 1;
 
 
     }
