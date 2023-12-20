@@ -1,6 +1,6 @@
 //should probably be renamed
 public class TaxiReader {
-    public static TaxiDriver instanceTaxi(String registrationNumber, String carType, String driverName, int driverRating, String tier, Location taxiLoc) {
+    public static TaxiDriver instanceTaxi(String registrationNumber, String carType, String driverName, double driverRating, String tier, Location taxiLoc) {
         switch (tier) {
             case "Regular":
                 TaxiReg taxi = new TaxiReg(registrationNumber, carType, driverName, driverRating, tier, taxiLoc);
@@ -21,7 +21,7 @@ public class TaxiReader {
                 return null;
         }
     }
-    public static void setTaxi(TaxiDriver newTaxi , String registrationNumber, String carType, String driverName, int driverRating, String tier){
+    public static void setTaxi(TaxiDriver newTaxi , String registrationNumber, String carType, String driverName, double driverRating, String tier){
         newTaxi.setRegistrationNumber(registrationNumber);
         newTaxi.setCarType(carType);
         newTaxi.setDriverName(driverName);

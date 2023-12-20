@@ -1,9 +1,9 @@
 import java.io.*;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public abstract class TaxiDriver extends User implements Bookable{
+public abstract class TaxiDriver implements Bookable{
     Scanner in = new Scanner(System.in);
     private String registrationNumber;//individual registration number
     private String carType;//name of taxi type
@@ -11,7 +11,7 @@ public abstract class TaxiDriver extends User implements Bookable{
     private double   driverRating;
     private String driverName;
     private String tier;
-    private static Location taxiLoc;
+    private Location taxiLoc;
     static private int travelTime;
     ListSingleton singleton = ListSingleton.getInstance();
 
@@ -22,7 +22,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         this.driverName = driverName;
         this.driverRating = driverRating;
         this.tier = tier;
-        TaxiDriver.taxiLoc = taxiLoc;
+        this.taxiLoc = taxiLoc;
     }
 
 
@@ -37,69 +37,75 @@ public abstract class TaxiDriver extends User implements Bookable{
 
     }
 
-    public TaxiDriver RemoveFromMap(List<TaxiDriver> allTaxis, int chosenTaxiIndex){
-        //stores chosen taxi as chosenTaxi
-        TaxiDriver chosenTaxi = allTaxis.get(chosenTaxiIndex);
-
-        //stores taxis current location as variable 'location'
-        Location location = chosenTaxi.getTaxiLoc();
-
-        //change taxi location back to road
-        //location.setDisplayRoad();
-
-        return chosenTaxi;
-    }
-
-    public void ReturnToMap(int chosenTaxiIndex){
-        Location location = singleton.chooseTaxi().getTaxiLoc();
-
-        //location.setDisplayTaxi();
-    }
-
     public void MoveToPassenger(User passenger, Map map){
         System.out.println(driverName + " is on the way.");
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
-        aStar.aStarRun(TaxiDriver.getTaxiLoc(), passenger.getPickupPoint());
+        aStar.aStarRun(getTaxiLoc(), passenger.getPickupPoint(), getDriverName());
         System.out.println(driverName + " has arrived, now leaving with " + passenger.getUsername());
     }
 
     public void MoveToDestination( User passenger, Map map) {
         AStarAlgorithm aStar = new AStarAlgorithm(20, 20);
         aStar.roadMapCoordinates(map);
-
+        System.out.println(getTaxiLoc().getX() +", "+ getTaxiLoc().getY());
         passenger.setCurrentLocation(passenger.getPickupPoint()); //set the passenger to be at the pickup point
-        aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination());
+        aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination(), getDriverName());
         passenger.setCurrentLocation(passenger.getClosestDestination()); //set passenger at their destination
+        passenger.getDestination().setPassengerDestPresent(false);
     }
 
     public void driverRating() throws IOException {
-        System.out.println("Destination reached. Rate (1-5) " + driverName + "\nRating: " + driverRating);
-        if (in.hasNextDouble()) {
-            double rating = in.nextDouble();
-           updateRating(driverName, rating);
-            //chosenTaxi.moveTaxi(map);
-        }else{
-            System.out.println("Please enter a number between '1' and '5'");
-            in.next();
+        while (true) {
+            try {
+                System.out.print("Enter driver rating (1-5): ");
+                double rating = in.nextDouble();
+
+                if (rating >= 1 && rating <= 5) {
+                    updateRating(driverName, rating);
+                    break; // Exit the loop if a valid rating is entered
+                } else {
+                    System.out.println("Please enter a number between '1' and '5'");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number.");
+                in.nextLine(); // Consume the invalid input to avoid an infinite loop
+            }
         }
     }
 
     public void taxiSequence(Passenger passenger, Map map) throws IOException {
-        //RemoveFromMap(allTaxis, chosenTaxiIndex);
+        singleton.RemoveFromMap();
         MoveToPassenger(passenger, map);
         MoveToDestination(passenger, map);
         driverRating();
-        //ReturnToMap(map);
-        System.out.println("Fare: £" + CalculateFare());
+        roundFare(CalculateFare());
+        map.getTaxiDrivers(passenger.getDestination());
+        singleton.ReturnToMap();
+        System.out.println();
+        System.out.println("Journey Finished.\nTouchPoint: One Tap Away From Home");
+        singleton.getMap().displayMap();
     }
 
     public double CalculateFare() {
         int startPrice = 6;
         double rate = 1.2;
-        return startPrice + (rate * getTravelTime());
+        double x = startPrice + (rate * getTravelTime());
+        return (double) Math.round(x * 100) / 100;
     }
-    public void updateRating(String nameOfDriver, double rating) throws IOException {
+    public void roundFare(double x){
+        String fare = String.valueOf(x);
+        if(fare.length() > 5) {
+            if (fare.charAt(1) == '.') {
+                System.out.println("Fare: €" + fare.substring(0, 4));
+            } else {
+                System.out.println("Fare: €" + fare.substring(0, 5));
+            }
+        }else{
+            System.out.println("Fare: €" + CalculateFare());
+        }
+    }
+    public void updateRating(String nameOfDriver, double rating)  {
         String taxidrivers = "src//main//Taxidrivers.csv";
         String tempFile = "src//main//TempTaxiDrivers.csv";
         String header = "RegistrationNumber,CarType,DriverName,DriverRating,Tier,Ratings";
@@ -115,7 +121,8 @@ public abstract class TaxiDriver extends User implements Bookable{
                 int ratings = Integer.parseInt(fields[5]);
                 if(name.equals(nameOfDriver)){
                     ratings++;
-                    driverRating = (rating + driverRating) / ratings;
+                    double result = (rating + driverRating) / ratings;
+                    driverRating = (double) Math.round(result * 100) / 100;
                 }
                 String updatedLine = String.join(",", fields[0], fields[1],
                         fields[2], String.valueOf(driverRating), fields[4], String.valueOf(ratings));
@@ -129,7 +136,7 @@ public abstract class TaxiDriver extends User implements Bookable{
         File tempFileObj = new File(tempFile);
         try {
             java.nio.file.Files.move(tempFileObj.toPath(), originalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("Driver rating updated successfully.");
+            System.out.println("Driver Rating Updated.");
         } catch (IOException e) {
             System.out.println("Error adding file.");
         }
@@ -187,12 +194,12 @@ public abstract class TaxiDriver extends User implements Bookable{
         this.tier = tier;
     }
 
-    public static Location getTaxiLoc() {
+    public Location getTaxiLoc() {
         return taxiLoc;
     }
 
-    public static void setTaxiLoc(Location taxiLoc) {
-        TaxiDriver.taxiLoc = taxiLoc;
+    public void setTaxiLoc(Location taxiLoc) {
+        this.taxiLoc = taxiLoc;
     }
 
     public static int getTravelTime() {

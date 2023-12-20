@@ -1,12 +1,9 @@
-import java.util.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.lang.Thread.sleep;
 
 public class AStarAlgorithm extends Location {
 
    ListSingleton singleton = ListSingleton.getInstance();
+   List<TaxiDriver> allTaxis = singleton.getList();
    User passenger = singleton.getPassenger();
 
 
@@ -15,10 +12,6 @@ public class AStarAlgorithm extends Location {
 
     //roadMap with obstacles represented as null
     Location[][] roadMap = new Location[ROWS][COLS];
-    //Location startLocation = new Location(passenger.getPickupPoint()); // Starting node
-    //Location endLocation = new Location(); // Destination node
-    //static Location startLocation = new Location(2, 1); // Starting node
-    //static Location endLocation = new Location(6, 4);
     static int movementCost = 1;
 
     public AStarAlgorithm(int x, int y) {
@@ -28,7 +21,7 @@ public class AStarAlgorithm extends Location {
 
 
     public List<Location> getAdjacents(Location location) {
-        List<Location> adjacents = new ArrayList<>();
+        List<Location> adjacents = new CustomArrayList<>();
         // Logic to get adjacent nodes based on the roadMap boundaries
         // Define possible moves (up, down, left, right)
         int[] dx = {-1, 1, 0, 0};
@@ -59,26 +52,26 @@ public class AStarAlgorithm extends Location {
     }
 
     public List<Location> findPath(Location startLocation, Location endLocation) {
-        List<Location> uncheckedSet = new ArrayList<>();
-        Set<Location> checkedSet = new HashSet<>();
-        uncheckedSet.add(startLocation);
+        List<Location> uncheckedList = new CustomArrayList<>();
+        List<Location> checkedList = new CustomArrayList<>();
+        uncheckedList.add(startLocation);
 
-        while (!uncheckedSet.isEmpty()) { //keeps going til the unchecked list is empty (everything is checked)
+        while (!uncheckedList.isEmpty()) { //keeps going til the unchecked list is empty (everything is checked)
 
-            Location currentLocation = uncheckedSet.get(0);
+            Location currentLocation = uncheckedList.get(0);
             //to find the lowest total cost (f and h but f is considered first)
-            for (int i = 1; i < uncheckedSet.size(); i++) {
-                if (uncheckedSet.get(i).getFCost() < currentLocation.getFCost() ||
-                        (uncheckedSet.get(i).getFCost() == currentLocation.getFCost() &&
-                                uncheckedSet.get(i).hCost < currentLocation.hCost)) {
-                    currentLocation = uncheckedSet.get(i); //stores element with the lowest cost
+            for (int i = 1; i < uncheckedList.size(); i++) {
+                if (uncheckedList.get(i).getFCost() < currentLocation.getFCost() ||
+                        (uncheckedList.get(i).getFCost() == currentLocation.getFCost() &&
+                                uncheckedList.get(i).hCost < currentLocation.hCost)) {
+                    currentLocation = uncheckedList.get(i); //stores element with the lowest cost
                 }
             }
 
 
             //removed because it is checked
-            uncheckedSet.remove(currentLocation);
-            checkedSet.add(currentLocation);
+            uncheckedList.remove(currentLocation);
+            checkedList.add(currentLocation);
 
             //if destination is reached
             if (currentLocation.getX() == endLocation.getX() && currentLocation.getY() == endLocation.getY()) { //ISSUE
@@ -86,34 +79,44 @@ public class AStarAlgorithm extends Location {
             }
 
             List<Location> adjacents = getAdjacents(currentLocation);
-            for (Location adjacent : adjacents) {
-                if (adjacent == null || checkedSet.contains(adjacent)) {
-                    continue; // skips the rest of the code if there's an invalid adjacent
+            for (int i = 0; i < adjacents.size(); i++) {
+                Location adjacent = adjacents.get(i);
+
+                // To iterate through and check if adjacent is in the list
+                boolean alreadyChecked = false;
+                for (int j = 0; j < checkedList.size(); j++) {
+                    Location checkedLocation = checkedList.get(j);
+                    if (checkedLocation.equals(adjacent)) {
+                        alreadyChecked = true;
+                        break;
+                    }
                 }
 
-                int newCost = currentLocation.gCost + movementCost; // cost from currentLocation to adjacent
-                if (newCost < adjacent.gCost || !uncheckedSet.contains(adjacent)) {
+                if (adjacent == null || alreadyChecked) {
+                    continue; // Skips the rest of the code if there's an invalid adjacent
+                }
+
+                int newCost = currentLocation.gCost + movementCost; // Cost from currentLocation to adjacent
+                if (newCost < adjacent.gCost || !uncheckedList.contains(adjacent)) {
                     adjacent.gCost = newCost;
                     adjacent.hCost = calculateHCost(adjacent, endLocation);
                     adjacent.parent = currentLocation;
 
-                    if (!uncheckedSet.contains(adjacent)) {
-                        uncheckedSet.add(adjacent);
+                    if (!uncheckedList.contains(adjacent)) {
+                        uncheckedList.add(adjacent);
                     }
                 }
             }
+
         }
         return null;
     }
 
     static List<Location> reconstructPath(Location current) {
-        int i = 0;
-        List<Location> path = new ArrayList<>();
+        List<Location> path = new CustomArrayList<>();
         while (current != null) {
             path.add(current);
             current = current.parent;
-            //i++;
-            //System.out.println(path.get(i));
         }
         int start = 0;
         int end = path.size() - 1;
@@ -147,19 +150,37 @@ public class AStarAlgorithm extends Location {
         }
     }
 
-    public void aStarRun(Location startLocation, Location endLocation)  {
+    public void aStarRun(Location startLocation, Location endLocation, String name)  {
         int time = 0;
         List<Location> path = findPath(startLocation, endLocation);
         //ensures there is an actual path
         if (path != null) {
-            for (Location location : path) {
-                System.out.println("(" + location.x + ", " + location.y + ")");
-                TaxiDriver.setTaxiLoc(location);
-                time++;
-                try {
-                    sleep(1000);
-                }catch (InterruptedException e){
-                    System.out.println("sorry, small break");
+            for (int i = 0; i < path.size(); i++) {
+                Location location = path.get(i);
+
+                // For loop used to access the TaxiDriver class
+                for (int j = 0; j < allTaxis.size(); j++) {
+                    TaxiDriver taxi = allTaxis.get(j);
+                    if (taxi.getDriverName().equals(name)) {
+                        System.out.println("(" + location.x + ", " + location.y + ")");
+                        time++;
+                        // Ensures the current location of the taxi is right
+                        if (location.isVisited()) {
+                            location.setTaxiPresent(true);
+                            location.setRoadPresent(false);
+                        }
+                        taxi.setTaxiLoc(location);
+                        Map.setGrid(location);
+                        location.setVisited(true);
+                        location.setTaxiPresent(true);
+                        singleton.getMap().displayMap();
+                        location.setRoadPresent(true);
+                        try {
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            System.out.println("sorry, small break");
+                        }
+                    }
                 }
             }
             System.out.println("Arrived");

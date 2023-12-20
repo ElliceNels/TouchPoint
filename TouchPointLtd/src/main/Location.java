@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 public class Location {
     int x;
     int y;
@@ -15,8 +13,7 @@ public class Location {
     private boolean[] presentLocations;
     int gCost, hCost;
     Location parent; //location
-
-    private static List<TaxiDriver> taxisInProximity;
+    private boolean visited;
 
     int getFCost() {
         return gCost + hCost;
@@ -25,7 +22,6 @@ public class Location {
     public Location(int x, int y) {
         this.x = x;
         this.y = y;
-        taxisInProximity = new ArrayList<>();
     }
 
     public Location(Location loc) {
@@ -44,13 +40,6 @@ public class Location {
         this.y = loc.y;
         this.presentLocations = presentLocations;
     }
-    public Location(Location loc, boolean[]presentLocations, List<TaxiDriver> taxisInProximity) {
-        this.x = loc.x;
-        this.y = loc.y;
-        this.presentLocations = presentLocations;
-        Location.taxisInProximity = taxisInProximity;
-    }
-
     public boolean[] presentArray(){
         boolean[] presentLocation = {passengerPresent, passengerDestPresent, taxiPresent, roadPresent,
                 seaPresent, officePresent, housePresent, POIPresent, nonRoadPresent};
@@ -148,14 +137,13 @@ public class Location {
         this.POIPresent = POIPresent;
     }
 
-    public static List<TaxiDriver> getTaxisInProximity() {
-        return taxisInProximity;
+    public boolean isVisited() {
+        return visited;
     }
 
-    public void setTaxisInProximity(List<TaxiDriver> objectList) {
-        Location.taxisInProximity = objectList;
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
-
 }
 
 

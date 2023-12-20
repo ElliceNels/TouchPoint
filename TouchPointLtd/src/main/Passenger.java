@@ -1,10 +1,19 @@
-import java.util.InputMismatchException;
+
 import java.util.Scanner;
 public class Passenger extends User {
     Scanner in = new Scanner(System.in);
-    public void mainMenuRun(User passenger, Map map) {
+    public void overview(){
+        System.out.println("This is an application walkthrough - It will explain how to use TouchPoint");
+        System.out.println("TouchPoint covers the area of Piltover City, this is a 20km x 20km area\n");
+        System.out.println("The main features of TouchPoint is: \n      View map areas in the town\n      Enter the coordinates of your current location and destination (20 x 20)\n");
+        System.out.println("After this you can automatically see all taxis in the area that can accept you trip request");
+        System.out.println("On arrival, you pay your fare and rate your driver");
+    }
+    public void mainMenuRun(User passenger, Map map) throws InterruptedException {
+        overview();
+        Thread.sleep(12000);
         boolean signUp = false;
-        System.out.println("Name?");
+        System.out.println("Please log in\nName?");
         passenger.setUsername(in.nextLine());
 
         while (!signUp) {
@@ -14,18 +23,20 @@ public class Passenger extends User {
                 if (choice == 1) {
                     placeSearch(map);
                 }
-                        RegisterPassengerDetails(passenger);
-                        ChooseAPickupRoad(map, passenger);
-                        ChooseADestinationRoad(map, passenger);
-                        signUp = true;
+                else if (choice == 0) {
+                    RegisterPassengerDetails(passenger);
+                    ChooseAPickupRoad(map, passenger);
+                    ChooseADestinationRoad(map, passenger);
+                    signUp = true;
+                }
             }else{
-                in.next();
                 System.out.println("Please enter an integer listed above.");
+                in.nextLine();
             }
         }
     }
 
-    public void RegisterPassengerDetails(User passenger) {
+    public void RegisterPassengerDetails(User passenger) throws InterruptedException {
         boolean validLocation = false;
         boolean validDestination = false;
 
@@ -61,7 +72,7 @@ public class Passenger extends User {
         int DyCoord;
 
         while (!validDestination) {
-            System.out.println("Enter the x and y coordinates of your destination");
+            System.out.println("Enter the x then y coordinates of your destination (Range from 0-19)");
 
             if (in.hasNextInt()) {
                 DxCoord = in.nextInt();
@@ -87,6 +98,7 @@ public class Passenger extends User {
         System.out.println(passenger.getUsername() + " is at " + passenger.getCurrentLocation().getX() + ", " +
                 passenger.getCurrentLocation().getY() + " and wants to go to " + passenger.getDestination().getX() +
                 ", " + passenger.getDestination().getY());
+        Thread.sleep(3000);
     }
 
 
@@ -134,14 +146,14 @@ public class Passenger extends User {
             }
         }
     }
-    public void ChooseAPickupRoad(Map map, User passenger) {
+    public void ChooseAPickupRoad(Map map, User passenger) throws InterruptedException {
         Location pickupPassenger = new Location(passenger.getCurrentLocation());
         int roadRadius = 3;
         outerLoop:
         // Label for the outer loop
         if (passenger.getCurrentLocation() != null && passenger.getCurrentLocation().roadPresent) {
             passenger.setPickupPoint(passenger.getCurrentLocation());
-            ChooseADestinationRoad(map, passenger);
+            //ChooseADestinationRoad(map, passenger);
         } else {
             for (int i = pickupPassenger.getX() - roadRadius; i <= pickupPassenger.getX() + roadRadius; i++) {
                 for (int j = pickupPassenger.getY() - roadRadius; j <= pickupPassenger.getY() + roadRadius; j++) {
@@ -150,7 +162,7 @@ public class Passenger extends User {
                         // Check if the symbol at   the current location is a taxi symbol
                         if (roadLocation != null && roadLocation.roadPresent) {
                             passenger.setPickupPoint(new Location(i, j));
-                            System.out.println("Pickup point is (" + i + ", " + j + ")");
+                            System.out.println("\nPickup point is (" + i + ", " + j + ")");
                             break outerLoop; // Break out of the outer loop when a taxi is found
                         }
                     }
@@ -159,22 +171,23 @@ public class Passenger extends User {
         }
     }
 
-    public void ChooseADestinationRoad(Map map, User passenger) {
-        Location pickupPassenger = new Location(passenger.getDestination());
+    public void ChooseADestinationRoad(Map map, User passenger) throws InterruptedException {
+        Location destPassenger = new Location(passenger.getDestination());
         int roadRadius = 3;
         outerLoop:
         // Label for the outer loop
         if (passenger.getDestination() != null && passenger.getDestination().roadPresent) {
-            passenger.setClosestDestination(new Location(passenger.getDestination()));
+            passenger.setClosestDestination(passenger.getDestination());
         } else {
-            for (int i = pickupPassenger.getX() - roadRadius; i <= pickupPassenger.getX() + roadRadius; i++) {
-                for (int j = pickupPassenger.getY() - roadRadius; j <= pickupPassenger.getY() + roadRadius; j++) {
+            for (int i = destPassenger.getX() - roadRadius; i <= destPassenger.getX() + roadRadius; i++) {
+                for (int j = destPassenger.getY() - roadRadius; j <= destPassenger.getY() + roadRadius; j++) {
                     if (i >= 0 && i < 20 && j >= 0 && j < 20) {
                         Location roadLocation = map.getGrid()[i][j];
-                        // Check if the symbol at the current location is a taxi symbol
+                        // Check if the symbol at   the current location is a taxi symbol
                         if (roadLocation != null && roadLocation.roadPresent) {
                             passenger.setClosestDestination(new Location(i, j));
                             System.out.println("The taxi will bring you to (" + i + ", " + j + ")");
+                            Thread.sleep(2000);
                             break outerLoop; // Break out of the outer loop when a taxi is found
                         }
                     }

@@ -1,12 +1,10 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 public class Map {
     static private Location[][] grid;
-    List<Location> mapLocations = new ArrayList<>();
+    List<Location> mapLocations = new CustomArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -17,7 +15,6 @@ public class Map {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_LIGHT_BROWN = "\u001B[38;2;205;190;145m";
-
     static final private char displayOffice = 'O';//set as empty to read building type
     static final private char displayHouse = 'H';//displays houses as H
     static final private char displayRoad = '*';//displays roads as *
@@ -27,10 +24,10 @@ public class Map {
     static final char displayPassenger = '&';
     static final char displayPassengerDestination = '@';
     static final private char displayTaxi = '!';
+    private int value = 0;
 
     public static final String CAR_EMOJI = "\uD83D\uDE95";
     ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
-    String type;
 
     //Take all values from csv
     public List<Location> storeMapLocations() {
@@ -44,12 +41,10 @@ public class Map {
                 String[] fields = line.split(",");
                 int x = Integer.parseInt(fields[0]);
                 int y = Integer.parseInt(fields[1]);
-                String type = fields[2];
-                setType(type);
                 mapLocations.add(new Location(x, y));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error reading csv");
         }
       return mapLocations;
     }
@@ -57,7 +52,7 @@ public class Map {
         addPlacesToGrid(0, 30);
         addPlacesToGrid(30, 35);
         addPlacesToGrid(66, 88);
-        addPlacesToGrid(88, 198);
+        addPlacesToGrid(88, 207);
         addPlacesToGrid(35, 66);
         if (passenger.getPickupPoint() != null){
             grid[passenger.getPickupPoint().getX()][passenger.getPickupPoint().getY()] = passenger.getCurrentLocation();
@@ -76,6 +71,10 @@ public class Map {
             int y = location.getY();
             grid[x][y] = location;
 
+            if(location.isTaxiPresent() && location.isPassengerPresent()){
+                location.setPassengerPresent(true);
+                location.setTaxiPresent(false);
+            }
             if (start == 0) {
                 location.setHousePresent(true);
             } else if (start == 30) {
@@ -97,49 +96,46 @@ public class Map {
         return grid;
     }
 
+    public static void setGrid(Location location) {
+        grid[location.getX()][location.getY()] = location;
+    }
+
     public void getTaxiDrivers(Location location) {
+        int count = 0;
+        int range = 4;
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
-        List<TaxiDriver> taxisInProx = new ArrayList<>();
         Random rand = new Random();
         int startIndex = 88;
-        int endIndex = 197;
-        int range = 6;
+        int endIndex = 206;
         boolean taxisWereFound = false;
 
         while(!taxisWereFound){
-            for (int i = 0; i < singleton.getList().size(); i++) {
+            for (int i = 0; i < allTaxis.size(); i++) {
+                TaxiDriver allTaxi = allTaxis.get(i);
                 int randInt = rand.nextInt((endIndex - startIndex + 1)) + startIndex;
                 Location taxiLocation = mapLocations.get(randInt);
-                if (taxiLocation != null) {
-                    TaxiDriver.setTaxiLoc(taxiLocation);
-                    int distance = calculateDistance(TaxiDriver.getTaxiLoc(), location);
-                    if (distance < range) {
-                        taxisInProx.add(allTaxis.get(i));
-                        taxiLocation.setTaxisInProximity(taxisInProx);
-                        grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
-                        taxiLocation.setTaxiPresent(true);
+                allTaxi.setTaxiLoc(taxiLocation);
+                int distance = calculateDistance(allTaxi.getTaxiLoc(), location);
+                if (distance < range) {
+                    if(value == 0){
+                        TaxiDriver.printTaxiDetails(allTaxi);
                     }
+                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+                    taxiLocation.setTaxiPresent(true);
+                    count++;
                 }
             }
 
-            if(taxisInProx.isEmpty()){
+            if(count == 0){
                 System.out.println("No taxi found within " + range + " blocks. Increasing search range..");
                 range++;
             }else {
                 taxisWereFound = true;
             }
-        }
-
-        System.out.println("\nTaxis in Range:");
-        for(int j = 0;j < taxisInProx.size();j++){
-            TaxiDriver.printTaxiDetails(taxisInProx.get(j));
-
-        }
+        }value++;
     }
-
-
     public void displayMap() { //i is an presentArray element with location
         for (int i = 0; i < grid.length; i++) {
             System.out.println();
@@ -168,6 +164,7 @@ public class Map {
             }
         } System.out.println();
     }
+
     public void MapSet(User passenger) {
         storeMapLocations();
         getLegend();
@@ -189,13 +186,5 @@ public class Map {
         int dx = loc1.getX() - loc2.getX();
         int dy = loc1.getY() - loc2.getY();
         return (int) Math.sqrt(dx * dx + dy * dy);
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }
