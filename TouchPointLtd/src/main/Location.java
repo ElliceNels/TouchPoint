@@ -1,15 +1,23 @@
 public class Location {
     int x;
     int y;
-    private char displayOffice;//set as empty to read building type
-    private char displayHouse;//displays houses as H
-    private char displayRoad;//displays roads as *
-    private char displaySea;//displays seas as ~
-    private char displayPOI;//displays point of interest as $
-    private char displayNoRoad;//road is not empty as it is always inputted last
-    static char displayPassenger;
-    private char displayPassengerDestination;
-    private char displayTaxi;
+    boolean passengerPresent;
+    boolean passengerDestPresent;
+    boolean taxiPresent;
+    boolean roadPresent;
+    boolean seaPresent;
+    boolean officePresent;
+    boolean housePresent;
+    boolean POIPresent;
+    boolean nonRoadPresent;
+    private boolean[] presentLocations;
+    int gCost, hCost;
+    Location parent; //location
+    private boolean visited;
+
+    int getFCost() {
+        return gCost + hCost;
+    }
 
     public Location(int x, int y) {
         this.x = x;
@@ -20,6 +28,25 @@ public class Location {
         this.x = loc.x;
         this.y = loc.y;
     }
+
+    public Location(int x, int y, boolean[] presentLocations) {
+        this.x = x;
+        this.y = y;
+        this.presentLocations = presentLocations;
+    }
+
+    public Location(Location loc, boolean[] presentLocations) {
+        this.x = loc.x;
+        this.y = loc.y;
+        this.presentLocations = presentLocations;
+    }
+    public boolean[] presentArray(){
+        boolean[] presentLocation = {passengerPresent, passengerDestPresent, taxiPresent, roadPresent,
+                seaPresent, officePresent, housePresent, POIPresent, nonRoadPresent};
+        return presentLocation;
+    }
+
+
 
     public void setX(int x) {
         this.x = x;
@@ -37,76 +64,85 @@ public class Location {
         return y;
     }
 
-    public char getDisplayOffice() {
-        return displayOffice;
+
+    public boolean isPassengerPresent() {
+        return passengerPresent;
     }
 
-    public void setDisplayOffice() {
-        displayOffice = 'O';
+    public void setPassengerPresent(boolean passengerPresent) {
+        this.passengerPresent = passengerPresent;
     }
 
-    public char getDisplayHouse() {
-        return displayHouse;
+    public boolean isPassengerDestPresent() {
+        return passengerDestPresent;
     }
 
-    public void setDisplayHouse() {
-        displayHouse = 'H';
+    public void setPassengerDestPresent(boolean passengerDestPresent) {
+        this.passengerDestPresent = passengerDestPresent;
     }
 
-    public char getDisplayRoad() {
-        return displayRoad;
+    public boolean isTaxiPresent() {
+        return taxiPresent;
     }
 
-    public void setDisplayRoad() {
-        displayRoad = '*';
+    public void setTaxiPresent(boolean taxiPresent) {
+        this.taxiPresent = taxiPresent;
     }
 
-    public char getDisplaySea() {
-        return displaySea;
+    public boolean isRoadPresent() {
+        return roadPresent;
     }
 
-    public void setDisplaySea() {
-        displaySea = '/';
+    public void setRoadPresent(boolean roadPresent) {
+        this.roadPresent = roadPresent;
     }
 
-    public char getDisplayPOI() {
-        return displayPOI;
+    public boolean isSeaPresent() {
+        return seaPresent;
     }
 
-    public void setDisplayPOI() {
-        displayPOI = '$';
+    public void setSeaPresent(boolean seaPresent) {
+        this.seaPresent = seaPresent;
     }
 
-    public char getDisplayPassenger() {
-        return displayPassenger;
+    public boolean isOfficePresent() {
+        return officePresent;
     }
 
-    public void setDisplayPassenger(){
-        displayPassenger = '&';
+    public void setOfficePresent(boolean officePresent) {
+        this.officePresent = officePresent;
     }
 
-    public char getDisplayTaxi() {
-        return displayTaxi;
+    public boolean isHousePresent() {
+        return housePresent;
     }
 
-    public void setDisplayTaxi() {
-        displayTaxi = '!';
+    public void setHousePresent(boolean housePresent) {
+        this.housePresent = housePresent;
     }
 
-    public char getDisplayNoRoad() {
-        return displayNoRoad;
+    public boolean isNonRoadPresent() {
+        return nonRoadPresent;
     }
 
-    public void setDisplayNoRoad() {
-        displayNoRoad = '.';
+    public void setNonRoadPresent(boolean nonRoadPresent) {
+        this.nonRoadPresent = nonRoadPresent;
     }
 
-    public char getDisplayPassengerDestination() {
-        return displayPassengerDestination;
+    public boolean isPOIPresent() {
+        return POIPresent;
     }
 
-    public void setDisplayPassengerDestination() {
-        displayPassengerDestination = '@';
+    public void setPOIPresent(boolean POIPresent) {
+        this.POIPresent = POIPresent;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 }
 

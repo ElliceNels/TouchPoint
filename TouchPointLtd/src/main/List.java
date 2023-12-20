@@ -1,16 +1,22 @@
-public interface List {
+public interface List<T> {
 
-        public boolean isEmpty(); //checks if list is empty
+        boolean isEmpty(); //checks if list is empty
 
-        public int length();
+        int size();
 
-        public Location retrieve(int positionNum); //get data from particular location
+        T get(int index); //get data from particular location
 
-        public void update(Location newPosition, int positionNum); //update element at particular location
+        void add(T value);
 
-        public void insert(Location newPosition, int positionNum); //insert element at location positionNum, if positionNum exceeds list length, it will be at last location, if list is empty, this will be added as first element
+        //void remove(int index);
 
-        public void remove(int positionNum); //remove the element at location positionNum
+        void remove(T value);
+
+        void set(int index, T value);
+
+        boolean contains(T value);
+
+        int indexOf(Object o);
 
     }
 
