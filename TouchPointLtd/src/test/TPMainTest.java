@@ -1,4 +1,6 @@
 import junit.framework.TestCase;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class TPMainTest extends TestCase implements VehicleHiringTest {
@@ -6,15 +8,15 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public Location testGetVehicleLoc(String reg) {
         Map map = new Map(20, 20);
-        List<TaxiDriver> allTaxis = singleton.getList();
-        singleton.storeTaxiDetails(allTaxis);
+        singleton.storeTaxiDetails(singleton.getList());
         map.storeMapLocations();
         map.getTaxiDrivers(map.mapLocations.get(10), 4);
-        for (TaxiDriver taxi : allTaxis) {
-            if (taxi.getRegistrationNumber().equals(reg)) {
-                System.out.println(taxi.getDriverName() + " is at: " + taxi.getTaxiLoc().getX()
-                        + "," + taxi.getTaxiLoc().getY());
-                return taxi.getTaxiLoc();
+        for (int i = 0;i < singleton.getList().size();i++) {
+            TaxiDriver taxiDriver = singleton.getList().get(i);
+            if (taxiDriver.getRegistrationNumber().equals(reg)) {
+                System.out.println(taxiDriver.getDriverName() + " is at: " + taxiDriver.getTaxiLoc().getX()
+                        + "," + taxiDriver.getTaxiLoc().getY());
+                return taxiDriver.getTaxiLoc();
             }else{
                 System.out.println("Invalid Registration Number");
             }
@@ -23,17 +25,17 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public boolean testMoveVehicle(String reg, Location loc) {
         Map map = new Map(20, 20);
-        List<TaxiDriver> allTaxis = singleton.getList();
-        singleton.storeTaxiDetails(allTaxis);
+        singleton.storeTaxiDetails(singleton.getList());
         map.storeMapLocations();
         map.getTaxiDrivers(map.mapLocations.get(10), 4);
-        for (TaxiDriver taxi : allTaxis) {
-            if (taxi.getRegistrationNumber().equals(reg)) {
-                System.out.println(taxi.getDriverName() + " is at " + taxi.getTaxiLoc().getX()
-                        + "," + taxi.getTaxiLoc().getY());
-                taxi.setTaxiLoc(loc);
-                System.out.println(taxi.getDriverName() + " is now at " + taxi.getTaxiLoc().getX()
-                        + "," + taxi.getTaxiLoc().getY());
+        for (int i = 0;i < singleton.getList().size();i++) {
+            TaxiDriver taxiDriver = singleton.getList().get(i);
+            if (taxiDriver.getRegistrationNumber().equals(reg)) {
+                System.out.println(taxiDriver.getDriverName() + " is at " + taxiDriver.getTaxiLoc().getX()
+                        + "," + taxiDriver.getTaxiLoc().getY());
+                taxiDriver.setTaxiLoc(loc);
+                System.out.println(taxiDriver.getDriverName() + " is now at " + taxiDriver.getTaxiLoc().getX()
+                        + "," + taxiDriver.getTaxiLoc().getY());
                 return true;
             }
         }
@@ -50,17 +52,17 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public boolean testRemoveVehicle(String reg) {
         Map map = new Map(20, 20);
-        List<TaxiDriver> allTaxis = singleton.getList();
-        singleton.storeTaxiDetails(allTaxis);
+        singleton.storeTaxiDetails(singleton.getList());
         map.storeMapLocations();
-        map.getTaxiDrivers(map.mapLocations.get(10), 4);
-        for(TaxiDriver taxi : allTaxis){
-            if(taxi.getRegistrationNumber().equals(reg)){
-                System.out.println(taxi.getDriverName() + " is at: " + taxi.getTaxiLoc().getX()
-                        + "," + taxi.getTaxiLoc().getY());
-                taxi.setTaxiLoc(null);
-                if(taxi.getTaxiLoc() == null){
-                    System.out.println(taxi.getDriverName() + " has been removed from the map.");
+        map.getTaxiDrivers(map.mapLocations.get(10), 0);
+        for (int i = 0;i < singleton.getList().size();i++) {
+            TaxiDriver taxiDriver = singleton.getList().get(i);
+            if(taxiDriver.getRegistrationNumber().equals(reg)){
+                System.out.println(taxiDriver.getDriverName() + " is at: " + taxiDriver.getTaxiLoc().getX()
+                        + "," + taxiDriver.getTaxiLoc().getY());
+                taxiDriver.setTaxiLoc(null);
+                if(taxiDriver.getTaxiLoc() == null){
+                    System.out.println(taxiDriver.getDriverName() + " has been removed from the map.");
                     return true;
                 }
             }
@@ -71,25 +73,20 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public boolean testAddToMap(String reg, Location loc) {
         Map map = new Map(20, 20);
-        List<TaxiDriver> allTaxis = singleton.getList();
-        singleton.storeTaxiDetails(allTaxis);
+        singleton.storeTaxiDetails(singleton.getList());
         map.storeMapLocations();
         map.getTaxiDrivers(map.mapLocations.get(10), 4);
-        for(TaxiDriver taxi : allTaxis){
-            if(taxi.getRegistrationNumber().equals(reg)){
-                System.out.println("Taxi already exists");
-                return false;
-            }else{
-                TaxiDriver taxiNew = new TaxiPremium(reg, "La Ferrari", "Tiago",
-                        5, "Premium", loc);
-                allTaxis.add(taxiNew);
-                System.out.println(taxiNew.getDriverName() + " has been added to the map at: " + taxiNew.getTaxiLoc().getX()
-                        + "," + taxi.getTaxiLoc().getY());
-                if(taxi.getTaxiLoc() != null){
-                    return true;
-                }
+        for (int i = 0;i < singleton.getList().size();i++) {
+            TaxiDriver taxiDriver = singleton.getList().get(i);
+            if(taxiDriver.getRegistrationNumber().equals(reg)){
+                taxiDriver.setTaxiLoc(loc);
+                loc.setTaxiPresent(true);
+                Map.setGrid(loc);
+                singleton.getMap().displayMap();
+                return true;
             }
         }
+        System.out.println("Invalid Registration Number");
         return false;
     }
 
@@ -105,7 +102,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
 
     public void testRange() {
         Location location = new Location(14, 12);
-        assertNull(testGetVehiclesInRange(location, 2));
+        assertNull(testGetVehiclesInRange(location, 4));
     }
 
     public void testRemove() {
@@ -114,6 +111,6 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
 
     public void testAdd() {
         Location location = new Location(2, 3);
-        assertTrue(testAddToMap("C M1M H8P", location));
+        assertTrue(testAddToMap("L 4FG 5HI", location));
     }
 }

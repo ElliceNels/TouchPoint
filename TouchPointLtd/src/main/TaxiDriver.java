@@ -14,7 +14,6 @@ public abstract class TaxiDriver implements Bookable{
     private Location taxiLoc;
     static private int travelTime;
     ListSingleton singleton = ListSingleton.getInstance();
-    List<TaxiDriver> allTaxis = singleton.getList();
 
     public TaxiDriver(String registrationNumber, String carType, int capacity, String driverName, double driverRating, String tier, Location taxiLoc) {
         this.registrationNumber = registrationNumber;
