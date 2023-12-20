@@ -36,11 +36,6 @@ public abstract class TaxiDriver implements Bookable{
         System.out.println("Capacity: " + chosenTaxi.getCapacity() + " seats\n");
 
     }
-    @Override
-    public void ReturnToMap(List<TaxiDriver> allTaxis){
-        singleton.getList();
-        //location.setDisplayTaxi();
-    }
 
     public void MoveToPassenger(User passenger, Map map){
         System.out.println(driverName + " is on the way.");
