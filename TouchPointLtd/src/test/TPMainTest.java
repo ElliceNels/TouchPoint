@@ -10,7 +10,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         Map map = new Map(20, 20);
         singleton.storeTaxiDetails(singleton.getList());
         map.storeMapLocations();
-        map.getTaxiDrivers(map.mapLocations.get(10), 4);
+        map.getTaxiDrivers(map.mapLocations.get(10));
         for (int i = 0;i < singleton.getList().size();i++) {
             TaxiDriver taxiDriver = singleton.getList().get(i);
             if (taxiDriver.getRegistrationNumber().equals(reg)) {
@@ -27,7 +27,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         Map map = new Map(20, 20);
         singleton.storeTaxiDetails(singleton.getList());
         map.storeMapLocations();
-        map.getTaxiDrivers(map.mapLocations.get(10), 4);
+        map.getTaxiDrivers(map.mapLocations.get(10));
         for (int i = 0;i < singleton.getList().size();i++) {
             TaxiDriver taxiDriver = singleton.getList().get(i);
             if (taxiDriver.getRegistrationNumber().equals(reg)) {
@@ -45,7 +45,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
     @Override
     public List<TaxiDriver> testGetVehiclesInRange(Location loc, int r) {
         Map map = new Map(20, 20);
-        map.getTaxiDrivers(loc, 4);
+        map.getTaxiDrivers(loc);
         return null;
     }
 
@@ -54,7 +54,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         Map map = new Map(20, 20);
         singleton.storeTaxiDetails(singleton.getList());
         map.storeMapLocations();
-        map.getTaxiDrivers(map.mapLocations.get(10), 0);
+        map.getTaxiDrivers(map.mapLocations.get(10));
         for (int i = 0;i < singleton.getList().size();i++) {
             TaxiDriver taxiDriver = singleton.getList().get(i);
             if(taxiDriver.getRegistrationNumber().equals(reg)){
@@ -75,7 +75,7 @@ public class TPMainTest extends TestCase implements VehicleHiringTest {
         Map map = new Map(20, 20);
         singleton.storeTaxiDetails(singleton.getList());
         map.storeMapLocations();
-        map.getTaxiDrivers(map.mapLocations.get(10), 4);
+        map.getTaxiDrivers(map.mapLocations.get(10));
         for (int i = 0;i < singleton.getList().size();i++) {
             TaxiDriver taxiDriver = singleton.getList().get(i);
             if(taxiDriver.getRegistrationNumber().equals(reg)){

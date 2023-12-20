@@ -24,7 +24,7 @@ public class Map {
     static final char displayPassenger = '&';
     static final char displayPassengerDestination = '@';
     static final private char displayTaxi = '!';
-    boolean taxiRange = false;
+    private int value = 0;
 
     public static final String CAR_EMOJI = "\uD83D\uDE95";
     ListSingleton singleton = ListSingleton.getInstance();  //allows access to allTaxis list
@@ -100,8 +100,9 @@ public class Map {
         grid[location.getX()][location.getY()] = location;
     }
 
-    public void getTaxiDrivers(Location location, int range) {
+    public void getTaxiDrivers(Location location) {
         int count = 0;
+        int range = 4;
         storeMapLocations();
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
@@ -117,14 +118,12 @@ public class Map {
                 Location taxiLocation = mapLocations.get(randInt);
                 allTaxi.setTaxiLoc(taxiLocation);
                 int distance = calculateDistance(allTaxi.getTaxiLoc(), location);
-                taxiRange = false;
                 if (distance < range) {
-                    taxiRange = true;
-                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
-                    TaxiDriver.printTaxiDetails(allTaxi);
-                    if (!taxiLocation.presentArray()[0]) {
-                        taxiLocation.setTaxiPresent(true);
+                    if(value == 0){
+                        TaxiDriver.printTaxiDetails(allTaxi);
                     }
+                    grid[taxiLocation.getX()][taxiLocation.getY()] = taxiLocation;
+                    taxiLocation.setTaxiPresent(true);
                     count++;
                 }
             }
@@ -135,7 +134,7 @@ public class Map {
             }else {
                 taxisWereFound = true;
             }
-        }
+        }value++;
     }
     public void displayMap() { //i is an presentArray element with location
         for (int i = 0; i < grid.length; i++) {
@@ -174,7 +173,7 @@ public class Map {
     }
     public void DisplayTaxis(User passenger){
         addAllToMap(passenger);
-        getTaxiDrivers(passenger.getPickupPoint(), 4);
+        getTaxiDrivers(passenger.getPickupPoint());
         displayMap();
     }
 

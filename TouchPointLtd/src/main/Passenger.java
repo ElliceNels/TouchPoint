@@ -23,13 +23,15 @@ public class Passenger extends User {
                 if (choice == 1) {
                     placeSearch(map);
                 }
-                        RegisterPassengerDetails(passenger);
-                        ChooseAPickupRoad(map, passenger);
-                        ChooseADestinationRoad(map, passenger);
-                        signUp = true;
+                else if (choice == 0) {
+                    RegisterPassengerDetails(passenger);
+                    ChooseAPickupRoad(map, passenger);
+                    ChooseADestinationRoad(map, passenger);
+                    signUp = true;
+                }
             }else{
-                in.next();
                 System.out.println("Please enter an integer listed above.");
+                in.nextLine();
             }
         }
     }

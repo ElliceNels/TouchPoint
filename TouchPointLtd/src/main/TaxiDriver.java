@@ -57,6 +57,7 @@ public abstract class TaxiDriver implements Bookable{
         passenger.setCurrentLocation(passenger.getPickupPoint()); //set the passenger to be at the pickup point
         aStar.aStarRun(passenger.getPickupPoint(), passenger.getClosestDestination(), getDriverName());
         passenger.setCurrentLocation(passenger.getClosestDestination()); //set passenger at their destination
+        passenger.getDestination().setPassengerDestPresent(false);
     }
 
     public void driverRating() throws IOException {
@@ -84,6 +85,11 @@ public abstract class TaxiDriver implements Bookable{
         MoveToDestination(passenger, map);
         driverRating();
         roundFare(CalculateFare());
+        map.getTaxiDrivers(passenger.getDestination());
+        singleton.ReturnToMap();
+        System.out.println();
+        System.out.println("Journey Finished.\nTouchPoint: One Tap Away From Home");
+        singleton.getMap().displayMap();
     }
 
     public double CalculateFare() {

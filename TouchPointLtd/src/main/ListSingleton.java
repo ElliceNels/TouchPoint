@@ -110,5 +110,13 @@ public class ListSingleton {
             }
         }
     }
+    public void ReturnToMap() {
+        for (int i = 0; i < allTaxis.size(); i++) {
+            TaxiDriver taxiDriver = allTaxis.get(i);
+            Location location = taxiDriver.getTaxiLoc();
+            Map.setGrid(location);
+            location.setTaxiPresent(true);
+        }
+    }
 }
 
