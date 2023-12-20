@@ -8,6 +8,6 @@ public class TaxiLarge extends TaxiDriver {
     public double CalculateFare() {
         int startPrice = 7;
         double rate = 1.2;
-        return startPrice + (rate * getTravelTime());
-    }
+        double x = startPrice + (rate * getTravelTime());
+        return (double) Math.round(x * 100) / 100;    }
 }

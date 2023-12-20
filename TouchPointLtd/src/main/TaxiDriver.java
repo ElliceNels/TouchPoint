@@ -95,7 +95,8 @@ public abstract class TaxiDriver implements Bookable{
     public double CalculateFare() {
         int startPrice = 6;
         double rate = 1.2;
-        return startPrice + (rate * getTravelTime());
+        double x = startPrice + (rate * getTravelTime());
+        return (double) Math.round(x * 100) / 100;
     }
     public void roundFare(double x){
         String fare = String.valueOf(x);
@@ -109,7 +110,7 @@ public abstract class TaxiDriver implements Bookable{
             System.out.println("Fare: €" + CalculateFare());
         }
     }
-    public void updateRating(String nameOfDriver, double rating) throws IOException {
+    public void updateRating(String nameOfDriver, double rating)  {
         String taxidrivers = "src//main//Taxidrivers.csv";
         String tempFile = "src//main//TempTaxiDrivers.csv";
         String header = "RegistrationNumber,CarType,DriverName,DriverRating,Tier,Ratings";
@@ -125,7 +126,8 @@ public abstract class TaxiDriver implements Bookable{
                 int ratings = Integer.parseInt(fields[5]);
                 if(name.equals(nameOfDriver)){
                     ratings++;
-                    driverRating = (rating + driverRating) / ratings;
+                    double result = (rating + driverRating) / ratings;
+                    driverRating = (double) Math.round(result * 100) / 100;
                 }
                 String updatedLine = String.join(",", fields[0], fields[1],
                         fields[2], String.valueOf(driverRating), fields[4], String.valueOf(ratings));
