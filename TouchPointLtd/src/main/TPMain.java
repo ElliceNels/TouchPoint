@@ -11,6 +11,7 @@ public class TPMain{
         map.MapSet(passenger);
         ((Passenger) passenger).mainMenuRun(passenger, map);        //allows list of taxis to be accessed from singleton
         map.DisplayTaxis(passenger);
+        System.out.println("Taxi drivers listed above");
         singleton.chooseTaxi().taxiSequence((Passenger) passenger, map);
     }
 }

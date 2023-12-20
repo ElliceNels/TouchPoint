@@ -2,9 +2,18 @@
 import java.util.Scanner;
 public class Passenger extends User {
     Scanner in = new Scanner(System.in);
+    public void overview(){
+        System.out.println("This is an application walkthrough - It will explain how to use TouchPoint");
+        System.out.println("TouchPoint covers the area of Piltover City, this is a 20km x 20km area\n");
+        System.out.println("The main features of TouchPoint is: \n      View map areas in the town\n      Enter the coordinates of your current location and destination (20 x 20)\n");
+        System.out.println("After this you can automatically see all taxis in the area that can accept you trip request");
+        System.out.println("On arrival, you pay your fare and rate your driver");
+    }
     public void mainMenuRun(User passenger, Map map) throws InterruptedException {
+        overview();
+        Thread.sleep(12000);
         boolean signUp = false;
-        System.out.println("Name?");
+        System.out.println("Please log in\nName?");
         passenger.setUsername(in.nextLine());
 
         while (!signUp) {
@@ -61,7 +70,7 @@ public class Passenger extends User {
         int DyCoord;
 
         while (!validDestination) {
-            System.out.println("Enter the x and y coordinates of your destination");
+            System.out.println("Enter the x then y coordinates of your destination (Range from 0-19)");
 
             if (in.hasNextInt()) {
                 DxCoord = in.nextInt();
