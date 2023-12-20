@@ -71,6 +71,7 @@ public class Map {
             int y = location.getY();
             grid[x][y] = location;
 
+            //hierarchy
             if(location.isTaxiPresent() && location.isPassengerPresent()){
                 location.setPassengerPresent(true);
                 location.setTaxiPresent(false);
@@ -107,6 +108,8 @@ public class Map {
         singleton.storeTaxiDetails(singleton.getList());
         List<TaxiDriver> allTaxis = singleton.getList();
         Random rand = new Random();
+
+        //road coordinates
         int startIndex = 88;
         int endIndex = 206;
         boolean taxisWereFound = false;

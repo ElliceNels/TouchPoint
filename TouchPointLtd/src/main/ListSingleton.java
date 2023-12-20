@@ -105,7 +105,6 @@ public class ListSingleton {
             TaxiDriver taxiDriver = allTaxis.get(i);
             if (!(taxiDriver.equals(getChosenTaxi()))) {
                 Location location = taxiDriver.getTaxiLoc();
-                taxiDriver.setTaxiLoc(null);
                 location.setTaxiPresent(false);
             }
         }
